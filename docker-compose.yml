@@ -1,0 +1,46 @@
+version: "3.6"
+services:
+  blockstack:
+    image: blockstack/stacks-blockchain
+    environment:
+      PG_HOST: postgres
+      PG_PORT: 5432
+      PG_USER: postgres
+      PG_PASSWORD: postgres
+      PG_DATABASE: stacks_blockchain_api
+      STACKS_CORE_EVENT_PORT: 3700
+      STACKS_CORE_EVENT_HOST: http://0.0.0.0
+      STACKS_BLOCKCHAIN_API_PORT: 3999
+      STACKS_BLOCKCHAIN_API_HOST: 0.0.0.0
+      STACKS_BLOCKCHAIN_API_DB: pg
+      STACKS_CORE_RPC_HOST: stacks-blockchain
+      STACKS_CORE_RPC_PORT: 20443
+      NODE_ENV: development
+    # ports:
+    #   - "3000:3000"
+    # environment:
+    #   - NODE_ENV=development
+
+  #   client:
+  #     build:
+  #   context: ./client
+  # volumes:
+  #   - ./client:/usr/src/app
+  #   - /usr/src/app/node_modules/
+  # ports:
+  #   - "3000:3000"
+  # environment:
+  #   - NODE_ENV=development
+
+  postgres:
+    image: postgres:12
+    restart: always
+    ports:
+      - "5433:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: postgres
+
+volumes:
+  db_data:
