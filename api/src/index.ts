@@ -4,7 +4,8 @@ const prisma = new PrismaClient();
 
 async function main() {
   const block = await prisma.blocks.findFirst({});
-  console.log(JSON.stringify(block), 0, 2);
+  // console.log(JSON.stringify(block), 0, 2);
+  console.log(block);
 }
 
 main()
