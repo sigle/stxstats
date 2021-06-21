@@ -1,0 +1,60 @@
+version: "3.6"
+services:
+  stacks-blockchain:
+    image: blockstack/stacks-blockchain:2.0.11.1.0
+    command: /bin/stacks-node start --config /src/stacks-node/Config.toml
+    ports:
+      - "20443:20443"
+      - "20444:20444"
+    volumes:
+      - ./stacks-node/persistent-data/stacks-blockchain:/root/stacks-node/data
+      - ./stacks-node/config:/src/stacks-node
+    networks:
+      - stacks-blockchain
+
+  stacks-blockchain-api:
+    image: blockstack/stacks-blockchain-api:0.61.0
+    environment:
+      NODE_ENV: production
+      PG_HOST: postgres
+      PG_PORT: 5432
+      PG_USER: postgres
+      PG_PASSWORD: postgres
+      PG_DATABASE: postgres
+      STACKS_CHAIN_ID: 0x00000001
+      V2_POX_MIN_AMOUNT_USTX: 90000000260
+      STACKS_CORE_EVENT_PORT: 3700
+      STACKS_CORE_EVENT_HOST: 0.0.0.0
+      STACKS_BLOCKCHAIN_API_PORT: 3999
+      STACKS_BLOCKCHAIN_API_HOST: 0.0.0.0
+      STACKS_BLOCKCHAIN_API_DB: pg
+      STACKS_CORE_RPC_HOST: stacks-blockchain
+      STACKS_CORE_RPC_PORT: 20443
+    ports:
+      - "3700:3700"
+      - "3999:3999"
+    networks:
+      - stacks-blockchain
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:12.2
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./stacks-node/persistent-data/postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+      POSTGRES_PORT: 5432
+    networks:
+      - stacks-blockchain
+
+volumes:
+  db_data:
+
+networks:
+  stacks-blockchain:
