@@ -8,6 +8,7 @@ async function main() {
   const startDate = new Date(2021, 0, 1);
   const endDate = new Date();
   let iteratorDate = startDate;
+  const result = [];
 
   // Loop day by day between both dates
   while (isBefore(iteratorDate, endDate)) {
@@ -23,6 +24,7 @@ async function main() {
     });
 
     const dateFormatted = format(iteratorDate, "yyyy-MM-dd");
+    result.push({ date: dateFormatted, value: transactionsCount });
     console.log(`Loop at ${dateFormatted} - ${transactionsCount} txs`);
     iteratorDate = addDays(iteratorDate, 1);
   }
