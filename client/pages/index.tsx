@@ -14,9 +14,27 @@ const Home = () => {
   }
 
   return (
-    <div style={{ margin: "auto", maxWidth: 600, marginTop: 80 }}>
-      <NbTxsPerDay />
-      <UniqueAddressGrowingPerDay />
+    <div className="container">
+      <h1 className="title">STXSTATS</h1>
+
+      <div className="container-grid">
+        <div>
+          <nav className="navigation">
+            <ul>
+              <li>
+                <a href="#">Number of transactions</a>
+              </li>
+              <li>
+                <a href="#">Unique addresses</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div className="chart">
+          <NbTxsPerDay />
+          <UniqueAddressGrowingPerDay />
+        </div>
+      </div>
     </div>
   );
 };
