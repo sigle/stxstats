@@ -37,6 +37,9 @@ export const UniqueAddressGrowingPerDay = () => {
 
   return (
     <div>
+      <p className="chart-description">
+        Number of unique addresses overtime on Stacks
+      </p>
       <VictoryChart
         width={600}
         height={470}
