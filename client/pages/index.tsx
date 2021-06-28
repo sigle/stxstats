@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import Image from "next/image";
+import profilePic from "../public/images/stx_stats_logo.png";
 import { NbTxsPerDay } from "../components/NbTxsPerDay";
 import { UniqueAddressGrowingPerDay } from "../components/UniqueAddressGrowingPerDay";
 
@@ -17,7 +19,17 @@ const Home = () => {
 
   return (
     <div className="container">
-      <h1 className="title">STXSTATS</h1>
+      <div className="logo">
+        <Image height={52} width={104} src={profilePic} alt="Stx stats logo" />
+      </div>
+
+      <h1 className="title">Get the latest data from Stacks 2.0</h1>
+      <p className="subtitle">
+        A project made by{" "}
+        <a href="https://www.sigle.io/" target="_blank">
+          Sigle
+        </a>
+      </p>
 
       <div className="container-grid">
         <div>

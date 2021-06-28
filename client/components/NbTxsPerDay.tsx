@@ -57,7 +57,7 @@ export const NbTxsPerDay = () => {
       >
         <VictoryLine
           style={{
-            data: { stroke: "#FF5582" },
+            data: { stroke: "#1DEFC7", strokeWidth: 2 },
           }}
           data={normalizedStatsData}
           x="a"
@@ -81,7 +81,7 @@ export const NbTxsPerDay = () => {
         <VictoryAxis tickFormat={(x) => format(x, "MMMM")} />
         <VictoryLine
           style={{
-            data: { stroke: "#FF5582" },
+            data: { stroke: "#1DEFC7" },
           }}
           data={normalizedStatsData}
           x="a"

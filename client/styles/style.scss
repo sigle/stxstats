@@ -23,13 +23,31 @@ body {
   padding-right: 1rem;
 }
 
+.logo {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
 .title {
-  padding-top: 1rem;
-  padding-bottom: 4rem;
-  text-align: center;
+  padding-top: 2rem;
+  font-size: 48px;
+  letter-spacing: -0.3px;
+}
+
+.subtitle {
+  padding-top: 0.5rem;
+  font-size: 30px;
+  letter-spacing: -0.3px;
+
+  a {
+    text-decoration: none;
+    color: var(--white-color);
+    border-bottom: 2px solid var(--white-color);
+  }
 }
 
 .container-grid {
+  padding-top: 4rem;
   display: grid;
   grid-template-columns: 1fr 3fr;
 }

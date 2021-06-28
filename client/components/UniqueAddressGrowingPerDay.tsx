@@ -61,7 +61,7 @@ export const UniqueAddressGrowingPerDay = () => {
       >
         <VictoryLine
           style={{
-            data: { stroke: "#1DEFC7" },
+            data: { stroke: "#1DEFC7", strokeWidth: 2 },
           }}
           data={normalizedStatsData}
           x="a"
