@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { NbTxsPerDay } from "../components/NbTxsPerDay";
 import { UniqueAddressGrowingPerDay } from "../components/UniqueAddressGrowingPerDay";
 
+// TODO add fathom
+
 const Home = () => {
   const [isMounted, setIsMounted] = useState(false);
 

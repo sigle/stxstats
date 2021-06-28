@@ -10,6 +10,7 @@ import {
 } from "victory";
 import format from "date-fns/format";
 import statsData from "../../api/data.json";
+import { victoryTheme } from "../styles/victory";
 
 const normalizedStatsData = statsData.uniqueAddressGrowingPerDay.map(
   (data) => ({
@@ -41,6 +42,7 @@ export const UniqueAddressGrowingPerDay = () => {
         Number of unique addresses overtime on Stacks
       </p>
       <VictoryChart
+        theme={victoryTheme}
         width={600}
         height={470}
         scale={{ x: "time" }}
@@ -59,7 +61,7 @@ export const UniqueAddressGrowingPerDay = () => {
       >
         <VictoryLine
           style={{
-            data: { stroke: "tomato" },
+            data: { stroke: "#1DEFC7" },
           }}
           data={normalizedStatsData}
           x="a"
@@ -67,6 +69,7 @@ export const UniqueAddressGrowingPerDay = () => {
         />
       </VictoryChart>
       <VictoryChart
+        theme={victoryTheme}
         padding={{ top: 0, left: 50, right: 50, bottom: 30 }}
         width={600}
         height={100}
@@ -82,7 +85,7 @@ export const UniqueAddressGrowingPerDay = () => {
         <VictoryAxis tickFormat={(x) => format(x, "MMMM")} />
         <VictoryLine
           style={{
-            data: { stroke: "tomato" },
+            data: { stroke: "#1DEFC7" },
           }}
           data={normalizedStatsData}
           x="a"

@@ -10,6 +10,7 @@ import {
 } from "victory";
 import format from "date-fns/format";
 import statsData from "../../api/data.json";
+import { victoryTheme } from "../styles/victory";
 
 const normalizedStatsData = statsData.nbTxsPerDay.map((data) => ({
   a: new Date(data.date),
@@ -39,6 +40,7 @@ export const NbTxsPerDay = () => {
         Number of transactions happening per day on Stacks
       </p>
       <VictoryChart
+        theme={victoryTheme}
         width={600}
         height={470}
         scale={{ x: "time" }}
@@ -55,7 +57,7 @@ export const NbTxsPerDay = () => {
       >
         <VictoryLine
           style={{
-            data: { stroke: "tomato" },
+            data: { stroke: "#FF5582" },
           }}
           data={normalizedStatsData}
           x="a"
@@ -63,6 +65,7 @@ export const NbTxsPerDay = () => {
         />
       </VictoryChart>
       <VictoryChart
+        theme={victoryTheme}
         padding={{ top: 0, left: 50, right: 50, bottom: 30 }}
         width={600}
         height={100}
@@ -78,7 +81,7 @@ export const NbTxsPerDay = () => {
         <VictoryAxis tickFormat={(x) => format(x, "MMMM")} />
         <VictoryLine
           style={{
-            data: { stroke: "tomato" },
+            data: { stroke: "#FF5582" },
           }}
           data={normalizedStatsData}
           x="a"
