@@ -6,11 +6,21 @@ import {
   VictoryBrushContainer,
   VictoryAxis,
 } from "victory";
+import format from "date-fns/format";
+import statsData from "../../api/data.json";
+
+const normalizedStatsData = statsData.map((data) => ({
+  a: new Date(data.date),
+  b: data.value,
+}));
 
 const Home = () => {
   const [isMounted, setIsMounted] = useState(false);
   const [zoomDomain, setZoomDomain] = useState<any>({
-    x: [new Date(1990, 1, 1), new Date(2009, 1, 1)],
+    x: [
+      new Date(normalizedStatsData[0].a),
+      new Date(normalizedStatsData[normalizedStatsData.length - 1].a),
+    ],
   });
 
   const handleZoom = (domain: any) => {
@@ -24,6 +34,8 @@ const Home = () => {
   if (!isMounted) {
     return null;
   }
+
+  // console.log(normalizedStatsData);
 
   return (
     <div style={{ margin: "auto", maxWidth: 600 }}>
@@ -43,16 +55,7 @@ const Home = () => {
           style={{
             data: { stroke: "tomato" },
           }}
-          data={[
-            { a: new Date(1982, 1, 1), b: 125 },
-            { a: new Date(1987, 1, 1), b: 257 },
-            { a: new Date(1993, 1, 1), b: 345 },
-            { a: new Date(1997, 1, 1), b: 515 },
-            { a: new Date(2001, 1, 1), b: 132 },
-            { a: new Date(2005, 1, 1), b: 305 },
-            { a: new Date(2011, 1, 1), b: 270 },
-            { a: new Date(2015, 1, 1), b: 470 },
-          ]}
+          data={normalizedStatsData}
           x="a"
           y="b"
         />
@@ -70,22 +73,13 @@ const Home = () => {
           />
         }
       >
-        <VictoryAxis tickFormat={(x) => new Date(x).getFullYear()} />
+        <VictoryAxis tickFormat={(x) => format(x, "MMMM")} />
         <VictoryLine
           style={{
             data: { stroke: "tomato" },
           }}
-          data={[
-            { key: new Date(1982, 1, 1), b: 125 },
-            { key: new Date(1987, 1, 1), b: 257 },
-            { key: new Date(1993, 1, 1), b: 345 },
-            { key: new Date(1997, 1, 1), b: 515 },
-            { key: new Date(2001, 1, 1), b: 132 },
-            { key: new Date(2005, 1, 1), b: 305 },
-            { key: new Date(2011, 1, 1), b: 270 },
-            { key: new Date(2015, 1, 1), b: 470 },
-          ]}
-          x="key"
+          data={normalizedStatsData}
+          x="a"
           y="b"
         />
       </VictoryChart>
