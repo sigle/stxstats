@@ -24,7 +24,9 @@ const Home = () => {
           <nav className="navigation">
             <ul>
               <li>
-                <a href="#">Number of transactions</a>
+                <a className="active" href="#">
+                  Number of transactions
+                </a>
               </li>
               <li>
                 <a href="#">Unique addresses</a>

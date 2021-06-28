@@ -1,6 +1,7 @@
 :root {
   --bg-color: #141629;
   --white-color: #f1f1f1;
+  --green-color: #1defc7;
 }
 
 html {
@@ -48,6 +49,11 @@ body {
     text-decoration: none;
     color: var(--white-color);
   }
+
+  a.active {
+    color: var(--green-color);
+    font-weight: 700;
+  }
 }
 
 .chart {
@@ -56,5 +62,6 @@ body {
 }
 
 .chart-description {
-  text-align: center;
+  font-size: 24px;
+  padding-top: 1rem;
 }
