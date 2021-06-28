@@ -11,7 +11,7 @@ import {
 import format from "date-fns/format";
 import statsData from "../../api/data.json";
 
-const normalizedStatsData = statsData.map((data) => ({
+const normalizedStatsData = statsData.nbTxsPerDay.map((data) => ({
   a: new Date(data.date),
   b: data.value,
 }));
