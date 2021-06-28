@@ -5,6 +5,8 @@ import {
   VictoryLine,
   VictoryBrushContainer,
   VictoryAxis,
+  VictoryVoronoiContainer,
+  createContainer,
 } from "victory";
 import format from "date-fns/format";
 import statsData from "../../api/data.json";
@@ -35,19 +37,25 @@ const Home = () => {
     return null;
   }
 
-  // console.log(normalizedStatsData);
+  const VictoryZoomVoronoiContainer: any = createContainer<
+    VictoryZoomContainer,
+    VictoryVoronoiContainer
+  >("zoom", "voronoi");
 
   return (
-    <div style={{ margin: "auto", maxWidth: 600 }}>
+    <div style={{ margin: "auto", maxWidth: 600, marginTop: 80 }}>
       <VictoryChart
         width={600}
         height={470}
         scale={{ x: "time" }}
         containerComponent={
-          <VictoryZoomContainer
+          <VictoryZoomVoronoiContainer
             zoomDimension="x"
             zoomDomain={zoomDomain}
             onZoomDomainChange={handleZoom}
+            labels={({ datum }: any) =>
+              `${format(datum.a, "EEEE, MMMM d, yyyy")} - ${datum.b} txs`
+            }
           />
         }
       >
