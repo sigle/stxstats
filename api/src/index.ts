@@ -1,3 +1,4 @@
+import { writeFileSync } from "fs";
 import { PrismaClient } from "@prisma/client";
 import { addDays, isBefore, format } from "date-fns";
 
@@ -28,6 +29,8 @@ async function main() {
     console.log(`Loop at ${dateFormatted} - ${transactionsCount} txs`);
     iteratorDate = addDays(iteratorDate, 1);
   }
+
+  writeFileSync("./data.json", JSON.stringify(result), { encoding: "utf-8" });
 }
 
 main()
