@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import stxStatsLogo from "../public/images/stx_stats_logo.png";
 import sigleLogo from "../public/images/sigle_logo.png";
+import twitterLogo from "../public/images/twitter.svg";
+import discordLogo from "../public/images/discord.svg";
+import githubLogo from "../public/images/github.svg";
 import { NbTxsPerDay } from "../components/NbTxsPerDay";
 import { UniqueAddressGrowingPerDay } from "../components/UniqueAddressGrowingPerDay";
 import { Menu } from "../components/Menu";
@@ -11,6 +14,7 @@ import { Menu } from "../components/Menu";
 // TODO favicon
 // TODO custom victory theme is breaking the popover
 // TODO SEO twitter tags
+// TODO improve README
 
 const Home = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -53,6 +57,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+
       <div className="footer">
         <div className="container">
           <div>
@@ -76,7 +81,44 @@ const Home = () => {
               <Image height={48} width={108} src={sigleLogo} alt="Sigle logo" />
             </a>
           </div>
-          <div></div>
+          <div>
+            <a
+              className="social-icon"
+              href="https://twitter.com/sigleapp"
+              target="_blank"
+            >
+              <Image
+                height={16}
+                width={16}
+                src={twitterLogo}
+                alt="Twitter logo"
+              />
+            </a>
+            <a
+              className="social-icon"
+              href="https://discord.gg/X2Dbz3xbr"
+              target="_blank"
+            >
+              <Image
+                height={16}
+                width={16}
+                src={discordLogo}
+                alt="Discord logo"
+              />
+            </a>
+            <a
+              className="social-icon"
+              href="https://github.com/sigle/stxstats"
+              target="_blank"
+            >
+              <Image
+                height={16}
+                width={16}
+                src={githubLogo}
+                alt="Github logo"
+              />
+            </a>
+          </div>
         </div>
       </div>
     </>

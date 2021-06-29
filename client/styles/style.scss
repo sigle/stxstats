@@ -85,10 +85,16 @@ body {
 }
 
 .footer {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
   background-color: var(--white-color);
   color: var(--dark-color);
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
   .made-by {
     padding-bottom: 0.5rem;
@@ -97,5 +103,10 @@ body {
   .heart {
     width: 1rem;
     height: 1rem;
+  }
+
+  .social-icon {
+    margin-right: 0.8rem;
+    margin-left: 0.8rem;
   }
 }
