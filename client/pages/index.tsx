@@ -40,7 +40,7 @@ const Home = () => {
         <h1 className="title">Get the latest data from Stacks 2.0</h1>
         <p className="subtitle">
           A project made by{" "}
-          <a href="https://www.sigle.io/" target="_blank">
+          <a href="https://www.sigle.io/" target="_blank" rel="noreferrer">
             Sigle
           </a>
         </p>
@@ -76,7 +76,7 @@ const Home = () => {
                 </svg>{" "}
                 by
               </p>
-              <a href="https://www.sigle.io/" target="_blank">
+              <a href="https://www.sigle.io/" target="_blank" rel="noreferrer">
                 <Image
                   height={48}
                   width={108}
@@ -90,6 +90,7 @@ const Home = () => {
                 className="social-icon"
                 href="https://twitter.com/sigleapp"
                 target="_blank"
+                rel="noreferrer"
               >
                 <Image
                   height={16}
@@ -102,6 +103,7 @@ const Home = () => {
                 className="social-icon"
                 href="https://discord.gg/X2Dbz3xbrs"
                 target="_blank"
+                rel="noreferrer"
               >
                 <Image
                   height={16}
@@ -114,6 +116,7 @@ const Home = () => {
                 className="social-icon"
                 href="https://github.com/sigle/stxstats"
                 target="_blank"
+                rel="noreferrer"
               >
                 <Image
                   height={16}
