@@ -10,16 +10,6 @@ import { UniqueAddressGrowingPerDay } from "../components/UniqueAddressGrowingPe
 import { Menu } from "../components/Menu";
 
 const Home = () => {
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  if (!isMounted) {
-    return null;
-  }
-
   return (
     <>
       <div className="container">
