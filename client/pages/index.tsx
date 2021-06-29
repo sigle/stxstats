@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import stxStatsLogo from "../public/images/stx_stats_logo.png";
-import sigleLogo from "../public/images/sigle_logo.png";
+import stxStatsLogo from "../public/images/stx_stats_logo.svg";
+import sigleLogo from "../public/images/sigle_logo.svg";
 import twitterLogo from "../public/images/twitter.svg";
 import discordLogo from "../public/images/discord.svg";
 import githubLogo from "../public/images/github.svg";

@@ -10,10 +10,6 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap"
             rel="stylesheet"
           />
-          <meta
-            name="viewport"
-            content="initial-scale=1.0, width=device-width"
-          />
         </Head>
         <body>
           <Main />
