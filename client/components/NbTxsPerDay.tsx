@@ -75,6 +75,11 @@ export const NbTxsPerDay = () => {
             brushDimension="x"
             brushDomain={zoomDomain}
             onBrushDomainChange={handleZoom}
+            brushStyle={{
+              stroke: "transparent",
+              fill: "#FF5582",
+              fillOpacity: 0.1,
+            }}
           />
         }
       >

@@ -9,7 +9,6 @@ import { NbTxsPerDay } from "../components/NbTxsPerDay";
 import { UniqueAddressGrowingPerDay } from "../components/UniqueAddressGrowingPerDay";
 import { Menu } from "../components/Menu";
 
-// TODO custom victory theme is breaking the popover
 // TODO SEO twitter tags
 
 const Home = () => {
