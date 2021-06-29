@@ -9,8 +9,6 @@ import { NbTxsPerDay } from "../components/NbTxsPerDay";
 import { UniqueAddressGrowingPerDay } from "../components/UniqueAddressGrowingPerDay";
 import { Menu } from "../components/Menu";
 
-// TODO SEO twitter tags
-
 const Home = () => {
   const [isMounted, setIsMounted] = useState(false);
 
