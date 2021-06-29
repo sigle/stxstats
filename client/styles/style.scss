@@ -19,25 +19,29 @@ body {
   width: 100%;
   margin: auto;
   max-width: 1024px;
-  padding-left: 1rem;
-  padding-right: 1rem;
 }
 
 .logo {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .title {
   padding-top: 2rem;
   font-size: 48px;
   letter-spacing: -0.3px;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .subtitle {
   padding-top: 0.5rem;
   font-size: 30px;
   letter-spacing: -0.3px;
+  padding-left: 1rem;
+  padding-right: 1rem;
 
   a {
     text-decoration: none;
@@ -50,6 +54,8 @@ body {
   padding-top: 4rem;
   display: grid;
   grid-template-columns: 1fr 3fr;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .navigation {
@@ -85,12 +91,15 @@ body {
 }
 
 .footer {
+  margin-top: 4rem;
   padding-top: 2rem;
   padding-bottom: 2rem;
   background-color: var(--white-color);
   color: var(--dark-color);
 
-  .container {
+  .padding {
+    padding-left: 1rem;
+    padding-right: 1rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -108,5 +117,28 @@ body {
   .social-icon {
     margin-right: 0.8rem;
     margin-left: 0.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .container-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .navigation {
+    position: inherit;
+  }
+
+  .footer {
+    .padding {
+      flex-direction: column;
+    }
+
+    .credit {
+      padding-bottom: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
   }
 }
