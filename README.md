@@ -2,18 +2,22 @@
 
 Get the latest data from Stacks 2.0.
 
-## Running stacks docker images
+This project help to visualise the growth of the stacks 2.0 blockchain over time. If there is a metric you would like to see that is not there feel free to open an issue!
+
+## Development
+
+### Running stacks docker images
 
 Run `docker-compose up -d`.
 
-## Running local API
+### Running local API
 
 1. `cd api`
 2. `npm install`
 3. `npx prisma generate`
 4. `npm run start`
 
-## Running local client
+### Running local client
 
 1. `cd client`
 2. `npm install`
