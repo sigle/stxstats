@@ -35,7 +35,7 @@ export const NbTxsPerDay = () => {
   >("zoom", "voronoi");
 
   return (
-    <div>
+    <div id="number-of-txs">
       <p className="chart-description">
         Number of transactions happening per day on Stacks
       </p>

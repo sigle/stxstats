@@ -3,8 +3,11 @@ import Image from "next/image";
 import profilePic from "../public/images/stx_stats_logo.png";
 import { NbTxsPerDay } from "../components/NbTxsPerDay";
 import { UniqueAddressGrowingPerDay } from "../components/UniqueAddressGrowingPerDay";
+import { Menu } from "../components/Menu";
 
 // TODO add fathom
+// TODO mobile css
+// TODO custom victory theme is breaking the popover
 
 const Home = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -33,18 +36,7 @@ const Home = () => {
 
       <div className="container-grid">
         <div>
-          <nav className="navigation">
-            <ul>
-              <li>
-                <a className="active" href="#">
-                  Number of transactions
-                </a>
-              </li>
-              <li>
-                <a href="#">Unique addresses</a>
-              </li>
-            </ul>
-          </nav>
+          <Menu />
         </div>
         <div className="chart">
           <NbTxsPerDay />

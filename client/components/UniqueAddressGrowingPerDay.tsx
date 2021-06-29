@@ -37,7 +37,7 @@ export const UniqueAddressGrowingPerDay = () => {
   >("zoom", "voronoi");
 
   return (
-    <div>
+    <div id="unique-addresses">
       <p className="chart-description">
         Number of unique addresses overtime on Stacks
       </p>
