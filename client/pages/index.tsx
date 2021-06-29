@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import stxStatsLogo from "../public/images/stx_stats_logo.svg";
 import sigleLogo from "../public/images/sigle_logo.svg";
