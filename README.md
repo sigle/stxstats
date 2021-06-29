@@ -2,7 +2,7 @@
 
 Get the latest data from Stacks 2.0.
 
-![alt text](https://github.com/sigle/stxstats/blob/feature/number-tx-day/client/public/images/sigle_logo.svg?raw=true)
+![alt text](https://github.com/sigle/stxstats/blob/feature/number-tx-day/client/public/images/stx_stats_logo.svg?raw=true)
 
 This project help to visualise the growth of the stacks 2.0 blockchain over time. If there is a metric you would like to see that is not there feel free to open an issue!
 
