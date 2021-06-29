@@ -10,8 +10,6 @@ import { UniqueAddressGrowingPerDay } from "../components/UniqueAddressGrowingPe
 import { Menu } from "../components/Menu";
 
 // TODO add fathom
-// TODO mobile css
-// TODO favicon
 // TODO custom victory theme is breaking the popover
 // TODO SEO twitter tags
 // TODO improve README
