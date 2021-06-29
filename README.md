@@ -18,8 +18,7 @@ Run `docker-compose up -d`.
 
 1. `cd api`
 2. `npm install`
-3. `npx prisma generate`
-4. `npm run start`
+3. `npm run start`
 
 ### Running local client
 
