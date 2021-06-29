@@ -9,10 +9,8 @@ import { NbTxsPerDay } from "../components/NbTxsPerDay";
 import { UniqueAddressGrowingPerDay } from "../components/UniqueAddressGrowingPerDay";
 import { Menu } from "../components/Menu";
 
-// TODO add fathom
 // TODO custom victory theme is breaking the popover
 // TODO SEO twitter tags
-// TODO improve README
 
 const Home = () => {
   const [isMounted, setIsMounted] = useState(false);
