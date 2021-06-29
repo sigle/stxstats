@@ -6,7 +6,7 @@
 
 Get the latest data from Stacks 2.0.
 
-This project help to visualise the growth of the stacks 2.0 blockchain over time. If there is a metric you would like to see that is not there feel free to open an issue!
+This project helps to visualise the growth of the stacks 2.0 blockchain over time. If there is a metric you would like to see that is not there feel free to open an issue!
 
 ## Development
 
