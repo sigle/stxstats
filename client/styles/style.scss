@@ -1,5 +1,5 @@
 :root {
-  --bg-color: #141629;
+  --dark-color: #141629;
   --white-color: #f1f1f1;
   --green-color: #1defc7;
 }
@@ -11,7 +11,7 @@ html {
 }
 
 body {
-  background-color: var(--bg-color);
+  background-color: var(--dark-color);
   color: var(--white-color);
 }
 
@@ -82,4 +82,20 @@ body {
 .chart-description {
   font-size: 24px;
   padding-top: 1rem;
+}
+
+.footer {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background-color: var(--white-color);
+  color: var(--dark-color);
+
+  .made-by {
+    padding-bottom: 0.5rem;
+  }
+
+  .heart {
+    width: 1rem;
+    height: 1rem;
+  }
 }
