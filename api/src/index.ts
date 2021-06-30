@@ -168,7 +168,7 @@ fastify.get<{ Querystring: { token: string } }>(
 );
 
 // Run the server!
-fastify.listen(4000, (err, address) => {
+fastify.listen(4000, "0.0.0.0", (err, address) => {
   if (err) throw err;
   console.log(`Server is now listening on ${address}`);
 });
