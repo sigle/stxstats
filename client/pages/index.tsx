@@ -8,7 +8,7 @@ import { NbTxsPerDay } from "../components/NbTxsPerDay";
 import { UniqueAddressGrowingPerDay } from "../components/UniqueAddressGrowingPerDay";
 import { Menu } from "../components/Menu";
 
-const Home = () => {
+const Home = ({ statsData }: any) => {
   return (
     <>
       <div className="container">
@@ -34,8 +34,10 @@ const Home = () => {
             <Menu />
           </div>
           <div className="chart">
-            <NbTxsPerDay />
-            <UniqueAddressGrowingPerDay />
+            <NbTxsPerDay statsData={statsData.nbTxsPerDay} />
+            <UniqueAddressGrowingPerDay
+              statsData={statsData.uniqueAddressGrowingPerDay}
+            />
           </div>
         </div>
       </div>
@@ -116,5 +118,16 @@ const Home = () => {
     </>
   );
 };
+
+export async function getStaticProps() {
+  const res = await fetch("http://localhost:4000");
+  const statsData = await res.json();
+
+  return {
+    props: {
+      statsData,
+    },
+  };
+}
 
 export default Home;

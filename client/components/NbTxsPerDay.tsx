@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   VictoryChart,
   VictoryZoomContainer,
@@ -9,15 +9,18 @@ import {
   createContainer,
 } from "victory";
 import format from "date-fns/format";
-import statsData from "../../api/data.json";
 import { victoryTheme } from "../styles/victory";
 
-const normalizedStatsData = statsData.nbTxsPerDay.map((data) => ({
-  a: new Date(data.date),
-  b: data.value,
-}));
+export const NbTxsPerDay = ({ statsData }: any) => {
+  const normalizedStatsData = useMemo(
+    () =>
+      statsData.map((data: any) => ({
+        a: new Date(data.date),
+        b: data.value,
+      })),
+    [statsData]
+  );
 
-export const NbTxsPerDay = () => {
   const [zoomDomain, setZoomDomain] = useState<any>({
     x: [
       new Date(normalizedStatsData[0].a),
