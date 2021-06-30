@@ -1,9 +1,3 @@
-import Image from "next/image";
-import stxStatsLogo from "../public/images/stx_stats_logo.svg";
-import sigleLogo from "../public/images/sigle_logo.svg";
-import twitterLogo from "../public/images/twitter.svg";
-import discordLogo from "../public/images/discord.svg";
-import githubLogo from "../public/images/github.svg";
 import { NbTxsPerDay } from "../components/NbTxsPerDay";
 import { UniqueAddressGrowingPerDay } from "../components/UniqueAddressGrowingPerDay";
 import { Menu } from "../components/Menu";
@@ -13,10 +7,10 @@ const Home = ({ statsData }: any) => {
     <>
       <div className="container">
         <div className="logo">
-          <Image
+          <img
             height={52}
             width={104}
-            src={stxStatsLogo}
+            src={"/images/stx_stats_logo.svg"}
             alt="Stx stats logo"
           />
         </div>
@@ -63,10 +57,10 @@ const Home = ({ statsData }: any) => {
                 by
               </p>
               <a href="https://www.sigle.io/" target="_blank" rel="noreferrer">
-                <Image
+                <img
                   height={48}
                   width={108}
-                  src={sigleLogo}
+                  src={"/images/sigle_logo.svg"}
                   alt="Sigle logo"
                 />
               </a>
@@ -78,10 +72,10 @@ const Home = ({ statsData }: any) => {
                 target="_blank"
                 rel="noreferrer"
               >
-                <Image
+                <img
                   height={16}
                   width={16}
-                  src={twitterLogo}
+                  src={"/images/twitter.svg"}
                   alt="Twitter logo"
                 />
               </a>
@@ -91,10 +85,10 @@ const Home = ({ statsData }: any) => {
                 target="_blank"
                 rel="noreferrer"
               >
-                <Image
+                <img
                   height={16}
                   width={16}
-                  src={discordLogo}
+                  src={"/images/discord.svg"}
                   alt="Discord logo"
                 />
               </a>
@@ -104,10 +98,10 @@ const Home = ({ statsData }: any) => {
                 target="_blank"
                 rel="noreferrer"
               >
-                <Image
+                <img
                   height={16}
                   width={16}
-                  src={githubLogo}
+                  src={"/images/github.svg"}
                   alt="Github logo"
                 />
               </a>
