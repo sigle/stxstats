@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/sigle/stxstats/blob/feature/number-tx-day/client/public/images/stx_stats_logo.svg?raw=true" width="250" alt="Stx stats logo">
+  <img src="https://github.com/sigle/stxstats/blob/main/client/public/images/stx_stats_logo_black.svg?raw=true" width="250" alt="Stx stats logo">
 </p>
 
 # stxstats
