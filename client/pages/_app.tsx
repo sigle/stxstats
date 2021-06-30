@@ -49,7 +49,7 @@ export default function MyApp({ Component, pageProps }: any) {
         twitter={{
           handle: "@sigleapp",
           site: "www.sigle.io",
-          cardType: "summary",
+          cardType: "summary_large_image",
         }}
       />
       <Component {...pageProps} />
