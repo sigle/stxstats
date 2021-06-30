@@ -36,14 +36,14 @@ export default function MyApp({ Component, pageProps }: any) {
           title: title,
           description: description,
           locale: "en_EN",
-          // images: [
-          //   {
-          //     url: coverImage,
-          //     width: 800,
-          //     height: 600,
-          //     alt: `hero image for ${title}`,
-          //   },
-          // ],
+          images: [
+            {
+              url: "/images/twitter_share.png",
+              width: 1012,
+              height: 506,
+              alt: `Hero image`,
+            },
+          ],
           site_name: "stxstats.co",
         }}
         twitter={{
