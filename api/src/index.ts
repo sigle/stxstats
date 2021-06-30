@@ -1,4 +1,5 @@
 import { writeFileSync } from "fs";
+import Fastify from "fastify";
 import { PrismaClient } from "@prisma/client";
 import { addDays, isBefore, format } from "date-fns";
 
@@ -6,6 +7,7 @@ const prisma = new PrismaClient();
 
 // First day of stacks 2.0
 const startDate = new Date(2021, 0, 14);
+let cacheData: any = false;
 
 async function generateNbTxsPerDay() {
   const endDate = new Date();
@@ -96,7 +98,7 @@ async function generateUniqueAddressGrowingPerDay() {
   return result;
 }
 
-async function main() {
+async function generateDataStats() {
   const nbTxsPerDay = await generateNbTxsPerDay();
 
   const uniqueAddressGrowingPerDay = await generateUniqueAddressGrowingPerDay();
@@ -104,12 +106,64 @@ async function main() {
   const fileData = { nbTxsPerDay, uniqueAddressGrowingPerDay };
 
   writeFileSync("./data.json", JSON.stringify(fileData), { encoding: "utf-8" });
+  cacheData = fileData;
 }
 
-main()
+generateDataStats()
+  .then(() => {
+    console.log("First data generated");
+  })
   .catch((e) => {
     throw e;
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
   });
+
+const fastify = Fastify({
+  logger: false,
+});
+
+/**
+ * Return the latest generated data
+ */
+fastify.get("/", (_, reply) => {
+  reply.send(cacheData);
+});
+
+/**
+ * Call this route to generate the data again
+ * Used by an external cronjob multiple time a day
+ */
+fastify.get<{ Querystring: { token: string } }>(
+  "/generate-data",
+  (request, reply) => {
+    const token = request.query && request.query.token;
+
+    if (token === process.env.TOKEN) {
+      generateDataStats()
+        .then(() => {
+          console.log("Request data generated");
+
+          /**
+           * On production we call a webhook URL that will regenerate the
+           * static client site
+           */
+          if (process.env.NODE_ENV === "production") {
+            // TODO call webhook to rebuild frontend
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+
+      reply.send({ success: true });
+      return;
+    }
+
+    reply.send({ success: false });
+  }
+);
+
+// Run the server!
+fastify.listen(4000, (err, address) => {
+  if (err) throw err;
+  console.log(`Server is now listening on ${address}`);
+});
