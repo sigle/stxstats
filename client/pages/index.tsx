@@ -120,7 +120,7 @@ const Home = ({ statsData }: any) => {
 };
 
 export async function getStaticProps() {
-  const res = await fetch("http://localhost:4000");
+  const res = await fetch(process.env.API_URL!);
   const statsData = await res.json();
 
   return {
