@@ -53,6 +53,22 @@ services:
     networks:
       - stacks-blockchain
 
+  api:
+    build:
+      context: ./api
+    volumes:
+      - ./api:/usr/src/app
+      - /usr/src/app/node_modules/
+    ports:
+      - "4000:4000"
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/postgres?schema=public"
+      TOKEN: "token-dev"
+    networks:
+      - stacks-blockchain
+    depends_on:
+      - postgres
+
 volumes:
   db_data:
 
