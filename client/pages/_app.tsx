@@ -38,7 +38,7 @@ export default function MyApp({ Component, pageProps }: any) {
           locale: "en_EN",
           images: [
             {
-              url: "/images/twitter_share.png",
+              url: "https://www.stxstats.co/images/twitter_share.png",
               width: 1012,
               height: 506,
               alt: `Hero image`,
