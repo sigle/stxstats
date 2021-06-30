@@ -14,14 +14,14 @@ This project helps to visualise the growth of the stacks 2.0 blockchain over tim
 
 Run `docker-compose up -d`.
 
-### Running local API
-
-1. `cd api`
-2. `npm install`
-3. `npm run start`
-
 ### Running local client
 
 1. `cd client`
 2. `npm install`
 3. `npm run dev`
+
+## Deploy to production
+
+1. On a new server clone the repository
+2. Edit docker compose file an change the `TOKEN` and `REBUILD_WEBHOOK_URL` env variable
+3. Run `docker-compose up -d`

@@ -2,6 +2,7 @@ import { writeFileSync } from "fs";
 import Fastify from "fastify";
 import { PrismaClient } from "@prisma/client";
 import { addDays, isBefore, format } from "date-fns";
+import fetch from "node-fetch";
 
 const prisma = new PrismaClient();
 
@@ -139,7 +140,7 @@ fastify.get<{ Querystring: { token: string } }>(
 
     if (token === process.env.TOKEN) {
       generateDataStats()
-        .then(() => {
+        .then(async () => {
           console.log("Request data generated");
 
           /**
@@ -147,7 +148,11 @@ fastify.get<{ Querystring: { token: string } }>(
            * static client site
            */
           if (process.env.NODE_ENV === "production") {
-            // TODO call webhook to rebuild frontend
+            const response = await fetch(process.env.REBUILD_WEBHOOK_URL!, {
+              method: "GET",
+            });
+            const data = await response.json();
+            console.log(`Called webhook`, data);
           }
         })
         .catch((error) => {
