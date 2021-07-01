@@ -19,6 +19,7 @@ export default function MyApp({ Component, pageProps }: any) {
   useEffect(() => {
     Fathom.load("AYXWIYLJ", {
       includedDomains: ["www.stxstats.co"],
+      url: "https://louse.sigle.io/script.js",
     });
   }, []);
 
