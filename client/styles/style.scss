@@ -50,6 +50,11 @@ body {
   }
 }
 
+.star {
+  width: 1rem;
+  height: 1rem;
+}
+
 .container-grid {
   padding-top: 4rem;
   display: grid;
@@ -109,9 +114,26 @@ body {
     padding-bottom: 0.5rem;
   }
 
+  .support {
+    padding-top: 0.5rem;
+
+    a {
+      color: var(--dark-color);
+    }
+  }
+
   .heart {
     width: 1rem;
     height: 1rem;
+  }
+
+  .donation {
+    text-decoration: none;
+    color: var(--dark-color);
+    margin-right: 0.8rem;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   .social-icon {
