@@ -12,13 +12,13 @@ Router.events.on("routeChangeComplete", () => {
 });
 
 const title = "Stx stats";
-const description = "Get the latest data from Stacks 2.0.";
+const description = "Discover the latest on-chain data from Stacks 2.0.";
 
 export default function MyApp({ Component, pageProps }: any) {
   // Initialize Fathom when the app loads
   useEffect(() => {
     Fathom.load("AYXWIYLJ", {
-      includedDomains: ["stxstats.co"],
+      includedDomains: ["www.stxstats.co"],
     });
   }, []);
 
