@@ -39,9 +39,7 @@ export const UniqueAddressGrowingPerDay = ({ statsData }: any) => {
 
   return (
     <div id="unique-addresses">
-      <p className="chart-description">
-        Number of unique addresses overtime on Stacks
-      </p>
+      <p className="chart-description">Unique addresses over time</p>
       <VictoryChart
         theme={victoryTheme}
         width={600}

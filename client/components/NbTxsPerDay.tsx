@@ -39,9 +39,7 @@ export const NbTxsPerDay = ({ statsData }: any) => {
 
   return (
     <div id="number-of-txs">
-      <p className="chart-description">
-        Number of transactions happening per day on Stacks
-      </p>
+      <p className="chart-description">Transactions per day</p>
       <VictoryChart
         theme={victoryTheme}
         width={600}

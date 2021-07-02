@@ -15,7 +15,9 @@ const Home = ({ statsData }: any) => {
           />
         </div>
 
-        <h1 className="title">Get the latest data from Stacks 2.0</h1>
+        <h1 className="title">
+          Get the latest data from Stacks 2.0 blockchain
+        </h1>
         <p className="subtitle">
           A project made by{" "}
           <a href="https://www.sigle.io/" target="_blank" rel="noreferrer">
