@@ -45,6 +45,7 @@ export const UniqueAddressGrowingPerDay = ({ statsData }: any) => {
         width={600}
         height={470}
         scale={{ x: "time" }}
+        padding={{ left: 60, top: 50, right: 20, bottom: 50 }}
         containerComponent={
           <VictoryZoomVoronoiContainer
             zoomDimension="x"
@@ -69,7 +70,7 @@ export const UniqueAddressGrowingPerDay = ({ statsData }: any) => {
       </VictoryChart>
       <VictoryChart
         theme={victoryTheme}
-        padding={{ top: 0, left: 50, right: 50, bottom: 30 }}
+        padding={{ top: 0, left: 60, right: 20, bottom: 30 }}
         width={600}
         height={100}
         scale={{ x: "time" }}
