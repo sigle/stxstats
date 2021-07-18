@@ -104,9 +104,13 @@ async function generateUniqueAddressGrowingPerDay() {
 }
 
 async function generateDataStats() {
+  console.log("Starting number of transactions...");
   const nbTxsPerDay = await generateNbTxsPerDay();
+  console.log("Number of transactions generated");
 
+  console.log("Starting number of unique addresses...");
   const uniqueAddressGrowingPerDay = await generateUniqueAddressGrowingPerDay();
+  console.log("Number of unique addresses generated");
 
   const fileData = { nbTxsPerDay, uniqueAddressGrowingPerDay };
 
