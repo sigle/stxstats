@@ -143,6 +143,7 @@ fastify.get<{ Querystring: { token: string } }>(
     const token = request.query && request.query.token;
 
     if (token === process.env.TOKEN) {
+      console.log("Request data starting...");
       generateDataStats()
         .then(async () => {
           console.log("Request data generated");
