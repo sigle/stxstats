@@ -9,6 +9,9 @@ on:
 jobs:
   build-api:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: api
 
     steps:
       - uses: actions/checkout@v2
@@ -19,7 +22,6 @@ jobs:
           node-version: 14.x
           cache: "npm"
 
-      - run: cd api
       - run: npm ci
 
       - name: Test
@@ -27,6 +29,9 @@ jobs:
 
   build-client:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: client
 
     steps:
       - uses: actions/checkout@v2
