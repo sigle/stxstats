@@ -74,6 +74,10 @@ async function generateUniqueAddressGrowingPerDay() {
             lte: endBlock,
           },
         },
+        select: {
+          sender: true,
+          recipient: true,
+        },
       });
 
       // Add new entries for uniqueness
