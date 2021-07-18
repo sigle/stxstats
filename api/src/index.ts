@@ -74,6 +74,10 @@ async function generateUniqueAddressGrowingPerDay() {
             lte: endBlock,
           },
         },
+        select: {
+          sender: true,
+          recipient: true,
+        },
       });
 
       // Add new entries for uniqueness
@@ -100,9 +104,13 @@ async function generateUniqueAddressGrowingPerDay() {
 }
 
 async function generateDataStats() {
+  console.log("Starting number of transactions...");
   const nbTxsPerDay = await generateNbTxsPerDay();
+  console.log("Number of transactions generated");
 
+  console.log("Starting number of unique addresses...");
   const uniqueAddressGrowingPerDay = await generateUniqueAddressGrowingPerDay();
+  console.log("Number of unique addresses generated");
 
   const fileData = { nbTxsPerDay, uniqueAddressGrowingPerDay };
 
@@ -139,6 +147,7 @@ fastify.get<{ Querystring: { token: string } }>(
     const token = request.query && request.query.token;
 
     if (token === process.env.TOKEN) {
+      console.log("Request data starting...");
       generateDataStats()
         .then(async () => {
           console.log("Request data generated");
