@@ -1,100 +1,90 @@
 import { useMemo, useState } from "react";
-import {
-  VictoryChart,
-  VictoryZoomContainer,
-  VictoryLine,
-  VictoryBrushContainer,
-  VictoryAxis,
-  VictoryVoronoiContainer,
-  createContainer,
-} from "victory";
 import format from "date-fns/format";
-import { victoryTheme } from "../styles/victory";
+import { withParentSize } from "@visx/responsive";
+import {
+  WithParentSizeProps,
+  WithParentSizeProvidedProps,
+} from "@visx/responsive/lib/enhancers/withParentSize";
 
-export const NbTxsPerDay = ({ statsData }: any) => {
-  const normalizedStatsData = useMemo(
-    () =>
-      statsData.map((data: any) => ({
-        a: new Date(data.date),
-        b: data.value,
-      })),
-    [statsData]
-  );
+interface NbTxsPerDayProps extends WithParentSizeProps {
+  statsData: any;
+}
 
-  const [zoomDomain, setZoomDomain] = useState<any>({
-    x: [
-      new Date(normalizedStatsData[0].a),
-      new Date(normalizedStatsData[normalizedStatsData.length - 1].a),
-    ],
-  });
-
-  const handleZoom = (domain: any) => {
-    setZoomDomain(domain);
-  };
-
-  const VictoryZoomVoronoiContainer: any = createContainer<
-    VictoryZoomContainer,
-    VictoryVoronoiContainer
-  >("zoom", "voronoi");
+const NbTxsPerDay = ({
+  statsData,
+  parentHeight: height,
+  parentWidth: width,
+}: NbTxsPerDayProps & WithParentSizeProvidedProps) => {
+  console.log({ height });
 
   return (
     <div id="number-of-txs">
       <p className="chart-description">Transactions per day</p>
-      <VictoryChart
-        theme={victoryTheme}
-        width={600}
-        height={470}
-        scale={{ x: "time" }}
-        padding={{ left: 60, top: 50, right: 20, bottom: 50 }}
-        containerComponent={
-          <VictoryZoomVoronoiContainer
-            zoomDimension="x"
-            zoomDomain={zoomDomain}
-            onZoomDomainChange={handleZoom}
-            labels={({ datum }: any) =>
-              `${format(datum.a, "EEEE, MMMM d, yyyy")} - ${datum.b} txs`
-            }
-          />
-        }
-      >
-        <VictoryLine
-          style={{
-            data: { stroke: "#1DEFC7", strokeWidth: 2 },
-          }}
-          data={normalizedStatsData}
-          x="a"
-          y="b"
+      <svg width={width} height={height}>
+        <rect
+          x={0}
+          y={0}
+          width={width}
+          height={height}
+          fill="url(#area-background-gradient)"
+          rx={14}
         />
-      </VictoryChart>
-      <VictoryChart
-        theme={victoryTheme}
-        padding={{ top: 0, left: 60, right: 20, bottom: 30 }}
-        width={600}
-        height={100}
-        scale={{ x: "time" }}
-        containerComponent={
-          <VictoryBrushContainer
-            brushDimension="x"
-            brushDomain={zoomDomain}
-            onBrushDomainChange={handleZoom}
-            brushStyle={{
-              stroke: "transparent",
-              fill: "#FF5582",
-              fillOpacity: 0.1,
-            }}
-          />
-        }
-      >
-        <VictoryAxis tickFormat={(x) => format(x, "MMMM")} />
-        <VictoryLine
-          style={{
-            data: { stroke: "#1DEFC7" },
-          }}
-          data={normalizedStatsData}
-          x="a"
-          y="b"
+        {/* <LinearGradient
+          id="area-background-gradient"
+          from={background}
+          to={background2}
         />
-      </VictoryChart>
+        <LinearGradient
+          id="area-gradient"
+          from={accentColor}
+          to={accentColor}
+          toOpacity={0.1}
+        />
+        <GridRows
+          left={margin.left}
+          scale={stockValueScale}
+          width={innerWidth}
+          strokeDasharray="1,3"
+          stroke={accentColor}
+          strokeOpacity={0}
+          pointerEvents="none"
+        />
+        <GridColumns
+          top={margin.top}
+          scale={dateScale}
+          height={innerHeight}
+          strokeDasharray="1,3"
+          stroke={accentColor}
+          strokeOpacity={0.2}
+          pointerEvents="none"
+        />
+        <AreaClosed<AppleStock>
+          data={stock}
+          x={(d) => dateScale(getDate(d)) ?? 0}
+          y={(d) => stockValueScale(getStockValue(d)) ?? 0}
+          yScale={stockValueScale}
+          strokeWidth={1}
+          stroke="url(#area-gradient)"
+          fill="url(#area-gradient)"
+          curve={curveMonotoneX}
+        />
+        <Bar
+          x={margin.left}
+          y={margin.top}
+          width={innerWidth}
+          height={innerHeight}
+          fill="transparent"
+          rx={14}
+          onTouchStart={handleTooltip}
+          onTouchMove={handleTooltip}
+          onMouseMove={handleTooltip}
+          onMouseLeave={() => hideTooltip()}
+        /> */}
+      </svg>
     </div>
   );
 };
+
+const enhancedNbTxsPerDay = withParentSize<NbTxsPerDayProps>(NbTxsPerDay);
+
+export { enhancedNbTxsPerDay as NbTxsPerDay };
