@@ -30,22 +30,26 @@ const Home = ({ statsData }: any) => {
             <Menu />
           </div>
           <div className="chart">
-            <div id="number-of-txs">
-              <p className="chart-description">Transactions per day</p>
-              <div className="chart-container">
-                <div className="chart-reset">
-                  <NbTxsPerDay statsData={statsData.nbTxsPerDay} />
+            <div className="chart-separator">
+              <div id="number-of-txs">
+                <p className="chart-description">Transactions per day</p>
+                <div className="chart-container">
+                  <div className="chart-reset">
+                    <NbTxsPerDay statsData={statsData.nbTxsPerDay} />
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div id="unique-addresses">
-              <p className="chart-description">Unique addresses over time</p>
-              <div className="chart-container">
-                <div className="chart-reset">
-                  <UniqueAddressGrowingPerDay
-                    statsData={statsData.uniqueAddressGrowingPerDay}
-                  />
+            <div className="chart-separator">
+              <div id="unique-addresses">
+                <p className="chart-description">Unique addresses over time</p>
+                <div className="chart-container">
+                  <div className="chart-reset">
+                    <UniqueAddressGrowingPerDay
+                      statsData={statsData.uniqueAddressGrowingPerDay}
+                    />
+                  </div>
                 </div>
               </div>
             </div>

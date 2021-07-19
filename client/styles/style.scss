@@ -90,6 +90,13 @@ body {
   padding-bottom: 1rem;
 }
 
+.chart-separator {
+  padding-top: 2rem;
+  &:first-child {
+    padding-top: 0;
+  }
+}
+
 .chart-container {
   position: relative;
   height: 500px;
