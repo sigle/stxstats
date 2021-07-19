@@ -12,12 +12,17 @@ import { max, extent, bisector } from "d3-array";
 import { useTooltip, useTooltipInPortal, defaultStyles } from "@visx/tooltip";
 import AreaChart from "./AreaChart";
 
+interface StatsData {
+  value: number;
+  date: string;
+}
+
 const accentColor = "#1DEFC7";
 const accentColorDark = "#75daad";
 
-const getDate = (d: any) => new Date(d.date);
-const getStockValue = (d: any) => d.value;
-const bisectDate = bisector<any, Date>((d: any) => new Date(d.date)).left;
+const getDate = (d: StatsData) => new Date(d.date);
+const getStockValue = (d: StatsData) => d.value;
+const bisectDate = bisector<StatsData, Date>((d) => new Date(d.date)).left;
 
 const tooltipStyles = {
   ...defaultStyles,
@@ -28,7 +33,7 @@ const tooltipStyles = {
 };
 
 interface NbTxsPerDayProps extends WithParentSizeProps {
-  statsData: any;
+  statsData: StatsData[];
 }
 
 const NbTxsPerDay = ({
@@ -75,7 +80,7 @@ const NbTxsPerDay = ({
     hideTooltip,
     showTooltip,
     tooltipData,
-  } = useTooltip<{ value: number; date: string }>();
+  } = useTooltip<StatsData>();
 
   const { containerRef, TooltipInPortal } = useTooltipInPortal({
     detectBounds: true,

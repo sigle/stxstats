@@ -5,6 +5,11 @@ import { AxisLeft, AxisBottom, AxisScale } from "@visx/axis";
 import { LinearGradient } from "@visx/gradient";
 import { curveMonotoneX } from "@visx/curve";
 
+interface StatsData {
+  value: number;
+  date: string;
+}
+
 const fontFamily = '"Lato", sans-serif';
 
 // Initialize some variables
@@ -25,8 +30,8 @@ const axisLeftTickLabelProps = {
 };
 
 // accessors
-const getDate = (d: any) => new Date(d.date);
-const getStockValue = (d: any) => d.value;
+const getDate = (d: StatsData) => new Date(d.date);
+const getStockValue = (d: StatsData) => d.value;
 
 export default function AreaChart({
   data,
@@ -42,7 +47,7 @@ export default function AreaChart({
   left,
   children,
 }: {
-  data: any[];
+  data: StatsData[];
   gradientColor: string;
   xScale: AxisScale<number>;
   yScale: AxisScale<number>;
