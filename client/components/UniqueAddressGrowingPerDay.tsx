@@ -57,7 +57,7 @@ const UniqueAddressGrowingPerDay = ({
     () =>
       scaleLinear<number>({
         range: [yMax, 0],
-        domain: [0, max(statsData, getStockValue) || 0],
+        domain: [320000, max(statsData, getStockValue) || 0],
         nice: true,
       }),
     [yMax, statsData]
