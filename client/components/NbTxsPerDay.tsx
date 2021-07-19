@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo } from "react";
 import format from "date-fns/format";
 import { withParentSize } from "@visx/responsive";
 import {
@@ -9,28 +9,18 @@ import { scaleTime, scaleLinear } from "@visx/scale";
 import { Bar } from "@visx/shape";
 import { localPoint } from "@visx/event";
 import { max, extent, bisector } from "d3-array";
-import { useTooltip, useTooltipInPortal, defaultStyles } from "@visx/tooltip";
+import { useTooltip, useTooltipInPortal } from "@visx/tooltip";
 import AreaChart from "./AreaChart";
+import { accentColor, accentColorDark, tooltipStyles } from "../styles/visx";
 
 interface StatsData {
   value: number;
   date: string;
 }
 
-const accentColor = "#1DEFC7";
-const accentColorDark = "#75daad";
-
 const getDate = (d: StatsData) => new Date(d.date);
 const getStockValue = (d: StatsData) => d.value;
 const bisectDate = bisector<StatsData, Date>((d) => new Date(d.date)).left;
-
-const tooltipStyles = {
-  ...defaultStyles,
-  minWidth: 60,
-  backgroundColor: "#f1f1f1",
-  color: "#141629",
-  display: "block",
-};
 
 interface NbTxsPerDayProps extends WithParentSizeProps {
   statsData: StatsData[];

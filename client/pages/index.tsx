@@ -39,9 +39,16 @@ const Home = ({ statsData }: any) => {
               </div>
             </div>
 
-            <UniqueAddressGrowingPerDay
-              statsData={statsData.uniqueAddressGrowingPerDay}
-            />
+            <div id="unique-addresses">
+              <p className="chart-description">Unique addresses over time</p>
+              <div className="chart-container">
+                <div className="chart-reset">
+                  <UniqueAddressGrowingPerDay
+                    statsData={statsData.uniqueAddressGrowingPerDay}
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
