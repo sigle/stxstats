@@ -30,7 +30,7 @@ const Home = ({ statsData }: any) => {
             <Menu />
           </div>
           <div className="chart">
-            <div style={{ position: "relative", height: 500 }}>
+            <div style={{ position: "relative", height: 1000 }}>
               <div
                 style={{
                   position: "absolute",
