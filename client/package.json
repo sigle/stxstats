@@ -8,15 +8,23 @@
     "start": "next start"
   },
   "dependencies": {
+    "@visx/axis": "1.17.0",
+    "@visx/event": "1.7.0",
+    "@visx/gradient": "1.7.0",
+    "@visx/grid": "1.16.0",
+    "@visx/responsive": "1.10.1",
+    "@visx/scale": "1.14.0",
+    "@visx/tooltip": "1.7.2",
+    "d3-array": "2.12.1",
     "date-fns": "2.22.1",
     "fathom-client": "3.0.0",
     "next": "11.0.1",
     "next-seo": "4.26.0",
     "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "victory": "35.9.0"
+    "react-dom": "17.0.2"
   },
   "devDependencies": {
+    "@types/d3-array": "3.0.1",
     "@types/react": "17.0.11",
     "eslint": "7.29.0",
     "eslint-config-next": "11.0.1",

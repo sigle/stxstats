@@ -1,102 +1,179 @@
-import { useMemo, useState } from "react";
-import {
-  VictoryChart,
-  VictoryZoomContainer,
-  VictoryLine,
-  VictoryBrushContainer,
-  VictoryAxis,
-  VictoryVoronoiContainer,
-  createContainer,
-} from "victory";
+import { useCallback, useMemo } from "react";
 import format from "date-fns/format";
-import { victoryTheme } from "../styles/victory";
+import { withParentSize } from "@visx/responsive";
+import {
+  WithParentSizeProps,
+  WithParentSizeProvidedProps,
+} from "@visx/responsive/lib/enhancers/withParentSize";
+import { scaleTime, scaleLinear } from "@visx/scale";
+import { Bar } from "@visx/shape";
+import { localPoint } from "@visx/event";
+import { max, extent, bisector } from "d3-array";
+import { useTooltip, useTooltipInPortal } from "@visx/tooltip";
+import AreaChart from "./AreaChart";
+import { accentColor, accentColorDark, tooltipStyles } from "../styles/visx";
 
-export const UniqueAddressGrowingPerDay = ({ statsData }: any) => {
-  const normalizedStatsData = useMemo(
-    () =>
-      statsData.map((data: any) => ({
-        a: new Date(data.date),
-        b: data.value,
-      })),
-    [statsData]
-  );
+interface StatsData {
+  value: number;
+  date: string;
+}
 
-  const [zoomDomain, setZoomDomain] = useState<any>({
-    x: [
-      new Date(normalizedStatsData[0].a),
-      new Date(normalizedStatsData[normalizedStatsData.length - 1].a),
-    ],
-  });
+const getDate = (d: StatsData) => new Date(d.date);
+const getStockValue = (d: StatsData) => d.value;
+const bisectDate = bisector<StatsData, Date>((d) => new Date(d.date)).left;
 
-  const handleZoom = (domain: any) => {
-    setZoomDomain(domain);
+interface UniqueAddressGrowingPerDayProps extends WithParentSizeProps {
+  statsData: StatsData[];
+}
+
+const UniqueAddressGrowingPerDay = ({
+  statsData,
+  parentHeight: height,
+  parentWidth: width,
+}: UniqueAddressGrowingPerDayProps & WithParentSizeProvidedProps) => {
+  const margin = {
+    top: 20,
+    left: 60,
+    bottom: 20,
+    right: 20,
   };
 
-  const VictoryZoomVoronoiContainer: any = createContainer<
-    VictoryZoomContainer,
-    VictoryVoronoiContainer
-  >("zoom", "voronoi");
+  const innerWidth = width! - margin.left - margin.right;
+  const innerHeight = height! - margin.top - margin.bottom;
+
+  const xMax = Math.max(width! - margin.left - margin.right, 0);
+  const yMax = Math.max(innerHeight! - 10, 0);
+
+  // scales
+  const dateScale = useMemo(
+    () =>
+      scaleTime<number>({
+        range: [0, xMax],
+        domain: extent(statsData, getDate) as [Date, Date],
+      }),
+    [xMax, statsData]
+  );
+  const stockValueScale = useMemo(
+    () =>
+      scaleLinear<number>({
+        range: [yMax, 0],
+        domain: [320000, max(statsData, getStockValue) || 0],
+        nice: true,
+      }),
+    [yMax, statsData]
+  );
+
+  const {
+    tooltipOpen,
+    tooltipTop,
+    tooltipLeft,
+    hideTooltip,
+    showTooltip,
+    tooltipData,
+  } = useTooltip<StatsData>();
+
+  const { containerRef, TooltipInPortal } = useTooltipInPortal({
+    detectBounds: true,
+    scroll: true,
+  });
+
+  const handleTooltip = useCallback(
+    (
+      event: React.TouchEvent<SVGRectElement> | React.MouseEvent<SVGRectElement>
+    ) => {
+      let { x } = localPoint(event) || { x: 0 };
+      // Count the graph margin in
+      x = x - margin.left;
+
+      const x0 = dateScale.invert(x);
+      const index = bisectDate(statsData, x0, 1);
+      const d0 = statsData[index - 1];
+      const d1 = statsData[index];
+      let d = d0;
+      if (d1 && getDate(d1)) {
+        d =
+          x0.valueOf() - getDate(d0).valueOf() >
+          getDate(d1).valueOf() - x0.valueOf()
+            ? d1
+            : d0;
+      }
+
+      showTooltip({
+        tooltipData: d,
+        tooltipLeft: x,
+        tooltipTop: stockValueScale(getStockValue(d)),
+      });
+    },
+    [showTooltip, stockValueScale, dateScale]
+  );
 
   return (
-    <div id="unique-addresses">
-      <p className="chart-description">Unique addresses over time</p>
-      <VictoryChart
-        theme={victoryTheme}
-        width={600}
-        height={470}
-        scale={{ x: "time" }}
-        padding={{ left: 60, top: 50, right: 20, bottom: 50 }}
-        containerComponent={
-          <VictoryZoomVoronoiContainer
-            zoomDimension="x"
-            zoomDomain={zoomDomain}
-            onZoomDomainChange={handleZoom}
-            labels={({ datum }: any) =>
-              `${format(datum.a, "EEEE, MMMM d, yyyy")} - ${
-                datum.b
-              } unique addresses`
-            }
+    <>
+      <svg ref={containerRef} width={width} height={height}>
+        <AreaChart
+          data={statsData}
+          width={width!}
+          margin={margin}
+          yMax={yMax}
+          xScale={dateScale}
+          yScale={stockValueScale}
+          gradientColor={accentColor}
+        >
+          <Bar
+            width={innerWidth}
+            height={innerHeight}
+            fill="transparent"
+            rx={14}
+            onTouchStart={handleTooltip}
+            onTouchMove={handleTooltip}
+            onMouseMove={handleTooltip}
+            onMouseLeave={() => hideTooltip()}
           />
-        }
-      >
-        <VictoryLine
-          style={{
-            data: { stroke: "#1DEFC7", strokeWidth: 2 },
-          }}
-          data={normalizedStatsData}
-          x="a"
-          y="b"
-        />
-      </VictoryChart>
-      <VictoryChart
-        theme={victoryTheme}
-        padding={{ top: 0, left: 60, right: 20, bottom: 30 }}
-        width={600}
-        height={100}
-        scale={{ x: "time" }}
-        containerComponent={
-          <VictoryBrushContainer
-            brushDimension="x"
-            brushDomain={zoomDomain}
-            onBrushDomainChange={handleZoom}
-            brushStyle={{
-              stroke: "transparent",
-              fill: "#FF5582",
-              fillOpacity: 0.1,
-            }}
-          />
-        }
-      >
-        <VictoryAxis tickFormat={(x) => format(x, "MMMM")} />
-        <VictoryLine
-          style={{
-            data: { stroke: "#1DEFC7" },
-          }}
-          data={normalizedStatsData}
-          x="a"
-          y="b"
-        />
-      </VictoryChart>
-    </div>
+
+          {tooltipData && (
+            <g>
+              <circle
+                cx={tooltipLeft}
+                cy={tooltipTop! + 1}
+                r={4}
+                fill="black"
+                fillOpacity={0.1}
+                stroke="black"
+                strokeOpacity={0.1}
+                strokeWidth={2}
+                pointerEvents="none"
+              />
+              <circle
+                cx={tooltipLeft}
+                cy={tooltipTop}
+                r={4}
+                fill={accentColorDark}
+                stroke="white"
+                strokeWidth={2}
+                pointerEvents="none"
+              />
+            </g>
+          )}
+        </AreaChart>
+      </svg>
+
+      {tooltipOpen && tooltipData && (
+        <TooltipInPortal
+          key={Math.random()}
+          top={tooltipTop! - 40}
+          left={tooltipLeft! + 26}
+          style={tooltipStyles}
+        >
+          <p>{format(new Date(tooltipData.date), "EEEE, MMMM d, yyyy")}</p>
+          <p>{tooltipData.value} unique addresses</p>
+        </TooltipInPortal>
+      )}
+    </>
   );
 };
+
+const enhancedUniqueAddressGrowingPerDay = withParentSize<
+  UniqueAddressGrowingPerDayProps
+>(UniqueAddressGrowingPerDay);
+
+export { enhancedUniqueAddressGrowingPerDay as UniqueAddressGrowingPerDay };
