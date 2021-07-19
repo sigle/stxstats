@@ -118,9 +118,7 @@ const NbTxsPerDay = ({
   );
 
   return (
-    <div id="number-of-txs">
-      {/* <p className="chart-description">Transactions per day</p> */}
-
+    <>
       <svg ref={containerRef} width={width} height={height}>
         <AreaChart
           data={statsData}
@@ -180,7 +178,7 @@ const NbTxsPerDay = ({
           <p>{tooltipData.value} transactions</p>
         </TooltipInPortal>
       )}
-    </div>
+    </>
   );
 };
 

@@ -30,17 +30,12 @@ const Home = ({ statsData }: any) => {
             <Menu />
           </div>
           <div className="chart">
-            <div style={{ position: "relative", height: 500 }}>
-              <div
-                style={{
-                  position: "absolute",
-                  width: "100%",
-                  height: "100%",
-                  left: 0,
-                  top: 0,
-                }}
-              >
-                <NbTxsPerDay statsData={statsData.nbTxsPerDay} />
+            <div id="number-of-txs">
+              <p className="chart-description">Transactions per day</p>
+              <div className="chart-container">
+                <div className="chart-reset">
+                  <NbTxsPerDay statsData={statsData.nbTxsPerDay} />
+                </div>
               </div>
             </div>
 
