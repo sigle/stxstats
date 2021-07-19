@@ -164,8 +164,12 @@ const NbTxsPerDay = ({
           left={tooltipLeft! + 26}
           style={tooltipStyles}
         >
-          <p>{format(new Date(tooltipData.date), "EEEE, MMMM d, yyyy")}</p>
-          <p>{tooltipData.value} transactions</p>
+          <div className="tooltip">
+            <p className="tooltip-date">
+              {format(new Date(tooltipData.date), "EEEE, MMMM d, yyyy")}
+            </p>
+            <p className="tooltip-text">{tooltipData.value} transactions</p>
+          </div>
         </TooltipInPortal>
       )}
     </>
