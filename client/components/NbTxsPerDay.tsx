@@ -1,30 +1,31 @@
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import format from "date-fns/format";
 import { withParentSize } from "@visx/responsive";
 import {
   WithParentSizeProps,
   WithParentSizeProvidedProps,
 } from "@visx/responsive/lib/enhancers/withParentSize";
-import { LinearGradient } from "@visx/gradient";
 import { scaleTime, scaleLinear } from "@visx/scale";
-import { GridRows, GridColumns } from "@visx/grid";
-import { AreaClosed } from "@visx/shape";
-import { Group } from "@visx/group";
+import { Bar } from "@visx/shape";
+import { localPoint } from "@visx/event";
 import { max, extent, bisector } from "d3-array";
-import { curveMonotoneX } from "@visx/curve";
-import { AxisLeft, AxisBottom, AxisScale } from "@visx/axis";
+import { useTooltip, useTooltipInPortal, defaultStyles } from "@visx/tooltip";
 import AreaChart from "./AreaChart";
 
-const background = "#3b6978";
-const background2 = "#204051";
 const accentColor = "#1DEFC7";
 const accentColorDark = "#75daad";
-
-const chartSeparation = 30;
 
 const getDate = (d: any) => new Date(d.date);
 const getStockValue = (d: any) => d.value;
 const bisectDate = bisector<any, Date>((d: any) => new Date(d.date)).left;
+
+const tooltipStyles = {
+  ...defaultStyles,
+  minWidth: 60,
+  backgroundColor: "#f1f1f1",
+  color: "#141629",
+  display: "block",
+};
 
 interface NbTxsPerDayProps extends WithParentSizeProps {
   statsData: any;
@@ -42,17 +43,11 @@ const NbTxsPerDay = ({
     right: 20,
   };
 
-  const compact = false;
-
+  const innerWidth = width! - margin.left - margin.right;
   const innerHeight = height! - margin.top - margin.bottom;
-  const topChartBottomMargin = compact
-    ? chartSeparation / 2
-    : chartSeparation + 10;
-  const topChartHeight = 0.8 * innerHeight - topChartBottomMargin;
-  const bottomChartHeight = innerHeight - topChartHeight - chartSeparation;
 
   const xMax = Math.max(width! - margin.left - margin.right, 0);
-  const yMax = Math.max(topChartHeight, 0);
+  const yMax = Math.max(innerHeight! - 10, 0);
 
   // scales
   const dateScale = useMemo(
@@ -73,84 +68,113 @@ const NbTxsPerDay = ({
     [yMax, statsData]
   );
 
+  const {
+    tooltipOpen,
+    tooltipTop,
+    tooltipLeft,
+    hideTooltip,
+    showTooltip,
+    tooltipData,
+  } = useTooltip<{ value: number; date: string }>();
+
+  const { containerRef, TooltipInPortal } = useTooltipInPortal({
+    detectBounds: true,
+    scroll: true,
+  });
+
+  const handleTooltip = useCallback(
+    (
+      event: React.TouchEvent<SVGRectElement> | React.MouseEvent<SVGRectElement>
+    ) => {
+      let { x } = localPoint(event) || { x: 0 };
+      // Count the graph margin in
+      x = x - margin.left;
+
+      const x0 = dateScale.invert(x);
+      const index = bisectDate(statsData, x0, 1);
+      const d0 = statsData[index - 1];
+      const d1 = statsData[index];
+      let d = d0;
+      if (d1 && getDate(d1)) {
+        d =
+          x0.valueOf() - getDate(d0).valueOf() >
+          getDate(d1).valueOf() - x0.valueOf()
+            ? d1
+            : d0;
+      }
+
+      showTooltip({
+        tooltipData: d,
+        tooltipLeft: x,
+        tooltipTop: stockValueScale(getStockValue(d)),
+      });
+    },
+    [showTooltip, stockValueScale, dateScale]
+  );
+
   return (
     <div id="number-of-txs">
       {/* <p className="chart-description">Transactions per day</p> */}
 
-      <svg width={width} height={height}>
-        <rect
-          x={0}
-          y={0}
-          width={width}
-          height={height}
-          fill="url(#area-background-gradient)"
-          rx={14}
-        />
-
+      <svg ref={containerRef} width={width} height={height}>
         <AreaChart
           data={statsData}
           width={width!}
-          margin={{ ...margin }}
+          margin={margin}
           yMax={yMax}
           xScale={dateScale}
           yScale={stockValueScale}
           gradientColor={accentColor}
-        />
+        >
+          <Bar
+            width={innerWidth}
+            height={innerHeight}
+            fill="transparent"
+            rx={14}
+            onTouchStart={handleTooltip}
+            onTouchMove={handleTooltip}
+            onMouseMove={handleTooltip}
+            onMouseLeave={() => hideTooltip()}
+          />
 
-        {/* <LinearGradient
-          id="area-background-gradient"
-          from={background}
-          to={background2}
-        />
-        <LinearGradient
-          id="area-gradient"
-          from={accentColor}
-          to={accentColor}
-          toOpacity={0.1}
-        /> */}
-
-        {/* <GridRows
-          left={margin.left}
-          scale={stockValueScale}
-          width={innerWidth}
-          strokeDasharray="1,3"
-          stroke={accentColor}
-          strokeOpacity={0}
-          pointerEvents="none"
-        />
-        <GridColumns
-          top={margin.top}
-          scale={dateScale}
-          height={innerHeight}
-          strokeDasharray="1,3"
-          stroke={accentColor}
-          strokeOpacity={0.2}
-          pointerEvents="none"
-        /> */}
-
-        {/* <AreaClosed
-          data={statsData}
-          x={(d) => dateScale(getDate(d)) ?? 0}
-          y={(d) => stockValueScale(getStockValue(d)) ?? 0}
-          yScale={stockValueScale}
-          strokeWidth={1}
-          stroke="url(#area-gradient)"
-          fill="url(#area-gradient)"
-          curve={curveMonotoneX}
-        /> */}
-        {/* <Bar
-          x={margin.left}
-          y={margin.top}
-          width={innerWidth}
-          height={innerHeight}
-          fill="transparent"
-          rx={14}
-          onTouchStart={handleTooltip}
-          onTouchMove={handleTooltip}
-          onMouseMove={handleTooltip}
-          onMouseLeave={() => hideTooltip()}
-        /> */}
+          {tooltipData && (
+            <g>
+              <circle
+                cx={tooltipLeft}
+                cy={tooltipTop! + 1}
+                r={4}
+                fill="black"
+                fillOpacity={0.1}
+                stroke="black"
+                strokeOpacity={0.1}
+                strokeWidth={2}
+                pointerEvents="none"
+              />
+              <circle
+                cx={tooltipLeft}
+                cy={tooltipTop}
+                r={4}
+                fill={accentColorDark}
+                stroke="white"
+                strokeWidth={2}
+                pointerEvents="none"
+              />
+            </g>
+          )}
+        </AreaChart>
       </svg>
+
+      {tooltipOpen && tooltipData && (
+        <TooltipInPortal
+          key={Math.random()}
+          top={tooltipTop! - 40}
+          left={tooltipLeft! + 26}
+          style={tooltipStyles}
+        >
+          <p>{format(new Date(tooltipData.date), "EEEE, MMMM d, yyyy")}</p>
+          <p>{tooltipData.value} transactions</p>
+        </TooltipInPortal>
+      )}
     </div>
   );
 };
