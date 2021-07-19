@@ -18,6 +18,12 @@ interface StatsData {
   date: string;
 }
 
+interface NormalizedStatsData {
+  value: number;
+  date: string;
+  dailyIncrease?: number;
+}
+
 const getDate = (d: StatsData) => new Date(d.date);
 const getStockValue = (d: StatsData) => d.value;
 const bisectDate = bisector<StatsData, Date>((d) => new Date(d.date)).left;
@@ -31,6 +37,17 @@ const UniqueAddressGrowingPerDay = ({
   parentHeight: height,
   parentWidth: width,
 }: UniqueAddressGrowingPerDayProps & WithParentSizeProvidedProps) => {
+  const normalizedStatsData = useMemo<NormalizedStatsData[]>(() => {
+    return statsData.map((data, index) =>
+      statsData[index - 1]
+        ? {
+            ...data,
+            dailyIncrease: data.value - statsData[index - 1].value,
+          }
+        : data
+    );
+  }, [statsData]);
+
   const margin = {
     top: 20,
     left: 60,
@@ -70,7 +87,7 @@ const UniqueAddressGrowingPerDay = ({
     hideTooltip,
     showTooltip,
     tooltipData,
-  } = useTooltip<StatsData>();
+  } = useTooltip<NormalizedStatsData>();
 
   const { containerRef, TooltipInPortal } = useTooltipInPortal({
     detectBounds: true,
@@ -86,9 +103,9 @@ const UniqueAddressGrowingPerDay = ({
       x = x - margin.left;
 
       const x0 = dateScale.invert(x);
-      const index = bisectDate(statsData, x0, 1);
-      const d0 = statsData[index - 1];
-      const d1 = statsData[index];
+      const index = bisectDate(normalizedStatsData, x0, 1);
+      const d0 = normalizedStatsData[index - 1];
+      const d1 = normalizedStatsData[index];
       let d = d0;
       if (d1 && getDate(d1)) {
         d =
@@ -164,8 +181,17 @@ const UniqueAddressGrowingPerDay = ({
           left={tooltipLeft! + 26}
           style={tooltipStyles}
         >
-          <p>{format(new Date(tooltipData.date), "EEEE, MMMM d, yyyy")}</p>
-          <p>{tooltipData.value} unique addresses</p>
+          <div className="tooltip">
+            <p className="tooltip-date">
+              {format(new Date(tooltipData.date), "EEEE, MMMM d, yyyy")}
+            </p>
+            <p className="tooltip-text">{tooltipData.value} unique addresses</p>
+            {tooltipData ? (
+              <p className="tooltip-text">
+                {tooltipData.dailyIncrease} daily increase
+              </p>
+            ) : null}
+          </div>
         </TooltipInPortal>
       )}
     </>
