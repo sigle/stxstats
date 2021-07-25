@@ -1,13 +1,14 @@
 import { writeFileSync } from "fs";
 import Fastify from "fastify";
 import { PrismaClient } from "@prisma/client";
-import { addDays, isBefore, format } from "date-fns";
+import { addDays, isBefore, format, subDays } from "date-fns";
 import fetch from "node-fetch";
 
 const prisma = new PrismaClient();
 
-// First day of stacks 2.0
-const startDate = new Date(2021, 0, 14);
+// We take one day before now to not go over all of the past
+// dates that are saved in memory
+const startDate = subDays(new Date(), 1);
 let cacheData: any = false;
 
 async function generateNbTxsPerDay() {
