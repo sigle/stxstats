@@ -1,14 +1,13 @@
 import { writeFileSync } from "fs";
 import Fastify from "fastify";
 import { PrismaClient } from "@prisma/client";
-import { addDays, isBefore, format, subDays } from "date-fns";
+import { addDays, isBefore, format } from "date-fns";
 import fetch from "node-fetch";
 
 const prisma = new PrismaClient();
 
-// We take one day before now to not go over all of the past
-// dates that are saved in memory
-const startDate = subDays(new Date(), 1);
+// First day of stacks 2.0
+const startDate = new Date(2021, 0, 14);
 let cacheData: any = false;
 
 async function generateNbTxsPerDay() {
@@ -23,8 +22,8 @@ async function generateNbTxsPerDay() {
     const transactionsCount = await prisma.txs.count({
       where: {
         burn_block_time: {
-          gte: iteratorDate.getTime() / 1000,
-          lt: dayAfter.getTime() / 1000,
+          gte: Math.round(iteratorDate.getTime() / 1000),
+          lt: Math.round(dayAfter.getTime() / 1000),
         },
       },
     });
@@ -52,8 +51,8 @@ async function generateUniqueAddressGrowingPerDay() {
     const blocks = await prisma.blocks.findMany({
       where: {
         burn_block_time: {
-          gte: iteratorDate.getTime() / 1000,
-          lt: dayAfter.getTime() / 1000,
+          gte: Math.round(iteratorDate.getTime() / 1000),
+          lt: Math.round(dayAfter.getTime() / 1000),
         },
       },
       select: {
