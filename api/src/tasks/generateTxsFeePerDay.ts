@@ -23,7 +23,6 @@ export async function generateTxsFeePerDay() {
       },
     });
 
-    // TODO use bigint for addition
     let totalFee = BigInt(0);
     transactions.forEach((transaction) => {
       totalFee += transaction.fee_rate;
