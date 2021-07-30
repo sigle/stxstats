@@ -15,28 +15,6 @@
   height: 1rem;
 }
 
-.navigation {
-  position: sticky;
-  top: 0;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-
-  li {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-  }
-
-  a {
-    text-decoration: none;
-    color: var(--white-color);
-  }
-
-  a.active {
-    color: var(--green-color);
-    font-weight: 700;
-  }
-}
-
 .chart {
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -126,10 +104,6 @@
 }
 
 @media (max-width: 768px) {
-  .navigation {
-    position: inherit;
-  }
-
   .footer {
     .padding {
       flex-direction: column;

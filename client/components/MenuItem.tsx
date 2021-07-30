@@ -1,5 +1,6 @@
 // https://medium.com/the-coders-guide-to-javascript/smooth-scrolling-anchor-menu-in-reactjs-175030d0bce2
 import { useState, useEffect } from "react";
+import { Box } from "../src/ui/Box";
 
 /*
  * A single menu item
@@ -46,15 +47,25 @@ export const MenuItem = ({
    * Remember to set your ariaLabel for accessability!
    */
   return (
-    <li>
-      <a
+    <Box as={"li"} css={{ py: "$4" }}>
+      <Box
+        as={"a"}
+        css={{
+          textDecoration: "none",
+          color: "$gray12",
+          "&.active": {
+            // TODO change this color var
+            color: "var(--green-color)",
+            fontWeight: 700,
+          },
+        }}
         href={`#${itemName}`}
         onClick={handleClick}
         className={active ? "active" : ""}
         aria-label={`Scroll to ${itemName}`}
       >
         {name}
-      </a>
-    </li>
+      </Box>
+    </Box>
   );
 };

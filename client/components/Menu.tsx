@@ -1,5 +1,6 @@
 // https://medium.com/the-coders-guide-to-javascript/smooth-scrolling-anchor-menu-in-reactjs-175030d0bce2
 import { useState, useEffect } from "react";
+import { Box } from "../src/ui/Box";
 
 /*
  * We will include our MenuItem Component
@@ -97,8 +98,17 @@ export const Menu = () => {
    * Return the JSX Menu, complete with nested MenuItems
    */
   return (
-    <nav className="navigation">
+    <Box
+      as={"nav"}
+      css={{
+        py: "$4",
+        "@lg": {
+          top: 0,
+          position: "sticky",
+        },
+      }}
+    >
       <ul>{menuList}</ul>
-    </nav>
+    </Box>
   );
 };
