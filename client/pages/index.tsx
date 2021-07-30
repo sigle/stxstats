@@ -1,6 +1,7 @@
+import { Menu } from "../components/Menu";
 import { NbTxsPerDay } from "../components/NbTxsPerDay";
 import { UniqueAddressGrowingPerDay } from "../components/UniqueAddressGrowingPerDay";
-import { Menu } from "../components/Menu";
+import { TxsFeePerDay } from "../components/TxsFeePerDay";
 
 const Home = ({ statsData }: any) => {
   return (
@@ -49,6 +50,17 @@ const Home = ({ statsData }: any) => {
                     <UniqueAddressGrowingPerDay
                       statsData={statsData.uniqueAddressGrowingPerDay}
                     />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="chart-separator">
+              <div id="transactions-fee">
+                <p className="chart-description">Transactions fee</p>
+                <div className="chart-container">
+                  <div className="chart-reset">
+                    <TxsFeePerDay statsData={statsData.txsFeePerDay} />
                   </div>
                 </div>
               </div>
