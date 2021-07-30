@@ -2,6 +2,7 @@ import { useTheme } from "next-themes";
 import { NbTxsPerDay } from "../components/NbTxsPerDay";
 import { UniqueAddressGrowingPerDay } from "../components/UniqueAddressGrowingPerDay";
 import { Menu } from "../components/Menu";
+import { Container } from "../src/ui/Container";
 
 const Home = ({ statsData }: any) => {
   // TODO create real button for this
@@ -11,7 +12,7 @@ const Home = ({ statsData }: any) => {
 
   return (
     <>
-      <div className="container">
+      <Container>
         <div
           className="logo"
           onClick={() =>
@@ -66,7 +67,7 @@ const Home = ({ statsData }: any) => {
             </div>
           </div>
         </div>
-      </div>
+      </Container>
 
       <div className="footer">
         <div className="container">
