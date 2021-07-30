@@ -18,6 +18,9 @@ jobs:
     permissions:
       contents: read
       packages: write
+    defaults:
+      run:
+        working-directory: api
 
     steps:
       - uses: actions/checkout@v2
