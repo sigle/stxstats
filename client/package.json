@@ -8,6 +8,8 @@
     "start": "next start"
   },
   "dependencies": {
+    "@radix-ui/colors": "0.1.7",
+    "@stitches/react": "0.2.3",
     "@visx/axis": "1.17.0",
     "@visx/event": "1.7.0",
     "@visx/gradient": "1.7.0",
@@ -20,6 +22,7 @@
     "fathom-client": "3.0.0",
     "next": "11.0.1",
     "next-seo": "4.26.0",
+    "next-themes": "0.0.15",
     "react": "17.0.2",
     "react-dom": "17.0.2"
   },

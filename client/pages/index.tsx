@@ -1,12 +1,23 @@
+import { useTheme } from "next-themes";
 import { NbTxsPerDay } from "../components/NbTxsPerDay";
 import { UniqueAddressGrowingPerDay } from "../components/UniqueAddressGrowingPerDay";
 import { Menu } from "../components/Menu";
 
 const Home = ({ statsData }: any) => {
+  // TODO create real button for this
+  const { theme, setTheme } = useTheme();
+
+  // TODO logo for light theme
+
   return (
     <>
       <div className="container">
-        <div className="logo">
+        <div
+          className="logo"
+          onClick={() =>
+            theme === "dark" ? setTheme("light") : setTheme("dark")
+          }
+        >
           <img
             height={52}
             width={104}
