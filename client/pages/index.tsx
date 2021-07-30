@@ -29,17 +29,26 @@ const Home = ({ statsData }: any) => {
           />
         </Box>
 
-        <Heading as={"h1"} size={"3xl"} css={{ pt: "$8" }}>
+        <Heading as={"h1"} size={"3xl"} css={{ mt: "$8" }}>
           Get the latest data from Stacks 2.0 blockchain
         </Heading>
-        <Heading size={"2xl"} css={{ pt: "$2", fontWeight: 400 }}>
+        <Heading size={"2xl"} css={{ mt: "$2", fontWeight: 400 }}>
           A project made by{" "}
           <Link href="https://www.sigle.io/" target="_blank" rel="noreferrer">
             Sigle
           </Link>
         </Heading>
 
-        <div className="container-grid">
+        <Box
+          css={{
+            mt: 64,
+            display: "grid",
+            gridTemplateColumns: "1fr",
+            "@lg": {
+              gridTemplateColumns: "1fr 3fr",
+            },
+          }}
+        >
           <div>
             <Menu />
           </div>
@@ -68,7 +77,7 @@ const Home = ({ statsData }: any) => {
               </div>
             </div>
           </div>
-        </div>
+        </Box>
       </Container>
 
       <div className="footer">
