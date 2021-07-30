@@ -28,7 +28,7 @@ jobs:
         run: npx tsc --noEmit
 
       - name: Build the Docker image
-        run:
+        run: |
           docker build . --file Dockerfile --tag stxstats-api:$(date +%s)
           # Print docker images so we can check the size
           docker images | grep stxstats-api
