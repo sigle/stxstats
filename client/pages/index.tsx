@@ -3,39 +3,41 @@ import { NbTxsPerDay } from "../components/NbTxsPerDay";
 import { UniqueAddressGrowingPerDay } from "../components/UniqueAddressGrowingPerDay";
 import { Menu } from "../components/Menu";
 import { Container } from "../src/ui/Container";
+import { Box } from "../src/ui/Box";
+import { Heading } from "../src/ui/Heading";
+import { Link } from "../src/ui/Link";
 
 const Home = ({ statsData }: any) => {
   // TODO create real button for this
   const { theme, setTheme } = useTheme();
 
-  // TODO logo for light theme
-
   return (
     <>
       <Container>
-        <div
-          className="logo"
+        <Box
+          css={{ py: "$6" }}
           onClick={() =>
             theme === "dark" ? setTheme("light") : setTheme("dark")
           }
         >
+          {/* TODO logo for light theme */}
           <img
             height={52}
             width={104}
             src={"/images/stx_stats_logo.svg"}
             alt="Stx stats logo"
           />
-        </div>
+        </Box>
 
-        <h1 className="title">
+        <Heading as={"h1"} size={"3xl"} css={{ pt: "$8" }}>
           Get the latest data from Stacks 2.0 blockchain
-        </h1>
-        <p className="subtitle">
+        </Heading>
+        <Heading size={"2xl"} css={{ pt: "$2", fontWeight: 400 }}>
           A project made by{" "}
-          <a href="https://www.sigle.io/" target="_blank" rel="noreferrer">
+          <Link href="https://www.sigle.io/" target="_blank" rel="noreferrer">
             Sigle
-          </a>
-        </p>
+          </Link>
+        </Heading>
 
         <div className="container-grid">
           <div>
