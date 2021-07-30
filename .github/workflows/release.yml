@@ -18,9 +18,6 @@ jobs:
     permissions:
       contents: read
       packages: write
-    defaults:
-      run:
-        working-directory: api
 
     steps:
       - uses: actions/checkout@v2
@@ -42,5 +39,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
+          context: ./api
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
