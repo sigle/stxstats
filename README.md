@@ -12,7 +12,7 @@ This project helps to visualise the growth of the stacks 2.0 blockchain over tim
 
 ### Running stacks docker images
 
-Run `docker-compose up -d`.
+Run `docker-compose -f docker-compose.dev.yml up -d`.
 
 ### Running local client
 
