@@ -1,0 +1,16 @@
+# Stage 1 - build the api server
+FROM node:14-alpine
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+COPY prisma ./prisma
+
+RUN npm install
+
+COPY . .
+
+ENV NODE_ENV production
+
+EXPOSE 4000
+CMD [ "npm", "run", "dev" ]
