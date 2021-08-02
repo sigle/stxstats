@@ -15,37 +15,6 @@
   height: 1rem;
 }
 
-.chart {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-}
-
-.chart-separator {
-  padding-top: 2rem;
-  &:first-child {
-    padding-top: 0;
-  }
-}
-
-.chart-container {
-  position: relative;
-  height: 500px;
-}
-
-.chart-reset {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-}
-
-.chart-description {
-  font-size: 24px;
-  padding-top: 1rem;
-  padding-bottom: 2rem;
-}
-
 .tooltip {
   padding: 0.25rem;
 }
