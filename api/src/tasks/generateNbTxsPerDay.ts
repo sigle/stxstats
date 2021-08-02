@@ -11,6 +11,7 @@ export async function generateNbTxsPerDay(currentData: Result[] | undefined) {
     : startDate;
   const result: Result[] | undefined = [];
 
+  // Loop day by day between both dates
   while (isBefore(iteratorDate, endDate)) {
     const dayAfter = addDays(iteratorDate, 1);
 

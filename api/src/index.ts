@@ -8,15 +8,12 @@ let cacheData: any = false;
 async function generateDataStats() {
   const currentData = readData();
 
-  let nbTxsPerDay: Result[];
-  let uniqueAddressGrowingPerDay: Result[];
-
   console.log("Starting number of transactions...");
-  nbTxsPerDay = await generateNbTxsPerDay(currentData?.nbTxsPerDay);
+  const nbTxsPerDay = await generateNbTxsPerDay(currentData?.nbTxsPerDay);
   console.log("Number of transactions generated");
 
   console.log("Starting number of unique addresses...");
-  uniqueAddressGrowingPerDay = await generateUniqueAddressGrowingPerDay();
+  const uniqueAddressGrowingPerDay = await generateUniqueAddressGrowingPerDay();
   console.log("Number of unique addresses generated");
 
   const fileData = { nbTxsPerDay, uniqueAddressGrowingPerDay };

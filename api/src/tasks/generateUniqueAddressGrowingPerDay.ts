@@ -12,7 +12,6 @@ export async function generateUniqueAddressGrowingPerDay() {
   // Loop day by day between both dates
   while (isBefore(iteratorDate, endDate)) {
     const dayAfter = addDays(iteratorDate, 1);
-
     // Find all the blocks mined on that day
     const blocks = await prisma.blocks.findMany({
       where: {
