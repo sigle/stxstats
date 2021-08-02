@@ -55,7 +55,7 @@ const Home = ({ statsData }: any) => {
             <Menu />
           </div>
           <Box css={{ py: "$4" }}>
-            <Box id="number-of-txs">
+            <Box id="number-of-txs" css={{ pt: "$4" }}>
               <Heading as={"h3"} size={"xl"} css={{ fontWeight: 400 }}>
                 Transactions per day
               </Heading>
@@ -78,7 +78,7 @@ const Home = ({ statsData }: any) => {
               </Box>
             </Box>
 
-            <Box id="unique-addresses" css={{ mt: 48 }}>
+            <Box id="unique-addresses" css={{ mt: 48, pt: "$4" }}>
               <Heading as={"h3"} size={"xl"} css={{ fontWeight: 400 }}>
                 Unique addresses over time
               </Heading>
