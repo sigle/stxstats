@@ -3,21 +3,17 @@ import { prisma } from "../prisma";
 import { startDate, Result } from "../utils";
 
 export async function generateUniqueAddressGrowingPerDay(
-  currentData: Result[]
+  currentData: Result[] | undefined
 ) {
   const endDate = new Date();
-  let iteratorDate = startDate;
+  // We take latest date of from dates already recorded and make
+  // it the iterator date
+  let iteratorDate = currentData
+    ? new Date(currentData[currentData.length - 1].date)
+    : startDate;
   const result: Result[] | undefined = [];
   // Using an object is better for performance here
   const uniqueAddresses: { [key: string]: true } = {};
-
-  const sortedData = currentData.sort((a, b) => {
-    //@ts-ignore
-    return new Date(b.date) - new Date(a.date);
-  });
-  // We take latest date of from dates already recorder and make
-  // it iterator date
-  iteratorDate = new Date(sortedData[0].date);
 
   // Loop day by day between both dates
   while (isBefore(iteratorDate, endDate)) {

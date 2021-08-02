@@ -2,18 +2,14 @@ import { addDays, isBefore, format } from "date-fns";
 import { prisma } from "../prisma";
 import { startDate, Result } from "../utils";
 
-export async function generateNbTxsPerDay(currentData: Result[]) {
+export async function generateNbTxsPerDay(currentData: Result[] | undefined) {
   const endDate = new Date();
-  let iteratorDate = startDate;
+  // We take latest date of from dates already recorded and make
+  // it the iterator date
+  let iteratorDate = currentData
+    ? new Date(currentData[currentData.length - 1].date)
+    : startDate;
   const result: Result[] | undefined = [];
-
-  const sortedData = currentData.sort((a, b) => {
-    //@ts-ignore
-    return new Date(b.date) - new Date(a.date);
-  });
-  // We take latest date of from dates already recorder and make
-  // it iterator date
-  iteratorDate = new Date(sortedData[0].date);
 
   while (isBefore(iteratorDate, endDate)) {
     const dayAfter = addDays(iteratorDate, 1);

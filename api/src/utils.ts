@@ -6,7 +6,10 @@ export interface Result {
 }
 
 // Reading current data.json
-export const readData = function () {
+export const readData = function (): {
+  nbTxsPerDay: Result[];
+  uniqueAddressGrowingPerDay: Result[];
+} {
   const data = readFileSync("./data.json", "utf-8");
   return JSON.parse(data);
 };

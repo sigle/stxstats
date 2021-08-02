@@ -2,22 +2,40 @@ import Fastify from "fastify";
 import fetch from "node-fetch";
 import { generateNbTxsPerDay } from "./tasks/generateNbTxsPerDay";
 import { generateUniqueAddressGrowingPerDay } from "./tasks/generateUniqueAddressGrowingPerDay";
-import { readData, writeData } from "./utils";
+import { readData, Result, writeData } from "./utils";
 
 let cacheData: any = false;
 async function generateDataStats() {
   const currentData = readData();
+
+  let nbTxsPerDay: Result[];
+  let uniqueAddressGrowingPerDay: Result[];
+  let fileData: {
+    nbTxsPerDay: Result[];
+    uniqueAddressGrowingPerDay: Result[];
+  };
+  // First time server starts
   console.log("Starting number of transactions...");
-  const nbTxsPerDay = await generateNbTxsPerDay(currentData.nbTxsPerDay);
-  console.log("Number of transactions generated");
+  if (!currentData) {
+    nbTxsPerDay = await generateNbTxsPerDay(undefined);
+    console.log("Number of transactions generated");
 
-  console.log("Starting number of unique addresses...");
-  const uniqueAddressGrowingPerDay = await generateUniqueAddressGrowingPerDay(
-    currentData.uniqueAddressGrowingPerDay
-  );
+    console.log("Starting number of unique addresses...");
+    uniqueAddressGrowingPerDay = await generateUniqueAddressGrowingPerDay(
+      undefined
+    );
+  } else {
+    // Every next time server starts
+    nbTxsPerDay = await generateNbTxsPerDay(currentData.nbTxsPerDay);
+    console.log("Number of transactions generated");
+
+    console.log("Starting number of unique addresses...");
+    uniqueAddressGrowingPerDay = await generateUniqueAddressGrowingPerDay(
+      currentData.uniqueAddressGrowingPerDay
+    );
+  }
   console.log("Number of unique addresses generated");
-
-  const fileData = { nbTxsPerDay, uniqueAddressGrowingPerDay };
+  fileData = { nbTxsPerDay, uniqueAddressGrowingPerDay };
 
   writeData(fileData);
   cacheData = fileData;
