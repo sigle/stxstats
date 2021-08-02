@@ -12,6 +12,7 @@ import { max, extent, bisector } from "d3-array";
 import { useTooltip, useTooltipInPortal } from "@visx/tooltip";
 import AreaChart from "./AreaChart";
 import { accentColor, accentColorDark, tooltipStyles } from "../styles/visx";
+import { Tooltip, TooltipDate, TooltipText } from "./TooltipChart";
 
 interface StatsData {
   value: number;
@@ -164,12 +165,12 @@ const NbTxsPerDay = ({
           left={tooltipLeft! + 26}
           style={tooltipStyles}
         >
-          <div className="tooltip">
-            <p className="tooltip-date">
+          <Tooltip>
+            <TooltipDate>
               {format(new Date(tooltipData.date), "EEEE, MMMM d, yyyy")}
-            </p>
-            <p className="tooltip-text">{tooltipData.value} transactions</p>
-          </div>
+            </TooltipDate>
+            <TooltipText>{tooltipData.value} transactions</TooltipText>
+          </Tooltip>
         </TooltipInPortal>
       )}
     </>
