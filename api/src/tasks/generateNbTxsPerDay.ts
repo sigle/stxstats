@@ -13,6 +13,7 @@ export async function generateNbTxsPerDay(currentData: Result[] | undefined) {
 
   while (isBefore(iteratorDate, endDate)) {
     const dayAfter = addDays(iteratorDate, 1);
+
     const transactionsCount = await prisma.txs.count({
       where: {
         burn_block_time: {
@@ -21,8 +22,10 @@ export async function generateNbTxsPerDay(currentData: Result[] | undefined) {
         },
       },
     });
+
     const dateFormatted = format(iteratorDate, "yyyy-MM-dd");
     result.push({ date: dateFormatted, value: transactionsCount });
+
     iteratorDate = addDays(iteratorDate, 1);
   }
 
