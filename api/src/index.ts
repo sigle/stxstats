@@ -1,9 +1,8 @@
-import { writeFileSync } from "fs";
 import Fastify from "fastify";
 import fetch from "node-fetch";
 import { generateNbTxsPerDay } from "./tasks/generateNbTxsPerDay";
 import { generateUniqueAddressGrowingPerDay } from "./tasks/generateUniqueAddressGrowingPerDay";
-import { readData } from "./utils";
+import { readData, writeData } from "./utils";
 
 let cacheData: any = false;
 async function generateDataStats() {
@@ -20,7 +19,7 @@ async function generateDataStats() {
 
   const fileData = { nbTxsPerDay, uniqueAddressGrowingPerDay };
 
-  writeFileSync("./data.json", JSON.stringify(fileData), { encoding: "utf-8" });
+  writeData(fileData);
   cacheData = fileData;
 }
 
