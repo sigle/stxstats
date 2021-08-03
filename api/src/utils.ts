@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync } from "fs";
+import { readFileSync, writeFileSync, existsSync } from "fs";
 
 export interface Result {
   date: string;
@@ -12,9 +12,15 @@ export interface FileData {
 }
 
 // Reading current data.json
-export const readData = (): FileData => {
-  const data = readFileSync("./data.json", "utf-8");
-  return JSON.parse(data);
+export const readData = (): FileData | undefined => {
+  const doesDataExist = existsSync("./data.json");
+  if (doesDataExist) {
+    const data = readFileSync("./data.json", "utf-8");
+    return JSON.parse(data);
+  } else {
+    console.log("Current data does not exist");
+    return undefined;
+  }
 };
 
 // Writing to data.json
