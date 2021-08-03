@@ -2,9 +2,10 @@ import Fastify from "fastify";
 import fetch from "node-fetch";
 import { generateNbTxsPerDay } from "./tasks/generateNbTxsPerDay";
 import { generateUniqueAddressGrowingPerDay } from "./tasks/generateUniqueAddressGrowingPerDay";
-import { readData, Result, writeData } from "./utils";
+import { generateTxsFeePerDay } from "./tasks/generateTxsFeePerDay";
+import { readData, writeData, FileData } from "./utils";
 
-let cacheData: any = false;
+let cacheData: FileData | false = false;
 async function generateDataStats() {
   const currentData = readData();
 
@@ -16,7 +17,15 @@ async function generateDataStats() {
   const uniqueAddressGrowingPerDay = await generateUniqueAddressGrowingPerDay();
   console.log("Number of unique addresses generated");
 
-  const fileData = { nbTxsPerDay, uniqueAddressGrowingPerDay };
+  console.log("Starting total fees...");
+  const txsFeePerDay = await generateTxsFeePerDay(currentData?.txsFeePerDay);
+  console.log("Total fees generated");
+
+  const fileData = {
+    nbTxsPerDay,
+    uniqueAddressGrowingPerDay,
+    txsFeePerDay,
+  };
 
   writeData(fileData);
   cacheData = fileData;
