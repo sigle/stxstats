@@ -5,7 +5,7 @@ import { startDate, Result } from "../utils";
 export async function generateUniqueAddressGrowingPerDay() {
   const endDate = new Date();
   let iteratorDate = startDate;
-  const result: Result[] | undefined = [];
+  const result: Result[] = [];
   // Using an object is better for performance here
   const uniqueAddresses: { [key: string]: true } = {};
 
