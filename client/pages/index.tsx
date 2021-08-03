@@ -105,16 +105,28 @@ const Home = ({ statsData }: any) => {
               </Box>
             </Box>
 
-            <div className="chart-separator">
-              <div id="transactions-fee">
-                <p className="chart-description">Transactions fee</p>
-                <div className="chart-container">
-                  <div className="chart-reset">
-                    <TxsFeePerDay statsData={statsData.txsFeePerDay} />
-                  </div>
-                </div>
-              </div>
-            </div>
+            <Box id="transactions-fee" css={{ mt: 48, pt: "$4" }}>
+              <Heading as={"h3"} size={"xl"} css={{ fontWeight: 400 }}>
+                Transactions fee
+              </Heading>
+              <Text size={"sm"} css={{ mt: "$1" }}>
+                The chart shows the historical total number of Stacks paid as
+                transaction fee daily.
+              </Text>
+              <Box css={{ position: "relative", height: 500, mt: "$4" }}>
+                <Box
+                  css={{
+                    position: "absolute",
+                    width: "100%",
+                    height: "100%",
+                    left: 0,
+                    top: 0,
+                  }}
+                >
+                  <TxsFeePerDay statsData={statsData.txsFeePerDay} />
+                </Box>
+              </Box>
+            </Box>
           </Box>
         </Box>
       </Container>

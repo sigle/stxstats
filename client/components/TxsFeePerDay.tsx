@@ -13,6 +13,7 @@ import { useTooltip, useTooltipInPortal } from "@visx/tooltip";
 import AreaChart from "./AreaChart";
 import { accentColor, accentColorDark, tooltipStyles } from "../styles/visx";
 import { microToStacks } from "../src/utils";
+import { Tooltip, TooltipDate, TooltipText } from "./TooltipChart";
 
 interface StatsData {
   value: number;
@@ -172,12 +173,12 @@ const TxsFeePerDay = ({
           left={tooltipLeft! + 26}
           style={tooltipStyles}
         >
-          <div className="tooltip">
-            <p className="tooltip-date">
+          <Tooltip>
+            <TooltipDate>
               {format(new Date(tooltipData.date), "EEEE, MMMM d, yyyy")}
-            </p>
-            <p className="tooltip-text">{tooltipData.value} STX</p>
-          </div>
+            </TooltipDate>
+            <TooltipText>{tooltipData.value} STX</TooltipText>
+          </Tooltip>
         </TooltipInPortal>
       )}
     </>
