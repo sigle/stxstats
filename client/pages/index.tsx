@@ -1,6 +1,7 @@
 import { useTheme } from "next-themes";
 import { NbTxsPerDay } from "../components/NbTxsPerDay";
 import { UniqueAddressGrowingPerDay } from "../components/UniqueAddressGrowingPerDay";
+import { TxsFeePerDay } from "../components/TxsFeePerDay";
 import { Menu } from "../components/Menu";
 import { Container } from "../src/ui/Container";
 import { Box } from "../src/ui/Box";
@@ -103,6 +104,17 @@ const Home = ({ statsData }: any) => {
                 </Box>
               </Box>
             </Box>
+
+            <div className="chart-separator">
+              <div id="transactions-fee">
+                <p className="chart-description">Transactions fee</p>
+                <div className="chart-container">
+                  <div className="chart-reset">
+                    <TxsFeePerDay statsData={statsData.txsFeePerDay} />
+                  </div>
+                </div>
+              </div>
+            </div>
           </Box>
         </Box>
       </Container>

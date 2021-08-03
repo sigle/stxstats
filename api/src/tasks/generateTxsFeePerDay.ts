@@ -1,8 +1,8 @@
 import { addDays, isBefore, format } from "date-fns";
 import { prisma } from "../prisma";
-import { startDate, Result } from "../utils";
+import { Result, startDate } from "../utils";
 
-export async function generateNbTxsPerDay(currentData: Result[] | undefined) {
+export async function generateTxsFeePerDay(currentData: Result[] | undefined) {
   const endDate = new Date();
   // We take latest date of from dates already recorded and make
   // it the iterator date
@@ -15,17 +15,25 @@ export async function generateNbTxsPerDay(currentData: Result[] | undefined) {
   while (isBefore(iteratorDate, endDate)) {
     const dayAfter = addDays(iteratorDate, 1);
 
-    const transactionsCount = await prisma.txs.count({
+    const transactions = await prisma.txs.findMany({
       where: {
         burn_block_time: {
           gte: iteratorDate.getTime() / 1000,
           lt: dayAfter.getTime() / 1000,
         },
       },
+      select: {
+        fee_rate: true,
+      },
+    });
+
+    let totalFee = BigInt(0);
+    transactions.forEach((transaction) => {
+      totalFee += transaction.fee_rate;
     });
 
     const dateFormatted = format(iteratorDate, "yyyy-MM-dd");
-    result.push({ date: dateFormatted, value: transactionsCount });
+    result.push({ date: dateFormatted, value: Number(totalFee) });
 
     iteratorDate = addDays(iteratorDate, 1);
   }

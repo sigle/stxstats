@@ -37,10 +37,20 @@ export const MenuItem = ({
     anchorTarget?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  const name =
-    itemName === "number-of-txs"
-      ? "Number of transactions"
-      : "Unique addresses";
+  let name = "";
+  switch (itemName) {
+    case "number-of-txs":
+      name = "Number of transactions";
+      break;
+    case "unique-addresses":
+      name = "Unique addresses";
+      break;
+    case "transactions-fee":
+      name = "Transaction Fees";
+      break;
+    default:
+      throw new Error(`Unknown item ${itemName}`);
+  }
 
   /*
    * Return the MenuItem as JSX

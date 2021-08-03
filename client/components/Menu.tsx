@@ -15,6 +15,7 @@ import { MenuItem } from "./MenuItem";
 const menuItems: { [key: string]: any } = {
   "number-of-txs": null,
   "unique-addresses": null,
+  "transactions-fee": null,
 };
 
 /*
