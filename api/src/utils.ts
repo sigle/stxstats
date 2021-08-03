@@ -8,6 +8,7 @@ export interface Result {
 export interface FileData {
   nbTxsPerDay: Result[];
   uniqueAddressGrowingPerDay: Result[];
+  txsFeePerDay: Result[];
 }
 
 // Reading current data.json

@@ -1,11 +1,15 @@
 import { addDays, isBefore, format } from "date-fns";
 import { prisma } from "../prisma";
-import { startDate } from "../utils";
+import { Result, startDate } from "../utils";
 
-export async function generateTxsFeePerDay() {
+export async function generateTxsFeePerDay(currentData: Result[] | undefined) {
   const endDate = new Date();
-  let iteratorDate = startDate;
-  const result = [];
+  // We take latest date of from dates already recorded and make
+  // it the iterator date
+  let iteratorDate = currentData
+    ? new Date(currentData[currentData.length - 1].date)
+    : startDate;
+  const result: Result[] = [];
 
   // Loop day by day between both dates
   while (isBefore(iteratorDate, endDate)) {

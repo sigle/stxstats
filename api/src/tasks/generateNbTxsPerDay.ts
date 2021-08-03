@@ -9,7 +9,7 @@ export async function generateNbTxsPerDay(currentData: Result[] | undefined) {
   let iteratorDate = currentData
     ? new Date(currentData[currentData.length - 1].date)
     : startDate;
-  const result: Result[] | undefined = [];
+  const result: Result[] = [];
 
   // Loop day by day between both dates
   while (isBefore(iteratorDate, endDate)) {
