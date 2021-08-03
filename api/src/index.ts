@@ -3,9 +3,9 @@ import fetch from "node-fetch";
 import { generateNbTxsPerDay } from "./tasks/generateNbTxsPerDay";
 import { generateUniqueAddressGrowingPerDay } from "./tasks/generateUniqueAddressGrowingPerDay";
 import { generateTxsFeePerDay } from "./tasks/generateTxsFeePerDay";
-import { readData, writeData } from "./utils";
+import { readData, writeData, FileData } from "./utils";
 
-let cacheData: any = false;
+let cacheData: FileData | false = false;
 async function generateDataStats() {
   const currentData = readData();
 

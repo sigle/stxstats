@@ -5,20 +5,19 @@ export interface Result {
   value: number;
 }
 
-// Reading current data.json
-export const readData = function (): {
+export interface FileData {
   nbTxsPerDay: Result[];
   uniqueAddressGrowingPerDay: Result[];
-} {
+}
+
+// Reading current data.json
+export const readData = (): FileData => {
   const data = readFileSync("./data.json", "utf-8");
   return JSON.parse(data);
 };
 
 // Writing to data.json
-export const writeData = function (fileData: {
-  nbTxsPerDay: Result[];
-  uniqueAddressGrowingPerDay: Result[];
-}) {
+export const writeData = function (fileData: FileData) {
   writeFileSync("./data.json", JSON.stringify(fileData), {
     encoding: "utf-8",
   });
