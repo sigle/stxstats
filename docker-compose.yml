@@ -1,4 +1,4 @@
-version: "3.6"
+version: "3.7"
 services:
   stacks-blockchain:
     image: blockstack/stacks-blockchain:2.0.11.2.0
