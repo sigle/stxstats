@@ -1,11 +1,11 @@
 import { addDays, isBefore, format } from "date-fns";
 import { prisma } from "../prisma";
-import { startDate } from "../utils";
+import { startDate, Result } from "../utils";
 
 export async function generateUniqueAddressGrowingPerDay() {
   const endDate = new Date();
   let iteratorDate = startDate;
-  const result = [];
+  const result: Result[] = [];
   // Using an object is better for performance here
   const uniqueAddresses: { [key: string]: true } = {};
 
