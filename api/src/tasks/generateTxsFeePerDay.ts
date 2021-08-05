@@ -13,7 +13,10 @@ export async function generateTxsFeePerDay(currentData: Result[] | undefined) {
 
   // We remove the last day to make sure that if server restarts on same
   // day the latest data is overwritten
-  if (currentData) {
+  if (
+    currentData &&
+    new Date(currentData[currentData.length - 1].date) === endDate
+  ) {
     currentData.pop();
   }
 
