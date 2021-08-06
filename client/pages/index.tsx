@@ -57,7 +57,7 @@ const Home = ({ statsData }: any) => {
 
             <div className="chart-separator">
               <div id="transactions-fee">
-                <p className="chart-description">Transactions fee</p>
+                <p className="chart-description">Transactions fees</p>
                 <div className="chart-container">
                   <div className="chart-reset">
                     <TxsFeePerDay statsData={statsData.txsFeePerDay} />
