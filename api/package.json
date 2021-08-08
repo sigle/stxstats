@@ -10,14 +10,19 @@
   },
   "dependencies": {
     "@prisma/client": "2.20.1",
+    "bree": "6.2.1",
     "date-fns": "2.22.1",
+    "dotenv": "10.0.0",
     "fastify": "3.18.1",
     "node-fetch": "2.6.1",
-    "prisma": "2.20.1"
+    "prisma": "2.20.1",
+    "twit": "2.2.11"
   },
   "devDependencies": {
+    "@types/bree": "6.2.1",
     "@types/node": "15.12.4",
     "@types/node-fetch": "2.5.10",
+    "@types/twit": "2.2.30",
     "nodemon": "2.0.12",
     "ts-node": "10.0.0",
     "typescript": "4.3.4"

@@ -1,9 +1,11 @@
+require("dotenv").config();
 import Fastify from "fastify";
 import fetch from "node-fetch";
 import { generateNbTxsPerDay } from "./tasks/generateNbTxsPerDay";
 import { generateUniqueAddressGrowingPerDay } from "./tasks/generateUniqueAddressGrowingPerDay";
 import { generateTxsFeePerDay } from "./tasks/generateTxsFeePerDay";
 import { readData, writeData, FileData } from "./utils";
+import { bree } from "../src/twitterBot/bree";
 
 let cacheData: FileData | false = false;
 async function generateDataStats() {
@@ -93,4 +95,5 @@ fastify.get<{ Querystring: { token: string } }>(
 fastify.listen(4000, "0.0.0.0", (err, address) => {
   if (err) throw err;
   console.log(`Server is now listening on ${address}`);
+  bree.start();
 });
