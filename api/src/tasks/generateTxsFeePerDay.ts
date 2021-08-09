@@ -1,4 +1,4 @@
-import { addDays, isBefore, format } from "date-fns";
+import { addDays, isBefore, format, getDate } from "date-fns";
 import { prisma } from "../prisma";
 import { Result, startDate } from "../utils";
 
@@ -15,7 +15,8 @@ export async function generateTxsFeePerDay(currentData: Result[] | undefined) {
   // day the latest data is overwritten
   if (
     currentData &&
-    new Date(currentData[currentData.length - 1].date) === endDate
+    getDate(new Date(currentData[currentData.length - 1].date)) ===
+      getDate(endDate)
   ) {
     currentData.pop();
   }
