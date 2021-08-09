@@ -34,3 +34,12 @@ export const writeData = function (fileData: FileData) {
  * First day of stacks 2.0
  */
 export const startDate = new Date(2021, 0, 14);
+
+// Comparing dates to prevent duplication
+export const areDatesTheSameDay = (a: Date, b: Date) => {
+  if (a.toString().slice(0, 10) === b.toString().slice(0, 10)) {
+    return true;
+  } else {
+    return false;
+  }
+};
