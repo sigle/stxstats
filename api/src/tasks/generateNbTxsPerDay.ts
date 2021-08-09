@@ -1,6 +1,6 @@
-import { addDays, isBefore, format } from "date-fns";
+import { addDays, isBefore, format, isSameDay } from "date-fns";
 import { prisma } from "../prisma";
-import { startDate, Result, areDatesTheSameDay } from "../utils";
+import { startDate, Result } from "../utils";
 
 export async function generateNbTxsPerDay(currentData: Result[] | undefined) {
   const endDate = new Date();
@@ -15,10 +15,7 @@ export async function generateNbTxsPerDay(currentData: Result[] | undefined) {
   // day the latest data is overwritten
   if (
     currentData &&
-    areDatesTheSameDay(
-      new Date(currentData[currentData.length - 1].date),
-      endDate
-    )
+    isSameDay(new Date(currentData[currentData.length - 1].date), endDate)
   ) {
     currentData.pop();
   }
