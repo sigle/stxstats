@@ -8,7 +8,7 @@ if (currentData) {
   const { nbTxsPerDay, uniqueAddressGrowingPerDay, txsFeePerDay } = currentData;
   tweet(
     // Date of the day before ( to make sure we have all the data )
-    `Stats from stacks 2.0 blockchain on ${format(
+    `Stats from Stacks 2.0 blockchain on ${format(
       subDays(new Date(), 1),
       "yyyy-MM-dd"
     )} :\n  
