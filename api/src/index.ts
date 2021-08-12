@@ -5,11 +5,20 @@ import { generateNbTxsPerDay } from "./tasks/generateNbTxsPerDay";
 import { generateUniqueAddressGrowingPerDay } from "./tasks/generateUniqueAddressGrowingPerDay";
 import { generateTxsFeePerDay } from "./tasks/generateTxsFeePerDay";
 import { readData, writeData, FileData } from "./utils";
-import { bree } from "../src/twitterBot/bree";
+import { tweetStats } from "../src/twitterBot/bullQueue";
 
 let cacheData: FileData | false = false;
 async function generateDataStats() {
   const currentData = readData();
+  if (currentData) {
+    await tweetStats
+      .add(
+        "tweet-stats",
+        { currentData: currentData },
+        { repeat: { cron: "* * * * *" } }
+      )
+      .catch((err) => console.log(err));
+  }
 
   console.log("Starting number of transactions...");
   const nbTxsPerDay = await generateNbTxsPerDay(currentData?.nbTxsPerDay);
@@ -95,5 +104,4 @@ fastify.get<{ Querystring: { token: string } }>(
 fastify.listen(4000, "0.0.0.0", (err, address) => {
   if (err) throw err;
   console.log(`Server is now listening on ${address}`);
-  bree.start();
 });

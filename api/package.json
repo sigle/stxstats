@@ -10,16 +10,19 @@
   },
   "dependencies": {
     "@prisma/client": "2.20.1",
-    "bree": "6.2.1",
+    "bullmq": "1.9.0",
     "date-fns": "2.22.1",
+    "debug": "4.3.2",
     "dotenv": "10.0.0",
     "fastify": "3.18.1",
+    "ioredis": "4.27.7",
     "node-fetch": "2.6.1",
     "prisma": "2.20.1",
     "twit": "2.2.11"
   },
   "devDependencies": {
-    "@types/bree": "6.2.1",
+    "@types/bull": "^3.15.3",
+    "@types/debug": "^4.1.7",
     "@types/node": "15.12.4",
     "@types/node-fetch": "2.5.10",
     "@types/twit": "2.2.30",

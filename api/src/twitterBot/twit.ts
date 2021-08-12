@@ -12,6 +12,7 @@ export const T = new Twit({
 export const tweet = (status: string) => {
   T.post("statuses/update", { status }, function (err, data, response) {
     console.log(err);
-    console.log(data);
+    //@ts-ignore
+    console.log(data.id);
   });
 };
