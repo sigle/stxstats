@@ -53,17 +53,25 @@ services:
     networks:
       - stacks-blockchain
 
+  redis:
+    # TODO protect via password
+    image: "redis:5"
+    ports:
+      - "6379:6379"
+
   api:
     image: ghcr.io/sigle/stxstats:main
     ports:
       - "4000:4000"
     environment:
       DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/postgres?schema=public"
+      REDIS_URL: "redis://redis:6379"
       TOKEN: "token-dev"
     networks:
       - stacks-blockchain
     depends_on:
       - postgres
+      - redis
 
 volumes:
   db_data:

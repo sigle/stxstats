@@ -5,46 +5,47 @@ import { generateNbTxsPerDay } from "./tasks/generateNbTxsPerDay";
 import { generateUniqueAddressGrowingPerDay } from "./tasks/generateUniqueAddressGrowingPerDay";
 import { generateTxsFeePerDay } from "./tasks/generateTxsFeePerDay";
 import { readData, writeData, FileData } from "./utils";
-import { tweetStats } from "../src/twitterBot/bullQueue";
+import {
+  tweetStatsQueue,
+  tweetStatsQueueScheduler,
+} from "../src/twitterBot/bullQueue";
 
 let cacheData: FileData | false = false;
 async function generateDataStats() {
-  const currentData = readData();
-  if (currentData) {
-    await tweetStats
-      .add(
-        "tweet-stats",
-        { currentData: currentData },
-        { repeat: { cron: "* * * * *" } }
-      )
-      .catch((err) => console.log(err));
-  }
-
-  console.log("Starting number of transactions...");
-  const nbTxsPerDay = await generateNbTxsPerDay(currentData?.nbTxsPerDay);
-  console.log("Number of transactions generated");
-
-  console.log("Starting number of unique addresses...");
-  const uniqueAddressGrowingPerDay = await generateUniqueAddressGrowingPerDay();
-  console.log("Number of unique addresses generated");
-
-  console.log("Starting total fees...");
-  const txsFeePerDay = await generateTxsFeePerDay(currentData?.txsFeePerDay);
-  console.log("Total fees generated");
-
-  const fileData = {
-    nbTxsPerDay,
-    uniqueAddressGrowingPerDay,
-    txsFeePerDay,
-  };
-
-  writeData(fileData);
-  cacheData = fileData;
+  // const currentData = readData();
+  // console.log("Starting number of transactions...");
+  // const nbTxsPerDay = await generateNbTxsPerDay(currentData?.nbTxsPerDay);
+  // console.log("Number of transactions generated");
+  // console.log("Starting number of unique addresses...");
+  // const uniqueAddressGrowingPerDay = await generateUniqueAddressGrowingPerDay();
+  // console.log("Number of unique addresses generated");
+  // console.log("Starting total fees...");
+  // const txsFeePerDay = await generateTxsFeePerDay(currentData?.txsFeePerDay);
+  // console.log("Total fees generated");
+  // const fileData = {
+  //   nbTxsPerDay,
+  //   uniqueAddressGrowingPerDay,
+  //   txsFeePerDay,
+  // };
+  // writeData(fileData);
+  // cacheData = fileData;
 }
 
 generateDataStats()
-  .then(() => {
+  .then(async () => {
     console.log("First data generated");
+
+    console.log({ work: await tweetStatsQueue.getRepeatableJobs() });
+    await tweetStatsQueueScheduler.close();
+    console.log({ work: await tweetStatsQueue.getRepeatableJobs() });
+
+    // After first data is generated we can setup the various cron jobs
+    await tweetStatsQueue.add(
+      "tweet-stats",
+      {},
+      { repeat: { cron: "* * * * *" } }
+    );
+    console.log({ work: await tweetStatsQueue.getRepeatableJobs() });
   })
   .catch((e) => {
     throw e;

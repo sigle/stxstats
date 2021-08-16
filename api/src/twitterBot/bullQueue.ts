@@ -1,5 +1,5 @@
 import { FileData } from "./../utils";
-import { Worker, Queue } from "bullmq";
+import { Worker, Queue, QueueScheduler } from "bullmq";
 import createDebug from "debug";
 import Redis from "ioredis";
 import { format, subDays } from "date-fns";
@@ -10,20 +10,18 @@ const queueName = "tweet-stats";
 const debug = createDebug(`queue:${queueName}`);
 const redisClient = new Redis();
 
-//5432, "23.88.56.241"
-interface QueueArgs {
-  currentData: FileData;
-}
-
-export const tweetStats = new Queue<QueueArgs>(queueName, {
+export const tweetStatsQueueScheduler = new QueueScheduler(queueName, {
   connection: redisClient,
 });
-console.log("before starting worker");
+export const tweetStatsQueue = new Queue<{}>(queueName, {
+  connection: redisClient,
+});
 
 const worker = new Worker(
   queueName,
   async (job) => {
     console.log("gets here");
+    return;
     const { currentData } = job.data;
 
     const { nbTxsPerDay, uniqueAddressGrowingPerDay, txsFeePerDay } =
@@ -56,5 +54,5 @@ ${microToStacks(
 worker.on("failed", async (job, err) => {
   const { status } = job.data;
 
-  debug(`${job.id} has failed for for ${status}   : ${err.message}`);
+  debug(`${job.id} has failed for for ${status}: ${err.message}`);
 });
