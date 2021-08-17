@@ -10,9 +10,8 @@ export const T = new Twit({
 });
 
 export const tweet = (status: string) => {
-  T.post("statuses/update", { status }, function (err, data, response) {
+  T.post("statuses/update", { status }, function (err, data: any, response) {
     console.log(err);
-    const id = { data };
-    console.log(`https://twitter.com/stxstats/sttatus/${id}`);
+    console.log(`https://twitter.com/stxstats/status/${data.id_str}`);
   });
 };

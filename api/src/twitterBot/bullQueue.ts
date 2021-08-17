@@ -1,10 +1,9 @@
-import { FileData } from "./../utils";
 import { Worker, Queue, QueueScheduler } from "bullmq";
 import createDebug from "debug";
 import Redis from "ioredis";
 import { format, subDays } from "date-fns";
 import { tweet } from "./twit";
-import { microToStacks } from "../utils";
+import { microToStacks, readData } from "../utils";
 
 const queueName = "tweet-stats";
 const debug = createDebug(`queue:${queueName}`);
@@ -17,10 +16,15 @@ export const tweetStatsQueue = new Queue<{}>(queueName, {
   connection: redisClient,
 });
 
+const currentData = readData();
+
 const worker = new Worker(
   queueName,
   async (job) => {
-    const { currentData } = job.data;
+    if (!currentData) {
+      debug("No current data about STX blockchain available");
+      return;
+    }
 
     const { nbTxsPerDay, uniqueAddressGrowingPerDay, txsFeePerDay } =
       currentData;
