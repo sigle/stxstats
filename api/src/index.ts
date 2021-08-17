@@ -1,3 +1,4 @@
+require("dotenv").config();
 import Fastify from "fastify";
 import fetch from "node-fetch";
 import { generateNbTxsPerDay } from "./tasks/generateNbTxsPerDay";
@@ -5,36 +6,47 @@ import { generateUniqueAddressGrowingPerDay } from "./tasks/generateUniqueAddres
 import { generateTxsFeePerDay } from "./tasks/generateTxsFeePerDay";
 import { readData, writeData, FileData } from "./utils";
 import { config } from "./config";
+import { tweetStatsQueue } from "../src/twitterBot/bullQueue";
 
 let cacheData: FileData | false = false;
 async function generateDataStats() {
   const currentData = readData();
-
   console.log("Starting number of transactions...");
   const nbTxsPerDay = await generateNbTxsPerDay(currentData?.nbTxsPerDay);
   console.log("Number of transactions generated");
-
   console.log("Starting number of unique addresses...");
   const uniqueAddressGrowingPerDay = await generateUniqueAddressGrowingPerDay();
   console.log("Number of unique addresses generated");
-
   console.log("Starting total fees...");
   const txsFeePerDay = await generateTxsFeePerDay(currentData?.txsFeePerDay);
   console.log("Total fees generated");
-
   const fileData = {
     nbTxsPerDay,
     uniqueAddressGrowingPerDay,
     txsFeePerDay,
   };
-
   writeData(fileData);
   cacheData = fileData;
 }
 
 generateDataStats()
-  .then(() => {
+  .then(async () => {
     console.log("First data generated");
+    const jobs = await tweetStatsQueue.getRepeatableJobs();
+
+    if (jobs) {
+      for await (let job of jobs) {
+        tweetStatsQueue.removeRepeatableByKey(job.key);
+      }
+    }
+
+    // After first data is generated we can setup the various cron jobs
+    await tweetStatsQueue.add(
+      "tweet-stats",
+      {},
+      // every day at 10PM
+      { repeat: { cron: "0 22 * * *" } }
+    );
   })
   .catch((e) => {
     throw e;

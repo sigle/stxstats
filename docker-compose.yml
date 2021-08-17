@@ -18,9 +18,9 @@ services:
       NODE_ENV: production
       PG_HOST: postgres
       PG_PORT: 5432
-      PG_USER: postgres
-      PG_PASSWORD: postgres
-      PG_DATABASE: postgres
+      PG_USER: "${POSTGRES_USER}"
+      PG_PASSWORD: "${POSTGRES_PASSWORD}"
+      PG_DATABASE: "${POSTGRES_DB}"
       STACKS_CHAIN_ID: 0x00000001
       V2_POX_MIN_AMOUNT_USTX: 90000000260
       STACKS_CORE_EVENT_PORT: 3700
@@ -46,24 +46,32 @@ services:
     volumes:
       - ./stacks-node/persistent-data/postgres:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      POSTGRES_DB: "${POSTGRES_DB}"
       POSTGRES_PORT: 5432
     networks:
       - stacks-blockchain
+
+  redis:
+    # TODO protect via password
+    image: "redis:5"
+    ports:
+      - "6379:6379"
 
   api:
     image: ghcr.io/sigle/stxstats:main
     ports:
       - "4000:4000"
     environment:
-      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/postgres?schema=public"
-      TOKEN: "token-dev"
+      DATABASE_URL: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?schema=public"
+      TOKEN: "${TOKEN}"
+      REBUILD_WEBHOOK_URL: "${REBUILD_WEBHOOK_URL}"
     networks:
       - stacks-blockchain
     depends_on:
       - postgres
+      - redis
 
 volumes:
   db_data:
