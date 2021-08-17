@@ -34,12 +34,14 @@ async function generateDataStats() {
 generateDataStats()
   .then(async () => {
     console.log("First data generated");
+    const jobs = await tweetStatsQueue.getRepeatableJobs();
 
-    ({
-      work: await tweetStatsQueue.removeRepeatableByKey(
-        `tweet-stats::::0 22 * * *`
-      ),
-    });
+    if (jobs) {
+      for await (let job of jobs) {
+        tweetStatsQueue.removeRepeatableByKey(job.key);
+      }
+    }
+
     await tweetStatsQueueScheduler.close();
 
     // After first data is generated we can setup the various cron jobs
