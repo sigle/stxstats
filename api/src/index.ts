@@ -40,10 +40,7 @@ generateDataStats()
         `tweet-stats::::0 22 * * *`
       ),
     });
-
-    console.log({ work: await tweetStatsQueue.getRepeatableJobs() });
     await tweetStatsQueueScheduler.close();
-    console.log({ work: await tweetStatsQueue.getRepeatableJobs() });
 
     // After first data is generated we can setup the various cron jobs
     await tweetStatsQueue.add(
@@ -52,7 +49,6 @@ generateDataStats()
       // every day at 10PM
       { repeat: { cron: "0 22 * * *" } }
     );
-    console.log({ work: await tweetStatsQueue.getRepeatableJobs() });
   })
   .catch((e) => {
     throw e;
