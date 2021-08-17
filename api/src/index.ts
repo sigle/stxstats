@@ -6,7 +6,7 @@ import { generateUniqueAddressGrowingPerDay } from "./tasks/generateUniqueAddres
 import { generateTxsFeePerDay } from "./tasks/generateTxsFeePerDay";
 import { readData, writeData, FileData } from "./utils";
 import { config } from "./config";
-import { tweetStatsQueue } from "../src/twitterBot/bullQueue";
+import { tweetStatsQueue } from "./twitterBot/bullQueue";
 
 let cacheData: FileData | false = false;
 async function generateDataStats() {
