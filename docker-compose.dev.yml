@@ -53,6 +53,12 @@ services:
     networks:
       - stacks-blockchain
 
+  redis:
+    # TODO protect via password
+    image: "redis:5"
+    ports:
+      - "6379:6379"
+
   api:
     build:
       context: ./api
