@@ -16,11 +16,10 @@ export const tweetStatsQueue = new Queue<{}>(queueName, {
   connection: redisClient,
 });
 
-const currentData = readData();
-
 const worker = new Worker(
   queueName,
   async (job) => {
+    const currentData = readData();
     if (!currentData) {
       debug("No current data about STX blockchain available");
       return;

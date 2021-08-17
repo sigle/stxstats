@@ -5,10 +5,7 @@ import { generateNbTxsPerDay } from "./tasks/generateNbTxsPerDay";
 import { generateUniqueAddressGrowingPerDay } from "./tasks/generateUniqueAddressGrowingPerDay";
 import { generateTxsFeePerDay } from "./tasks/generateTxsFeePerDay";
 import { readData, writeData, FileData } from "./utils";
-import {
-  tweetStatsQueue,
-  tweetStatsQueueScheduler,
-} from "../src/twitterBot/bullQueue";
+import { tweetStatsQueue } from "../src/twitterBot/bullQueue";
 
 let cacheData: FileData | false = false;
 async function generateDataStats() {
@@ -41,8 +38,6 @@ generateDataStats()
         tweetStatsQueue.removeRepeatableByKey(job.key);
       }
     }
-
-    await tweetStatsQueueScheduler.close();
 
     // After first data is generated we can setup the various cron jobs
     await tweetStatsQueue.add(
