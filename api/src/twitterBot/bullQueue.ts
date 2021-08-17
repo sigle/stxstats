@@ -20,8 +20,6 @@ export const tweetStatsQueue = new Queue<{}>(queueName, {
 const worker = new Worker(
   queueName,
   async (job) => {
-    console.log("gets here");
-    return;
     const { currentData } = job.data;
 
     const { nbTxsPerDay, uniqueAddressGrowingPerDay, txsFeePerDay } =

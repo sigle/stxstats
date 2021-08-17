@@ -12,28 +12,34 @@ import {
 
 let cacheData: FileData | false = false;
 async function generateDataStats() {
-  // const currentData = readData();
-  // console.log("Starting number of transactions...");
-  // const nbTxsPerDay = await generateNbTxsPerDay(currentData?.nbTxsPerDay);
-  // console.log("Number of transactions generated");
-  // console.log("Starting number of unique addresses...");
-  // const uniqueAddressGrowingPerDay = await generateUniqueAddressGrowingPerDay();
-  // console.log("Number of unique addresses generated");
-  // console.log("Starting total fees...");
-  // const txsFeePerDay = await generateTxsFeePerDay(currentData?.txsFeePerDay);
-  // console.log("Total fees generated");
-  // const fileData = {
-  //   nbTxsPerDay,
-  //   uniqueAddressGrowingPerDay,
-  //   txsFeePerDay,
-  // };
-  // writeData(fileData);
-  // cacheData = fileData;
+  const currentData = readData();
+  console.log("Starting number of transactions...");
+  const nbTxsPerDay = await generateNbTxsPerDay(currentData?.nbTxsPerDay);
+  console.log("Number of transactions generated");
+  console.log("Starting number of unique addresses...");
+  const uniqueAddressGrowingPerDay = await generateUniqueAddressGrowingPerDay();
+  console.log("Number of unique addresses generated");
+  console.log("Starting total fees...");
+  const txsFeePerDay = await generateTxsFeePerDay(currentData?.txsFeePerDay);
+  console.log("Total fees generated");
+  const fileData = {
+    nbTxsPerDay,
+    uniqueAddressGrowingPerDay,
+    txsFeePerDay,
+  };
+  writeData(fileData);
+  cacheData = fileData;
 }
 
 generateDataStats()
   .then(async () => {
     console.log("First data generated");
+
+    ({
+      work: await tweetStatsQueue.removeRepeatableByKey(
+        `tweet-stats::::0 22 * * *`
+      ),
+    });
 
     console.log({ work: await tweetStatsQueue.getRepeatableJobs() });
     await tweetStatsQueueScheduler.close();
@@ -43,7 +49,8 @@ generateDataStats()
     await tweetStatsQueue.add(
       "tweet-stats",
       {},
-      { repeat: { cron: "* * * * *" } }
+      // every day at 10PM
+      { repeat: { cron: "0 22 * * *" } }
     );
     console.log({ work: await tweetStatsQueue.getRepeatableJobs() });
   })
