@@ -54,8 +54,8 @@ services:
       - stacks-blockchain
 
   redis:
-    # TODO protect via password
     image: "redis:5"
+    command: "redis-server --requirepass ${REDIS_PASSWORD}"
     ports:
       - "6379:6379"
 
@@ -65,6 +65,7 @@ services:
       - "4000:4000"
     environment:
       DATABASE_URL: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?schema=public"
+      REDIS_PASSWORD: "${REDIS_PASSWORD}"
       TOKEN: "${TOKEN}"
       REBUILD_WEBHOOK_URL: "${REBUILD_WEBHOOK_URL}"
     networks:

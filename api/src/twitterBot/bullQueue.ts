@@ -4,10 +4,11 @@ import Redis from "ioredis";
 import { format, subDays } from "date-fns";
 import { tweet } from "./twit";
 import { microToStacks, readData } from "../utils";
+import { config } from "../config";
 
 const queueName = "tweet-stats";
 const debug = createDebug(`queue:${queueName}`);
-const redisClient = new Redis();
+const redisClient = new Redis({ password: config.REDIS_PASSWORD });
 
 export const tweetStatsQueueScheduler = new QueueScheduler(queueName, {
   connection: redisClient,
@@ -18,7 +19,7 @@ export const tweetStatsQueue = new Queue<{}>(queueName, {
 
 const worker = new Worker(
   queueName,
-  async (job) => {
+  async () => {
     const currentData = readData();
     if (!currentData) {
       debug("No current data about STX blockchain available");

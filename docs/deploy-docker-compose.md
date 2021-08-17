@@ -13,10 +13,12 @@ git clone https://github.com/sigle/stxstats.git && cd stxstats
 Create a new `.env` file at the root of the repo and set the following environment variables.
 
 ```
-# Variables to secure postgres access
+# Variables used to secure postgres access
 POSTGRES_USER=
 POSTGRES_PASSWORD=
 POSTGRES_DB=
+# Variables used to secure redis access
+REDIS_PASSWORD=
 # Variables used by the api
 TOKEN=
 REBUILD_WEBHOOK_URL=
