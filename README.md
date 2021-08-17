@@ -20,8 +20,6 @@ Run `docker-compose -f docker-compose.dev.yml up -d`.
 2. `npm install`
 3. `npm run dev`
 
-## Deploy to production
+### Documentation
 
-1. On a new server clone the repository
-2. Edit docker compose file an change the `TOKEN` and `REBUILD_WEBHOOK_URL` env variable
-3. Run `docker-compose up -d`
+- TODO link to new document
