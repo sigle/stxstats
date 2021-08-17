@@ -22,4 +22,4 @@ Run `docker-compose -f docker-compose.dev.yml up -d`.
 
 ### Documentation
 
-- TODO link to new document
+- [Deploy to production with docker-compose](docs/deploy-docker-compose.md)
