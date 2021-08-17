@@ -11,6 +11,7 @@
   "dependencies": {
     "@prisma/client": "2.20.1",
     "date-fns": "2.22.1",
+    "envalid": "7.2.1",
     "fastify": "3.18.1",
     "node-fetch": "2.6.1",
     "prisma": "2.20.1"

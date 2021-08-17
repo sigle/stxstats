@@ -4,6 +4,7 @@ import { generateNbTxsPerDay } from "./tasks/generateNbTxsPerDay";
 import { generateUniqueAddressGrowingPerDay } from "./tasks/generateUniqueAddressGrowingPerDay";
 import { generateTxsFeePerDay } from "./tasks/generateTxsFeePerDay";
 import { readData, writeData, FileData } from "./utils";
+import { config } from "./config";
 
 let cacheData: FileData | false = false;
 async function generateDataStats() {
@@ -59,7 +60,7 @@ fastify.get<{ Querystring: { token: string } }>(
   (request, reply) => {
     const token = request.query && request.query.token;
 
-    if (token === process.env.TOKEN) {
+    if (token === config.TOKEN) {
       console.log("Request data starting...");
       generateDataStats()
         .then(async () => {
@@ -69,8 +70,8 @@ fastify.get<{ Querystring: { token: string } }>(
            * On production we call a webhook URL that will regenerate the
            * static client site
            */
-          if (process.env.NODE_ENV === "production") {
-            const response = await fetch(process.env.REBUILD_WEBHOOK_URL!, {
+          if (config.isProduction) {
+            const response = await fetch(config.REBUILD_WEBHOOK_URL, {
               method: "GET",
             });
             const data = await response.json();
