@@ -8,7 +8,7 @@ import { config } from "../config";
 
 const queueName = "tweet-stats";
 const debug = createDebug(`queue:${queueName}`);
-const redisClient = new Redis({ password: config.REDIS_PASSWORD });
+const redisClient = new Redis(config.REDIS_URL);
 
 export const tweetStatsQueueScheduler = new QueueScheduler(queueName, {
   connection: redisClient,

@@ -65,7 +65,7 @@ services:
       - "4000:4000"
     environment:
       DATABASE_URL: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?schema=public"
-      REDIS_PASSWORD: "${REDIS_PASSWORD}"
+      REDIS_URL: "redis://:${REDIS_PASSWORD}@redis:6379/0"
       TOKEN: "${TOKEN}"
       REBUILD_WEBHOOK_URL: "${REBUILD_WEBHOOK_URL}"
       TWITTER_API_KEY: "${TWITTER_API_KEY}"

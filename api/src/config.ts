@@ -8,5 +8,5 @@ export const config = cleanEnv(process.env, {
   TWITTER_ACCESS_TOKEN: str(),
   TWITTER_ACCESS_TOKEN_SECRET: str(),
   DATABASE_URL: str(),
-  REDIS_PASSWORD: str(),
+  REDIS_URL: str(),
 });
