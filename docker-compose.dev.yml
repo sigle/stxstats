@@ -54,10 +54,12 @@ services:
       - stacks-blockchain
 
   redis:
-    # TODO protect via password
     image: "redis:5"
+    command: "redis-server --requirepass hello"
     ports:
       - "6379:6379"
+    networks:
+      - stacks-blockchain
 
   api:
     build:
@@ -75,6 +77,7 @@ services:
       - stacks-blockchain
     depends_on:
       - postgres
+      - redis
 
 volumes:
   db_data:
