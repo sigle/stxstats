@@ -36,6 +36,8 @@ generateDataStats()
     console.log("First data generated");
     //@every day 10 PM
     startCron(tweetStatsQueue, "tweet-stats", "0 22 * * *");
+    // Every 3rd hour
+    startCron(generateDataStatsQueue, "generate-data-stats", "0 */3 * * *");
   })
   .catch((e) => {
     console.error(e);
@@ -56,7 +58,5 @@ fastify.get("/", (_, reply) => {
 // Run the server!
 fastify.listen(4000, "0.0.0.0", (err, address) => {
   if (err) throw err;
-  // Every 3rd hour
-  startCron(generateDataStatsQueue, "generate-data-stats", "0 */3 * * *");
   console.log(`Server is now listening on ${address}`);
 });

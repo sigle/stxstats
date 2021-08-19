@@ -53,12 +53,7 @@ export const startCron = async (
   }
 
   // After first data is generated we can setup the various cron jobs
-  await queue.add(
-    queueName,
-    {},
-    // every day at 10PM
-    { repeat: { cron: cronSetup } }
-  );
+  await queue.add(queueName, {}, { repeat: { cron: cronSetup } });
 };
 
 /**
