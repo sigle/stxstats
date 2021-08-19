@@ -1,17 +1,14 @@
 require("dotenv").config();
 import Fastify from "fastify";
-import { FileData, startCron } from "./utils";
+import { readData, startCron } from "./utils";
 import { tweetStatsQueue } from "./twitterBot/bullQueue";
 import { generateDataStatsQueue } from "./tasks/generateStatsQueue";
 import { generateDataStats } from "./tasks/generateDataStats";
 
-let cacheData: FileData | false = false;
-
 generateDataStats()
-  .then((data) => async () => {
+  .then(() => async () => {
     console.log("First data generated");
-    cacheData = data;
-    //@every day 10 PM
+    // Every day 10 PM
     startCron(tweetStatsQueue, "tweet-stats", "0 22 * * *");
     // Every 3rd hour
     startCron(generateDataStatsQueue, "generate-data-stats", "0 */3 * * *");
@@ -29,7 +26,8 @@ const fastify = Fastify({
  * Return the latest generated data
  */
 fastify.get("/", (_, reply) => {
-  reply.send(cacheData);
+  const currentData = readData();
+  reply.send(currentData || false);
 });
 
 // Run the server!
