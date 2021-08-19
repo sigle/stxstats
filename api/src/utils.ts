@@ -1,3 +1,4 @@
+import { Queue } from "bullmq";
 import { readFileSync, writeFileSync, existsSync } from "fs";
 
 /**
@@ -35,6 +36,29 @@ export const writeData = function (fileData: FileData) {
   writeFileSync("./data.json", JSON.stringify(fileData), {
     encoding: "utf-8",
   });
+};
+
+// Clean up previous cron and start a new one
+export const startCron = async (
+  queue: Queue,
+  queueName: string,
+  cronSetup: string
+) => {
+  const jobs = await queue.getRepeatableJobs();
+
+  if (jobs) {
+    for await (let job of jobs) {
+      queue.removeRepeatableByKey(job.key);
+    }
+  }
+
+  // After first data is generated we can setup the various cron jobs
+  await queue.add(
+    queueName,
+    {},
+    // every day at 10PM
+    { repeat: { cron: cronSetup } }
+  );
 };
 
 /**
