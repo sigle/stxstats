@@ -54,7 +54,5 @@ ${microToStacks(
 );
 
 worker.on("failed", async (job, err) => {
-  const { status } = job.data;
-
-  debug(`${job.id} has failed for for ${status}: ${err.message}`);
+  debug(`${job.id} has failed for with this err: ${err.message}`);
 });

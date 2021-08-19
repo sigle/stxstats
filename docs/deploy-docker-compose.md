@@ -20,7 +20,6 @@ POSTGRES_DB=
 # Variables used to secure redis access
 REDIS_PASSWORD=
 # Variables used by the api
-TOKEN=
 REBUILD_WEBHOOK_URL=
 TWITTER_API_KEY=
 TWITTER_API_SECRET_KEY=

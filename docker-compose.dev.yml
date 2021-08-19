@@ -72,7 +72,6 @@ services:
       - "4000:4000"
     environment:
       DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/postgres?schema=public"
-      TOKEN: "token-dev"
     networks:
       - stacks-blockchain
     depends_on:
