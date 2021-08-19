@@ -1,9 +1,8 @@
 import { generateNbTxsPerDay } from "./generateNbTxsPerDay";
 import { generateUniqueAddressGrowingPerDay } from "./generateUniqueAddressGrowingPerDay";
 import { generateTxsFeePerDay } from "./generateTxsFeePerDay";
-import { FileData, readData, writeData } from "../utils";
+import { readData, writeData } from "../utils";
 
-let cacheData: FileData | false = false;
 export async function generateDataStats() {
   const currentData = readData();
   console.log("Starting number of transactions...");
@@ -24,6 +23,6 @@ export async function generateDataStats() {
     txsFeePerDay,
   };
   writeData(fileData);
-  cacheData = fileData;
-  return cacheData;
+
+  return fileData;
 }
