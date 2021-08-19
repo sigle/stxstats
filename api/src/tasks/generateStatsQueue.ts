@@ -1,7 +1,7 @@
 import { Worker, Queue, QueueScheduler } from "bullmq";
 import createDebug from "debug";
 import Redis from "ioredis";
-import { generateDataStats } from "../index";
+import { generateDataStats } from "./generateDataStats";
 import { config } from "../config";
 import fetch from "node-fetch";
 
