@@ -47,8 +47,8 @@ export const startCron = async (
   const jobs = await queue.getRepeatableJobs();
 
   if (jobs) {
-    for await (let job of jobs) {
-      queue.removeRepeatableByKey(job.key);
+    for (const job of jobs) {
+      await queue.removeRepeatableByKey(job.key);
     }
   }
 
