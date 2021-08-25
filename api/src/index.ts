@@ -6,7 +6,7 @@ import { generateDataStatsQueue } from "./tasks/generateStatsQueue";
 import { generateDataStats } from "./tasks/generateDataStats";
 
 generateDataStats()
-  .then(() => async () => {
+  .then(async () => {
     console.log("First data generated");
     // Every day 10 PM
     startCron(tweetStatsQueue, "tweet-stats", "0 22 * * *");
