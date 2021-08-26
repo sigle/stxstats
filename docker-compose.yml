@@ -66,6 +66,7 @@ services:
     ports:
       - "4000:4000"
     environment:
+      NODE_ENV: production
       DATABASE_URL: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?schema=public"
       REDIS_URL: "redis://:${REDIS_PASSWORD}@redis:6379/0"
       REBUILD_WEBHOOK_URL: "${REBUILD_WEBHOOK_URL}"
