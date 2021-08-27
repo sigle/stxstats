@@ -20,7 +20,7 @@ const worker = new Worker(
   queueName,
   async () => {
     await generateDataStats()
-      .then(() => async () => {
+      .then(async () => {
         debug(`Successfully generated data`);
         if (config.isProduction) {
           const response = await fetch(config.REBUILD_WEBHOOK_URL, {
