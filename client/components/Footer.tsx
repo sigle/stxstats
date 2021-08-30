@@ -1,4 +1,7 @@
 import { useTheme } from "next-themes";
+import { DiscordIcon } from "../src/images/Discord";
+import { GithubIcon } from "../src/images/Github";
+import { TwitterIcon } from "../src/images/Twitter";
 import { styled } from "../src/stitches.config";
 import { Box } from "../src/ui/Box";
 import { Container } from "../src/ui/Container";
@@ -6,7 +9,13 @@ import { Link } from "../src/ui/Link";
 import { Text } from "../src/ui/Text";
 
 const SocialIconLink = styled("a", {
-  mx: "$3",
+  mx: "$2",
+  p: "$2",
+  br: "$1",
+  color: "$gray1",
+  "&:hover": {
+    backgroundColor: "$gray10",
+  },
 });
 
 export const Footer = () => {
@@ -128,36 +137,21 @@ export const Footer = () => {
               target="_blank"
               rel="noreferrer"
             >
-              <img
-                height={16}
-                width={16}
-                src={"/images/twitter.svg"}
-                alt="Twitter logo"
-              />
+              <TwitterIcon width={16} height={16} />
             </SocialIconLink>
             <SocialIconLink
               href="https://discord.gg/X2Dbz3xbrs"
               target="_blank"
               rel="noreferrer"
             >
-              <img
-                height={16}
-                width={16}
-                src={"/images/discord.svg"}
-                alt="Discord logo"
-              />
+              <DiscordIcon width={16} height={16} />
             </SocialIconLink>
             <SocialIconLink
               href="https://github.com/sigle/stxstats"
               target="_blank"
               rel="noreferrer"
             >
-              <img
-                height={16}
-                width={16}
-                src={"/images/github.svg"}
-                alt="Github logo"
-              />
+              <GithubIcon width={16} height={16} />
             </SocialIconLink>
           </Box>
         </Box>
