@@ -1,4 +1,5 @@
 import { useTheme } from "next-themes";
+import { SunIcon } from "@radix-ui/react-icons";
 import { NbTxsPerDay } from "../components/NbTxsPerDay";
 import { UniqueAddressGrowingPerDay } from "../components/UniqueAddressGrowingPerDay";
 import { TxsFeePerDay } from "../components/TxsFeePerDay";
@@ -9,6 +10,7 @@ import { Heading } from "../src/ui/Heading";
 import { Link } from "../src/ui/Link";
 import { Text } from "../src/ui/Text";
 import { Footer } from "../components/Footer";
+import { IconButton } from "../src/ui/IconButton";
 
 const Home = ({ statsData }: any) => {
   // TODO create real button for this
@@ -18,18 +20,41 @@ const Home = ({ statsData }: any) => {
     <>
       <Container>
         <Box
-          css={{ py: "$6" }}
-          onClick={() =>
-            theme === "dark" ? setTheme("light") : setTheme("dark")
-          }
+          css={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            py: "$5",
+            "@lg": {
+              py: "$10",
+            },
+          }}
         >
-          {/* TODO logo for light theme */}
-          <img
-            height={52}
-            width={104}
-            src={"/images/stx_stats_logo.svg"}
-            alt="Stx stats logo"
-          />
+          {theme === "dark" ? (
+            <img
+              height={52}
+              width={104}
+              src={"/images/stx_stats_logo.svg"}
+              alt="Stx stats logo"
+            />
+          ) : (
+            <img
+              height={52}
+              width={104}
+              src={"/images/stx_stats_logo_black.svg"}
+              alt="Stx stats logo"
+            />
+          )}
+
+          <Box>
+            <IconButton
+              onClick={() =>
+                theme === "dark" ? setTheme("light") : setTheme("dark")
+              }
+            >
+              <SunIcon height={14} width={14} />
+            </IconButton>
+          </Box>
         </Box>
 
         <Heading as={"h1"} size={"3xl"} css={{ mt: "$8" }}>
