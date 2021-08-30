@@ -2,6 +2,7 @@ import { styled } from "../src/stitches.config";
 import { Box } from "../src/ui/Box";
 import { Container } from "../src/ui/Container";
 import { Link } from "../src/ui/Link";
+import { Text } from "../src/ui/Text";
 
 const SocialIconLink = styled("a", {
   mx: "$3",
@@ -36,11 +37,11 @@ export const Footer = () => {
               },
             }}
           >
-            <p>
+            <Text css={{ display: "inline-flex", alignItems: "center" }}>
               A project made with{" "}
               <Box
                 as="svg"
-                css={{ width: "$4", height: "$4" }}
+                css={{ width: "$4", height: "$4", mx: "$1" }}
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
                 fill="#CF0000"
@@ -52,7 +53,7 @@ export const Footer = () => {
                 />
               </Box>{" "}
               by
-            </p>
+            </Text>
             <Box css={{ py: "$2" }}>
               <a href="https://www.sigle.io/" target="_blank" rel="noreferrer">
                 <img
@@ -63,11 +64,11 @@ export const Footer = () => {
                 />
               </a>
             </Box>
-            <p>
+            <Text css={{ display: "inline-flex", alignItems: "center" }}>
               If you like it consider giving us a{" "}
               <Box
                 as="svg"
-                css={{ width: "$4", height: "$4" }}
+                css={{ width: "$4", height: "$4", mx: "$1" }}
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
                 fill="hsl(50 100% 48.5%)"
@@ -79,11 +80,15 @@ export const Footer = () => {
                 href="https://github.com/sigle/stxstats"
                 target="_blank"
                 rel="noreferrer"
-                css={{ color: "$gray1", borderBottom: "2px solid $gray1" }}
+                css={{
+                  color: "$gray1",
+                  borderBottom: "2px solid $gray1",
+                  ml: "$1",
+                }}
               >
                 GitHub
               </Link>
-            </p>
+            </Text>
           </Box>
           <Box
             css={{

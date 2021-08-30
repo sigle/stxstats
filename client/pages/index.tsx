@@ -35,7 +35,7 @@ const Home = ({ statsData }: any) => {
         <Heading as={"h1"} size={"3xl"} css={{ mt: "$8" }}>
           Get the latest data from Stacks 2.0 blockchain
         </Heading>
-        <Heading size={"2xl"} css={{ mt: "$2", fontWeight: 400 }}>
+        <Heading size={"2xl"} css={{ fontWeight: 400 }}>
           A project made by{" "}
           <Link href="https://www.sigle.io/" target="_blank" rel="noreferrer">
             Sigle
@@ -60,7 +60,7 @@ const Home = ({ statsData }: any) => {
               <Heading as={"h3"} size={"xl"} css={{ fontWeight: 400 }}>
                 Transactions per day
               </Heading>
-              <Text size={"sm"} css={{ mt: "$1" }}>
+              <Text size={"sm"}>
                 The chart shows the total number of transactions on the Stacks
                 blockchain daily.
               </Text>
@@ -83,7 +83,7 @@ const Home = ({ statsData }: any) => {
               <Heading as={"h3"} size={"xl"} css={{ fontWeight: 400 }}>
                 Unique addresses over time
               </Heading>
-              <Text size={"sm"} css={{ mt: "$1" }}>
+              <Text size={"sm"}>
                 The chart shows the total distinct numbers of address on the
                 Stacks blockchain and the increase in the number of address
                 daily.
@@ -109,7 +109,7 @@ const Home = ({ statsData }: any) => {
               <Heading as={"h3"} size={"xl"} css={{ fontWeight: 400 }}>
                 Transactions fees
               </Heading>
-              <Text size={"sm"} css={{ mt: "$1" }}>
+              <Text size={"sm"}>
                 The chart shows the historical total number of Stacks paid as
                 transaction fee daily.
               </Text>
