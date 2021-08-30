@@ -1,14 +1,5 @@
 import { createCss } from "@stitches/react";
-import {
-  gray,
-  blue,
-  red,
-  green,
-  grayDark,
-  blueDark,
-  redDark,
-  greenDark,
-} from "@radix-ui/colors";
+import { gray, grayDark } from "@radix-ui/colors";
 
 // TODO remove unused colors
 
@@ -17,12 +8,10 @@ export const { styled, css, global, keyframes, getCssString, theme } =
     theme: {
       colors: {
         ...gray,
-        ...blue,
-        ...red,
-        ...green,
       },
       fonts: {
         lato: "'Lato', sans-serif",
+        merri: "'Merriweather', serif",
       },
       space: {
         1: "4px",
@@ -33,6 +22,8 @@ export const { styled, css, global, keyframes, getCssString, theme } =
         6: "24px",
         7: "28px",
         8: "32px",
+        9: "36px",
+        10: "40px",
       },
       sizes: {
         1: "4px",
@@ -43,6 +34,8 @@ export const { styled, css, global, keyframes, getCssString, theme } =
         6: "24px",
         7: "28px",
         8: "32px",
+        9: "36px",
+        10: "40px",
       },
       fontSizes: {
         1: "12px",
@@ -54,6 +47,13 @@ export const { styled, css, global, keyframes, getCssString, theme } =
         7: "36px",
         8: "48px",
         9: "72px",
+      },
+      radii: {
+        1: "4px",
+        2: "6px",
+        3: "8px",
+        4: "12px",
+        round: "50%",
       },
     },
     media: {
@@ -117,14 +117,15 @@ export const { styled, css, global, keyframes, getCssString, theme } =
         marginTop: value,
         marginBottom: value,
       }),
+
+      br: () => (value: any) => ({
+        borderRadius: value,
+      }),
     },
   });
 
 export const darkTheme = theme("dark-theme", {
   colors: {
     ...grayDark,
-    ...blueDark,
-    ...redDark,
-    ...greenDark,
   },
 });
