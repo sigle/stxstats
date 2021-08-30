@@ -35,6 +35,7 @@ export const { styled, css, global, keyframes, getCssString, theme } =
     theme: {
       colors: {
         ...gray,
+        primary: "#1DEFC7",
       },
       fonts: {
         lato: "'Lato', sans-serif",

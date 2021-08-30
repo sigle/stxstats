@@ -64,8 +64,7 @@ export const MenuItem = ({
           textDecoration: "none",
           color: "$gray12",
           "&.active": {
-            // TODO change this color var
-            color: "var(--green-color)",
+            color: "$primary",
             fontWeight: 700,
           },
         }}
