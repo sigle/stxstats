@@ -10,8 +10,8 @@ import { global, darkTheme } from "../src/stitches.config";
 const globalStyles = global({
   body: {
     backgroundColor: "$gray1",
-    color: "$gray12",
-    fontFamily: "$lato !important",
+    color: "$gray10",
+    fontFamily: "$lato",
   },
 });
 
