@@ -1,3 +1,4 @@
+import { useTheme } from "next-themes";
 import { styled } from "../src/stitches.config";
 import { Box } from "../src/ui/Box";
 import { Container } from "../src/ui/Container";
@@ -9,6 +10,8 @@ const SocialIconLink = styled("a", {
 });
 
 export const Footer = () => {
+  const { theme } = useTheme();
+
   return (
     <Box
       css={{ py: "$8", mt: 64, backgroundColor: "$gray12", color: "$gray1" }}
@@ -56,12 +59,21 @@ export const Footer = () => {
             </Text>
             <Box css={{ py: "$2" }}>
               <a href="https://www.sigle.io/" target="_blank" rel="noreferrer">
-                <img
-                  height={48}
-                  width={108}
-                  src={"/images/sigle_logo.svg"}
-                  alt="Sigle logo"
-                />
+                {theme === "dark" ? (
+                  <img
+                    height={39}
+                    width={108}
+                    src={"/images/sigle-logo-light.svg"}
+                    alt="Sigle logo"
+                  />
+                ) : (
+                  <img
+                    height={39}
+                    width={108}
+                    src={"/images/sigle-logo-dark.svg"}
+                    alt="Sigle logo"
+                  />
+                )}
               </a>
             </Box>
             <Text css={{ display: "inline-flex", alignItems: "center" }}>
