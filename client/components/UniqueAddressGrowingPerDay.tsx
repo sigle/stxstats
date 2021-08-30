@@ -12,6 +12,7 @@ import { max, extent, bisector } from "d3-array";
 import { useTooltip, useTooltipInPortal } from "@visx/tooltip";
 import AreaChart from "./AreaChart";
 import { accentColor, accentColorDark, tooltipStyles } from "../styles/visx";
+import { Tooltip, TooltipDate, TooltipText } from "./TooltipChart";
 
 interface StatsData {
   value: number;
@@ -181,25 +182,24 @@ const UniqueAddressGrowingPerDay = ({
           left={tooltipLeft! + 26}
           style={tooltipStyles}
         >
-          <div className="tooltip">
-            <p className="tooltip-date">
+          <Tooltip>
+            <TooltipDate>
               {format(new Date(tooltipData.date), "EEEE, MMMM d, yyyy")}
-            </p>
-            <p className="tooltip-text">{tooltipData.value} unique addresses</p>
+            </TooltipDate>
+            <TooltipText>{tooltipData.value} unique addresses</TooltipText>
             {tooltipData ? (
-              <p className="tooltip-text">
+              <TooltipText>
                 {tooltipData.dailyIncrease} daily increase
-              </p>
+              </TooltipText>
             ) : null}
-          </div>
+          </Tooltip>
         </TooltipInPortal>
       )}
     </>
   );
 };
 
-const enhancedUniqueAddressGrowingPerDay = withParentSize<
-  UniqueAddressGrowingPerDayProps
->(UniqueAddressGrowingPerDay);
+const enhancedUniqueAddressGrowingPerDay =
+  withParentSize<UniqueAddressGrowingPerDayProps>(UniqueAddressGrowingPerDay);
 
 export { enhancedUniqueAddressGrowingPerDay as UniqueAddressGrowingPerDay };

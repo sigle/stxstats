@@ -2,9 +2,18 @@ import { useEffect } from "react";
 import Head from "next/head";
 import Router from "next/router";
 import { NextSeo } from "next-seo";
+import { ThemeProvider } from "next-themes";
 import * as Fathom from "fathom-client";
-import "../styles/reset.css";
-import "../styles/style.scss";
+import "../styles/tailwind.css";
+import { global, darkTheme } from "../src/stitches.config";
+
+const globalStyles = global({
+  body: {
+    backgroundColor: "$gray1",
+    color: "$gray10",
+    fontFamily: "$lato",
+  },
+});
 
 // Record a pageview when route changes
 Router.events.on("routeChangeComplete", () => {
@@ -15,6 +24,8 @@ const title = "Stx stats";
 const description = "Discover the latest on-chain data from Stacks 2.0.";
 
 export default function MyApp({ Component, pageProps }: any) {
+  globalStyles();
+
   // Initialize Fathom when the app loads
   useEffect(() => {
     Fathom.load("AYXWIYLJ", {
@@ -53,7 +64,14 @@ export default function MyApp({ Component, pageProps }: any) {
           cardType: "summary_large_image",
         }}
       />
-      <Component {...pageProps} />
+      <ThemeProvider
+        disableTransitionOnChange
+        attribute="class"
+        value={{ light: "light-theme", dark: darkTheme.toString() }}
+        defaultTheme={darkTheme.toString()}
+      >
+        <Component {...pageProps} />
+      </ThemeProvider>
     </>
   );
 }

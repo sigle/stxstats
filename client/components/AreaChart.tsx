@@ -4,6 +4,7 @@ import { AreaClosed } from "@visx/shape";
 import { AxisLeft, AxisBottom, AxisScale } from "@visx/axis";
 import { LinearGradient } from "@visx/gradient";
 import { curveMonotoneX } from "@visx/curve";
+import { theme } from "../src/stitches.config";
 
 interface StatsData {
   value: number;
@@ -11,23 +12,6 @@ interface StatsData {
 }
 
 const fontFamily = '"Lato", sans-serif';
-
-// Initialize some variables
-const axisColor = "#f1f1f1";
-const axisBottomTickLabelProps = {
-  textAnchor: "middle" as const,
-  fontFamily,
-  fontSize: 12,
-  fill: axisColor,
-};
-const axisLeftTickLabelProps = {
-  dx: "-0.25em",
-  dy: "0.25em",
-  fontFamily,
-  fontSize: 12,
-  textAnchor: "end" as const,
-  fill: axisColor,
-};
 
 // accessors
 const getDate = (d: StatsData) => new Date(d.date);
@@ -63,6 +47,22 @@ export default function AreaChart({
   if (width < 10) {
     return null;
   }
+
+  const axisColor = theme.colors.gray10;
+  const axisBottomTickLabelProps = {
+    textAnchor: "middle" as const,
+    fontFamily,
+    fontSize: 12,
+    fill: axisColor,
+  };
+  const axisLeftTickLabelProps = {
+    dx: "-0.25em",
+    dy: "0.25em",
+    fontFamily,
+    fontSize: 12,
+    textAnchor: "end" as const,
+    fill: axisColor,
+  };
 
   return (
     <Group left={left || margin.left} top={top || margin.top}>
