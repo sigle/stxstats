@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import { SunIcon } from "@radix-ui/react-icons";
 import { NbTxsPerDay } from "../components/NbTxsPerDay";
@@ -13,8 +14,10 @@ import { Footer } from "../components/Footer";
 import { IconButton } from "../src/ui/IconButton";
 
 const Home = ({ statsData }: any) => {
-  // TODO create real button for this
   const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
 
   return (
     <>
@@ -30,20 +33,24 @@ const Home = ({ statsData }: any) => {
             },
           }}
         >
-          {theme === "dark" ? (
-            <img
-              height={52}
-              width={104}
-              src={"/images/stx_stats_logo.svg"}
-              alt="Stx stats logo"
-            />
+          {mounted === true ? (
+            theme === "dark" ? (
+              <img
+                height={52}
+                width={104}
+                src={"/images/stx_stats_logo.svg"}
+                alt="Stx stats logo"
+              />
+            ) : (
+              <img
+                height={52}
+                width={104}
+                src={"/images/stx_stats_logo_black.svg"}
+                alt="Stx stats logo"
+              />
+            )
           ) : (
-            <img
-              height={52}
-              width={104}
-              src={"/images/stx_stats_logo_black.svg"}
-              alt="Stx stats logo"
-            />
+            <Box css={{ height: 52 }} />
           )}
 
           <Box>
@@ -62,7 +69,12 @@ const Home = ({ statsData }: any) => {
         </Heading>
         <Heading size={"2xl"} css={{ fontWeight: 400 }}>
           A project made by{" "}
-          <Link href="https://www.sigle.io/" target="_blank" rel="noreferrer">
+          <Link
+            href="https://www.sigle.io/"
+            target="_blank"
+            rel="noreferrer"
+            css={{ fontFamily: "$lato" }}
+          >
             Sigle
           </Link>
         </Heading>

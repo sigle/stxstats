@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import { DiscordIcon } from "../src/images/Discord";
 import { GithubIcon } from "../src/images/Github";
@@ -20,6 +21,9 @@ const SocialIconLink = styled("a", {
 
 export const Footer = () => {
   const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
 
   return (
     <Box
@@ -68,21 +72,23 @@ export const Footer = () => {
             </Text>
             <Box css={{ py: "$2" }}>
               <a href="https://www.sigle.io/" target="_blank" rel="noreferrer">
-                {theme === "dark" ? (
-                  <img
-                    height={39}
-                    width={108}
-                    src={"/images/sigle-logo-light.svg"}
-                    alt="Sigle logo"
-                  />
-                ) : (
-                  <img
-                    height={39}
-                    width={108}
-                    src={"/images/sigle-logo-dark.svg"}
-                    alt="Sigle logo"
-                  />
-                )}
+                {mounted === true ? (
+                  theme === "dark" ? (
+                    <img
+                      height={39}
+                      width={108}
+                      src={"/images/sigle-logo-light.svg"}
+                      alt="Sigle logo"
+                    />
+                  ) : (
+                    <img
+                      height={39}
+                      width={108}
+                      src={"/images/sigle-logo-dark.svg"}
+                      alt="Sigle logo"
+                    />
+                  )
+                ) : null}
               </a>
             </Box>
             <Text css={{ display: "inline-flex", alignItems: "center" }}>
