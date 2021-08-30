@@ -107,7 +107,7 @@ const Home = ({ statsData }: any) => {
 
             <Box id="transactions-fee" css={{ mt: 48, pt: "$4" }}>
               <Heading as={"h3"} size={"xl"} css={{ fontWeight: 400 }}>
-                Transactions fee
+                Transactions fees
               </Heading>
               <Text size={"sm"} css={{ mt: "$1" }}>
                 The chart shows the historical total number of Stacks paid as

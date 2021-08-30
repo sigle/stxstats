@@ -1,7 +1,7 @@
-version: "3.6"
+version: "3.7"
 services:
   stacks-blockchain:
-    image: blockstack/stacks-blockchain:2.0.11.1.0
+    image: blockstack/stacks-blockchain:2.0.11.2.0
     command: /bin/stacks-node start --config /src/stacks-node/Config.toml
     ports:
       - "20443:20443"
@@ -13,14 +13,14 @@ services:
       - stacks-blockchain
 
   stacks-blockchain-api:
-    image: blockstack/stacks-blockchain-api:0.61.0
+    image: blockstack/stacks-blockchain-api:0.63.1
     environment:
       NODE_ENV: production
       PG_HOST: postgres
       PG_PORT: 5432
-      PG_USER: postgres
-      PG_PASSWORD: postgres
-      PG_DATABASE: postgres
+      PG_USER: "${POSTGRES_USER}"
+      PG_PASSWORD: "${POSTGRES_PASSWORD}"
+      PG_DATABASE: "${POSTGRES_DB}"
       STACKS_CHAIN_ID: 0x00000001
       V2_POX_MIN_AMOUNT_USTX: 90000000260
       STACKS_CORE_EVENT_PORT: 3700
@@ -39,17 +39,25 @@ services:
       - postgres
 
   postgres:
-    image: postgres:12.2
+    image: postgres:12.7
     restart: always
     ports:
       - "5432:5432"
     volumes:
       - ./stacks-node/persistent-data/postgres:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      POSTGRES_DB: "${POSTGRES_DB}"
       POSTGRES_PORT: 5432
+    networks:
+      - stacks-blockchain
+
+  redis:
+    image: "redis:5"
+    command: "redis-server --requirepass ${REDIS_PASSWORD}"
+    ports:
+      - "6379:6379"
     networks:
       - stacks-blockchain
 
@@ -58,12 +66,19 @@ services:
     ports:
       - "4000:4000"
     environment:
-      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/postgres?schema=public"
-      TOKEN: "token-dev"
+      NODE_ENV: production
+      DATABASE_URL: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?schema=public"
+      REDIS_URL: "redis://:${REDIS_PASSWORD}@redis:6379/0"
+      REBUILD_WEBHOOK_URL: "${REBUILD_WEBHOOK_URL}"
+      TWITTER_API_KEY: "${TWITTER_API_KEY}"
+      TWITTER_API_SECRET_KEY: "${TWITTER_API_SECRET_KEY}"
+      TWITTER_ACCESS_TOKEN: "${TWITTER_ACCESS_TOKEN}"
+      TWITTER_ACCESS_TOKEN_SECRET: "${TWITTER_ACCESS_TOKEN_SECRET}"
     networks:
       - stacks-blockchain
     depends_on:
       - postgres
+      - redis
 
 volumes:
   db_data:
