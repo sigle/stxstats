@@ -1,6 +1,8 @@
 import { styled } from "../stitches.config";
 
 export const Text = styled("p", {
+  fontFamily: "$merri",
+
   variants: {
     size: {
       xs: {
@@ -16,7 +18,9 @@ export const Text = styled("p", {
       md: {
         fontSize: "$3",
         letterSpacing: "0.2px",
+        lineHeight: "28.8px",
       },
     },
   },
+  defaultVariants: { size: "md" },
 });
