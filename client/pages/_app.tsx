@@ -20,8 +20,9 @@ Router.events.on("routeChangeComplete", () => {
   Fathom.trackPageview();
 });
 
-const title = "Stx stats";
-const description = "Discover the latest on-chain data from Stacks 2.0.";
+const title = "STX Stats";
+const description =
+  "Get the latest on-chain stats for the Stacks (STX) blockchain. Transactions count, unique addresses count, transactions fees...";
 
 export default function MyApp({ Component, pageProps }: any) {
   globalStyles();
