@@ -65,7 +65,7 @@ const Home = ({ statsData }: any) => {
         </Box>
 
         <Heading as={"h1"} size={"3xl"} css={{ mt: "$8" }}>
-          Get the latest data from Stacks 2.0 blockchain
+          Get the latest data from Stacks blockchain
         </Heading>
         <Heading size={"2xl"} css={{ fontWeight: 400 }}>
           A project made by{" "}
