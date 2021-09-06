@@ -1,4 +1,5 @@
-import { createCss } from "@stitches/react";
+import type * as Stitches from "@stitches/react";
+import { createStitches } from "@stitches/react";
 
 const gray = {
   gray1: "#fcfcfc",
@@ -30,129 +31,136 @@ const grayDark = {
   gray12: "#f9f9f9",
 };
 
-export const { styled, css, global, keyframes, getCssString, theme } =
-  createCss({
-    theme: {
-      colors: {
-        ...gray,
-        primary: "#1DEFC7",
-      },
-      fonts: {
-        lato: "'Lato', sans-serif",
-        merri: "'Merriweather', serif",
-      },
-      space: {
-        1: "4px",
-        2: "8px",
-        3: "12px",
-        4: "16px",
-        5: "20px",
-        6: "24px",
-        7: "28px",
-        8: "32px",
-        9: "36px",
-        10: "40px",
-      },
-      sizes: {
-        1: "4px",
-        2: "8px",
-        3: "12px",
-        4: "16px",
-        5: "20px",
-        6: "24px",
-        7: "28px",
-        8: "32px",
-        9: "36px",
-        10: "40px",
-      },
-      fontSizes: {
-        1: "12px",
-        2: "14px",
-        3: "16px",
-        4: "21px",
-        5: "24px",
-        6: "30px",
-        7: "36px",
-        8: "48px",
-        9: "72px",
-      },
-      radii: {
-        1: "4px",
-        2: "6px",
-        3: "8px",
-        4: "12px",
-        round: "50%",
-      },
+export const {
+  styled,
+  css,
+  globalCss,
+  keyframes,
+  getCssText,
+  theme,
+  createTheme,
+} = createStitches({
+  theme: {
+    colors: {
+      ...gray,
+      primary: "#1DEFC7",
     },
-    media: {
-      sm: "(min-width: 640px)",
-      md: "(min-width: 768px)",
-      lg: "(min-width: 1024px)",
-      xl: "(min-width: 1280px)",
-      "2xl": "(min-width: 1536px)",
+    fonts: {
+      lato: "'Lato', sans-serif",
+      merri: "'Merriweather', serif",
     },
-    utils: {
-      p: () => (value: any) => ({
-        paddingTop: value,
-        paddingBottom: value,
-        paddingLeft: value,
-        paddingRight: value,
-      }),
-      pt: () => (value: any) => ({
-        paddingTop: value,
-      }),
-      pr: () => (value: any) => ({
-        paddingRight: value,
-      }),
-      pb: () => (value: any) => ({
-        paddingBottom: value,
-      }),
-      pl: () => (value: any) => ({
-        paddingLeft: value,
-      }),
-      px: () => (value: any) => ({
-        paddingLeft: value,
-        paddingRight: value,
-      }),
-      py: () => (value: any) => ({
-        paddingTop: value,
-        paddingBottom: value,
-      }),
-
-      m: () => (value: any) => ({
-        marginTop: value,
-        marginBottom: value,
-        marginLeft: value,
-        marginRight: value,
-      }),
-      mt: () => (value: any) => ({
-        marginTop: value,
-      }),
-      mr: () => (value: any) => ({
-        marginRight: value,
-      }),
-      mb: () => (value: any) => ({
-        marginBottom: value,
-      }),
-      ml: () => (value: any) => ({
-        marginLeft: value,
-      }),
-      mx: () => (value: any) => ({
-        marginLeft: value,
-        marginRight: value,
-      }),
-      my: () => (value: any) => ({
-        marginTop: value,
-        marginBottom: value,
-      }),
-
-      br: () => (value: any) => ({
-        borderRadius: value,
-      }),
+    space: {
+      1: "4px",
+      2: "8px",
+      3: "12px",
+      4: "16px",
+      5: "20px",
+      6: "24px",
+      7: "28px",
+      8: "32px",
+      9: "36px",
+      10: "40px",
     },
-  });
+    sizes: {
+      1: "4px",
+      2: "8px",
+      3: "12px",
+      4: "16px",
+      5: "20px",
+      6: "24px",
+      7: "28px",
+      8: "32px",
+      9: "36px",
+      10: "40px",
+    },
+    fontSizes: {
+      1: "12px",
+      2: "14px",
+      3: "16px",
+      4: "21px",
+      5: "24px",
+      6: "30px",
+      7: "36px",
+      8: "48px",
+      9: "72px",
+    },
+    radii: {
+      1: "4px",
+      2: "6px",
+      3: "8px",
+      4: "12px",
+      round: "50%",
+    },
+  },
+  media: {
+    sm: "(min-width: 640px)",
+    md: "(min-width: 768px)",
+    lg: "(min-width: 1024px)",
+    xl: "(min-width: 1280px)",
+    "2xl": "(min-width: 1536px)",
+  },
+  utils: {
+    p: (value: Stitches.PropertyValue<"padding">) => ({
+      paddingTop: value,
+      paddingBottom: value,
+      paddingLeft: value,
+      paddingRight: value,
+    }),
+    pt: (value: Stitches.PropertyValue<"padding">) => ({
+      paddingTop: value,
+    }),
+    pr: (value: Stitches.PropertyValue<"padding">) => ({
+      paddingRight: value,
+    }),
+    pb: (value: Stitches.PropertyValue<"padding">) => ({
+      paddingBottom: value,
+    }),
+    pl: (value: Stitches.PropertyValue<"padding">) => ({
+      paddingLeft: value,
+    }),
+    px: (value: Stitches.PropertyValue<"padding">) => ({
+      paddingLeft: value,
+      paddingRight: value,
+    }),
+    py: (value: Stitches.PropertyValue<"padding">) => ({
+      paddingTop: value,
+      paddingBottom: value,
+    }),
 
-export const darkTheme = theme("dark-theme", {
+    m: (value: Stitches.PropertyValue<"margin">) => ({
+      marginTop: value,
+      marginBottom: value,
+      marginLeft: value,
+      marginRight: value,
+    }),
+    mt: (value: Stitches.PropertyValue<"margin">) => ({
+      marginTop: value,
+    }),
+    mr: (value: Stitches.PropertyValue<"margin">) => ({
+      marginRight: value,
+    }),
+    mb: (value: Stitches.PropertyValue<"margin">) => ({
+      marginBottom: value,
+    }),
+    ml: (value: Stitches.PropertyValue<"margin">) => ({
+      marginLeft: value,
+    }),
+    mx: (value: Stitches.PropertyValue<"margin">) => ({
+      marginLeft: value,
+      marginRight: value,
+    }),
+    my: (value: Stitches.PropertyValue<"margin">) => ({
+      marginTop: value,
+      marginBottom: value,
+    }),
+
+    br: (value: Stitches.PropertyValue<"borderRadius">) => ({
+      borderRadius: value,
+    }),
+  },
+});
+
+export const darkTheme = createTheme("dark-theme", {
   colors: {
     ...grayDark,
   },

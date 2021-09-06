@@ -5,13 +5,13 @@ import { NextSeo } from "next-seo";
 import { ThemeProvider } from "next-themes";
 import * as Fathom from "fathom-client";
 import "../styles/tailwind.css";
-import { global, darkTheme } from "../src/stitches.config";
+import { globalCss, darkTheme } from "../src/stitches.config";
 
-const globalStyles = global({
+const globalStyles = globalCss({
   body: {
     backgroundColor: "$gray1",
     color: "$gray10",
-    fontFamily: "$lato",
+    fontFamily: "$lato !important",
   },
 });
 
