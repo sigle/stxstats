@@ -48,6 +48,9 @@ export const MenuItem = ({
     case "transactions-fee":
       name = "Transaction Fees";
       break;
+    case "active-addresses":
+      name = "Active addresses";
+      break;
     default:
       throw new Error(`Unknown item ${itemName}`);
   }
