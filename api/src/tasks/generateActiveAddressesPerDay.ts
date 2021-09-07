@@ -44,12 +44,21 @@ export async function generateActiveAddressesPerDay(
       const startBlock = blocks[0].block_height;
       const endBlock = blocks[blocks.length - 1].block_height;
 
-      const totalUniqueAddresses =
-        await prisma.$queryRaw<number>`SELECT COUNT(*) FROM (SELECT DISTINCT sender, recipient FROM stx_events WHERE block_height >= ${startBlock} AND block_height <= ${endBlock}) t;`;
-      const senderUniqueAddresses =
-        await prisma.$queryRaw<number>`SELECT COUNT(*) FROM (SELECT DISTINCT sender FROM stx_events WHERE block_height >= ${startBlock} AND block_height <= ${endBlock}) t;`;
-      const recipientUniqueAddresses =
-        await prisma.$queryRaw<number>`SELECT COUNT(*) FROM (SELECT DISTINCT recipient FROM stx_events WHERE block_height >= ${startBlock} AND block_height <= ${endBlock}) t;`;
+      const totalUniqueAddresses = (
+        await prisma.$queryRaw<
+          { count: number }[]
+        >`SELECT COUNT(*) FROM (SELECT DISTINCT sender, recipient FROM stx_events WHERE block_height >= ${startBlock} AND block_height <= ${endBlock}) t;`
+      )[0].count;
+      const senderUniqueAddresses = (
+        await prisma.$queryRaw<
+          { count: number }[]
+        >`SELECT COUNT(*) FROM (SELECT DISTINCT sender FROM stx_events WHERE block_height >= ${startBlock} AND block_height <= ${endBlock}) t;`
+      )[0].count;
+      const recipientUniqueAddresses = (
+        await prisma.$queryRaw<
+          { count: number }[]
+        >`SELECT COUNT(*) FROM (SELECT DISTINCT recipient FROM stx_events WHERE block_height >= ${startBlock} AND block_height <= ${endBlock}) t;`
+      )[0].count;
 
       result.push({
         date: dateFormatted,

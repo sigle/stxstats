@@ -12,8 +12,14 @@ import { Link } from "../ui/Link";
 import { Text } from "../ui/Text";
 import { Footer } from "../components/Footer";
 import { IconButton } from "../ui/IconButton";
+import { FileData } from "../types/FileData";
+import { ActiveAddressesPerDay } from "../components/ActiveAddressesPerDay";
 
-const Home = ({ statsData }: any) => {
+interface HomeProps {
+  statsData: FileData;
+}
+
+const Home = ({ statsData }: HomeProps) => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -161,6 +167,31 @@ const Home = ({ statsData }: any) => {
                   }}
                 >
                   <TxsFeePerDay statsData={statsData.txsFeePerDay} />
+                </Box>
+              </Box>
+            </Box>
+
+            <Box id="active-addresses" css={{ mt: 48, pt: "$4" }}>
+              <Heading as={"h3"} size={"xl"} css={{ fontWeight: 400 }}>
+                Active addresses
+              </Heading>
+              <Text size={"sm"}>
+                The chart shows the number of active addresses on the Stacks
+                blockchain daily.
+              </Text>
+              <Box css={{ position: "relative", height: 500, mt: "$4" }}>
+                <Box
+                  css={{
+                    position: "absolute",
+                    width: "100%",
+                    height: "100%",
+                    left: 0,
+                    top: 0,
+                  }}
+                >
+                  <ActiveAddressesPerDay
+                    statsData={statsData.activeAddressesPerDay}
+                  />
                 </Box>
               </Box>
             </Box>
