@@ -48,7 +48,7 @@ export default function AreaChart({
     return null;
   }
 
-  const axisColor = theme.colors.gray10;
+  const axisColor = theme.colors.gray10.toString();
   const axisBottomTickLabelProps = {
     textAnchor: "middle" as const,
     fontFamily,
