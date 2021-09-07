@@ -4,7 +4,7 @@ import { AreaClosed } from "@visx/shape";
 import { AxisLeft, AxisBottom, AxisScale } from "@visx/axis";
 import { LinearGradient } from "@visx/gradient";
 import { curveMonotoneX } from "@visx/curve";
-import { theme } from "../src/stitches.config";
+import { theme } from "../stitches.config";
 
 interface StatsData {
   value: number;
