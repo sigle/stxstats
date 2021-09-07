@@ -1,6 +1,6 @@
 // https://medium.com/the-coders-guide-to-javascript/smooth-scrolling-anchor-menu-in-reactjs-175030d0bce2
 import { useState, useEffect } from "react";
-import { Box } from "../src/ui/Box";
+import { Box } from "../ui/Box";
 
 /*
  * A single menu item

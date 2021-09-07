@@ -5,13 +5,13 @@ import { NbTxsPerDay } from "../components/NbTxsPerDay";
 import { UniqueAddressGrowingPerDay } from "../components/UniqueAddressGrowingPerDay";
 import { TxsFeePerDay } from "../components/TxsFeePerDay";
 import { Menu } from "../components/Menu";
-import { Container } from "../src/ui/Container";
-import { Box } from "../src/ui/Box";
-import { Heading } from "../src/ui/Heading";
-import { Link } from "../src/ui/Link";
-import { Text } from "../src/ui/Text";
+import { Container } from "../ui/Container";
+import { Box } from "../ui/Box";
+import { Heading } from "../ui/Heading";
+import { Link } from "../ui/Link";
+import { Text } from "../ui/Text";
 import { Footer } from "../components/Footer";
-import { IconButton } from "../src/ui/IconButton";
+import { IconButton } from "../ui/IconButton";
 
 const Home = ({ statsData }: any) => {
   const { theme, setTheme } = useTheme();
