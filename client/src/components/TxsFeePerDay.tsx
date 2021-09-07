@@ -12,7 +12,7 @@ import { max, extent, bisector } from "d3-array";
 import { useTooltip, useTooltipInPortal } from "@visx/tooltip";
 import AreaChart from "./AreaChart";
 import { accentColor, accentColorDark, tooltipStyles } from "../styles/visx";
-import { microToStacks } from "../src/utils";
+import { microToStacks } from "../utils";
 import { Tooltip, TooltipDate, TooltipText } from "./TooltipChart";
 
 interface StatsData {

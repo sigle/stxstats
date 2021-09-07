@@ -5,7 +5,7 @@ import { NextSeo } from "next-seo";
 import { ThemeProvider } from "next-themes";
 import * as Fathom from "fathom-client";
 import "../styles/tailwind.css";
-import { globalCss, darkTheme } from "../src/stitches.config";
+import { globalCss, darkTheme } from "../stitches.config";
 
 const globalStyles = globalCss({
   body: {

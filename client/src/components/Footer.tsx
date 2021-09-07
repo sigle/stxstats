@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
-import { DiscordIcon } from "../src/images/Discord";
-import { GithubIcon } from "../src/images/Github";
-import { TwitterIcon } from "../src/images/Twitter";
-import { styled } from "../src/stitches.config";
-import { Box } from "../src/ui/Box";
-import { Container } from "../src/ui/Container";
-import { Link } from "../src/ui/Link";
-import { Text } from "../src/ui/Text";
+import { DiscordIcon } from "../images/Discord";
+import { GithubIcon } from "../images/Github";
+import { TwitterIcon } from "../images/Twitter";
+import { styled } from "../stitches.config";
+import { Box } from "../ui/Box";
+import { Container } from "../ui/Container";
+import { Link } from "../ui/Link";
+import { Text } from "../ui/Text";
 
 const SocialIconLink = styled("a", {
   mx: "$2",
