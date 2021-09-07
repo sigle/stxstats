@@ -1,6 +1,7 @@
 import { addDays, isBefore, format, isSameDay } from "date-fns";
 import { prisma } from "../prisma";
-import { startDate, Result } from "../utils";
+import { Result } from "../types/FileData";
+import { startDate } from "../utils";
 
 export async function generateNbTxsPerDay(currentData: Result[] | undefined) {
   const endDate = new Date();

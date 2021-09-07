@@ -1,5 +1,6 @@
 import { Queue } from "bullmq";
 import { readFileSync, writeFileSync, existsSync } from "fs";
+import { FileData } from "./types/FileData";
 
 /**
  * @description Convert micro to stacks.
@@ -7,17 +8,6 @@ import { readFileSync, writeFileSync, existsSync } from "fs";
  */
 export const microToStacks = (amountInMicroStacks: string | number) =>
   Number(amountInMicroStacks) / Math.pow(10, 6);
-
-export interface Result {
-  date: string;
-  value: number;
-}
-
-export interface FileData {
-  nbTxsPerDay: Result[];
-  uniqueAddressGrowingPerDay: Result[];
-  txsFeePerDay: Result[];
-}
 
 // Reading current data.json
 export const readData = (): FileData | undefined => {

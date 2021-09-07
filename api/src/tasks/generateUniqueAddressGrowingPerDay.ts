@@ -1,6 +1,7 @@
 import { addDays, isBefore, format } from "date-fns";
 import { prisma } from "../prisma";
-import { startDate, Result } from "../utils";
+import { Result } from "../types/FileData";
+import { startDate } from "../utils";
 
 export async function generateUniqueAddressGrowingPerDay() {
   const endDate = new Date();

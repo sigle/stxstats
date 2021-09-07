@@ -2,6 +2,7 @@ import { generateNbTxsPerDay } from "./generateNbTxsPerDay";
 import { generateUniqueAddressGrowingPerDay } from "./generateUniqueAddressGrowingPerDay";
 import { generateTxsFeePerDay } from "./generateTxsFeePerDay";
 import { readData, writeData } from "../utils";
+import { generateActiveAddressesPerDay } from "./generateActiveAddressesPerDay";
 
 export async function generateDataStats() {
   const currentData = readData();
@@ -17,10 +18,17 @@ export async function generateDataStats() {
   const txsFeePerDay = await generateTxsFeePerDay(currentData?.txsFeePerDay);
   console.log("Total fees generated");
 
+  console.log("Starting number of active addresses...");
+  const activeAddressesPerDay = await generateActiveAddressesPerDay(
+    currentData?.activeAddressesPerDay
+  );
+  console.log("Number of active addresses generated");
+
   const fileData = {
     nbTxsPerDay,
     uniqueAddressGrowingPerDay,
     txsFeePerDay,
+    activeAddressesPerDay,
   };
   writeData(fileData);
 
