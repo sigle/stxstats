@@ -26,8 +26,12 @@ const worker = new Worker(
       return;
     }
 
-    const { nbTxsPerDay, uniqueAddressGrowingPerDay, txsFeePerDay } =
-      currentData;
+    const {
+      nbTxsPerDay,
+      uniqueAddressGrowingPerDay,
+      txsFeePerDay,
+      activeAddressesPerDay,
+    } = currentData;
     tweet(
       // Date of the day before ( to make sure we have all the data )
       `Stats from Stacks blockchain on ${format(
@@ -45,6 +49,7 @@ ${
 ${microToStacks(
   txsFeePerDay[txsFeePerDay.length - 2].value
 )} STX paid in transaction fees
+${activeAddressesPerDay} active addresses on this date
      `
     );
 
