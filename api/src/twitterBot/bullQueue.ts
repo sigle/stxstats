@@ -49,7 +49,9 @@ ${
 ${microToStacks(
   txsFeePerDay[txsFeePerDay.length - 2].value
 )} STX paid in transaction fees
-${activeAddressesPerDay} active addresses on this date
+${
+  activeAddressesPerDay[activeAddressesPerDay.length - 2].value
+} active addresses on this date
      `
     );
 
