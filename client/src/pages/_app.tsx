@@ -4,6 +4,7 @@ import Router from "next/router";
 import { NextSeo } from "next-seo";
 import { ThemeProvider } from "next-themes";
 import * as Fathom from "fathom-client";
+import "../styles/fonts.scss";
 import "../styles/tailwind.css";
 import { globalCss, darkTheme } from "../stitches.config";
 

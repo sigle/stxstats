@@ -3,7 +3,7 @@ import { createStitches } from "@stitches/react";
 
 const gray = {
   gray1: "#fcfcfc",
-  gray2: "#f9f9f9",
+  gray2: "#f6f6f6",
   gray3: "#f3f3f3",
   gray4: "#ededed",
   gray5: "#e8e8e8",
@@ -12,13 +12,13 @@ const gray = {
   gray8: "#c7c7c7",
   gray9: "#737373",
   gray10: "#2f2f2f",
-  gray11: "#282828",
-  gray12: "#1a1a1a",
+  gray11: "#1a1a1a",
+  gray12: "#080808",
 };
 
 const grayDark = {
   gray1: "#1a1a1a",
-  gray2: "#1c1c1c",
+  gray2: "#202020",
   gray3: "#232323",
   gray4: "#282828",
   gray5: "#2e2e2e",
@@ -26,9 +26,9 @@ const grayDark = {
   gray7: "#3e3e3e",
   gray8: "#505050",
   gray9: "#a1a1a1",
-  gray10: "#d3d3d3",
-  gray11: "#e5e5e5",
-  gray12: "#f9f9f9",
+  gray10: "#e5e5e5",
+  gray11: "#f2f2f2",
+  gray12: "#fcfcfc",
 };
 
 export const {
@@ -43,11 +43,9 @@ export const {
   theme: {
     colors: {
       ...gray,
-      primary: "#1DEFC7",
     },
     fonts: {
-      lato: "'Lato', sans-serif",
-      merri: "'Merriweather', serif",
+      openSans: "'Open Sans', sans-serif",
     },
     space: {
       1: "4px",
@@ -60,6 +58,8 @@ export const {
       8: "32px",
       9: "36px",
       10: "40px",
+      15: "60px",
+      20: "80px",
     },
     sizes: {
       1: "4px",
