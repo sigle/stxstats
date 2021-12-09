@@ -8,6 +8,7 @@ specifiers:
   '@types/d3-array': 3.0.1
   '@types/react': 17.0.37
   '@visx/axis': 2.4.0
+  '@visx/curve': 2.1.0
   '@visx/event': 2.1.2
   '@visx/gradient': 2.1.0
   '@visx/grid': 2.4.0
@@ -34,6 +35,7 @@ dependencies:
   '@radix-ui/react-icons': 1.0.3_react@17.0.2
   '@stitches/react': 1.2.6_react@17.0.2
   '@visx/axis': 2.4.0_react@17.0.2
+  '@visx/curve': 2.1.0
   '@visx/event': 2.1.2
   '@visx/gradient': 2.1.0_react@17.0.2
   '@visx/grid': 2.4.0_react@17.0.2

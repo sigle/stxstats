@@ -12,6 +12,7 @@
     "@radix-ui/react-icons": "1.0.3",
     "@stitches/react": "1.2.6",
     "@visx/axis": "2.4.0",
+    "@visx/curve": "2.1.0",
     "@visx/event": "2.1.2",
     "@visx/gradient": "2.1.0",
     "@visx/grid": "2.4.0",
