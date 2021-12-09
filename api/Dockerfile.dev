@@ -3,10 +3,12 @@ FROM node:14-alpine
 
 WORKDIR /usr/src/app
 
-COPY package*.json ./
+RUN wget -qO- https://get.pnpm.io/v6.16.js | node - add --global pnpm
+
+COPY package.json pnpm-lock.yaml ./
 COPY prisma ./prisma
 
-RUN npm install
+RUN pnpm install
 
 COPY . .
 
