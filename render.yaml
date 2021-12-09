@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: stxstats
+    env: static
+    buildCommand: cd client; pnpm install; pnpm run build; pnpx next export
+    staticPublishPath: ./client/out
+    pullRequestPreviewsEnabled: true
