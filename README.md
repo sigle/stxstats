@@ -17,8 +17,8 @@ Run `docker-compose -f docker-compose.dev.yml up -d`.
 ### Running local client
 
 1. `cd client`
-2. `npm install`
-3. `npm run dev`
+2. `pnpm install`
+3. `pnpm run dev`
 
 ### Documentation
 
