@@ -15,6 +15,7 @@
     "@visx/event": "2.1.2",
     "@visx/gradient": "2.1.0",
     "@visx/grid": "2.4.0",
+    "@visx/group": "2.1.0",
     "@visx/responsive": "2.4.1",
     "@visx/scale": "2.2.2",
     "@visx/shape": "2.4.0",
