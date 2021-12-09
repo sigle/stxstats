@@ -42,13 +42,18 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.23.6
+
       - name: Use Node.js 14.x
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
           node-version: 14.x
-          # cache: "npm"
+          cache: "pnpm"
 
-      - run: npm ci
+      - name: Install Dependencies
+        run: pnpm install
 
       - name: Test
-        run: npx next lint
+        run: pnpx next lint
