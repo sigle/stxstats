@@ -19,6 +19,8 @@ FROM node:14-alpine AS RUNTIME_CONTAINER
 
 WORKDIR /usr/src/app
 
+RUN wget -qO- https://get.pnpm.io/v6.16.js | node - add --global pnpm
+
 COPY package.json pnpm-lock.yaml ./
 COPY prisma ./prisma
 
