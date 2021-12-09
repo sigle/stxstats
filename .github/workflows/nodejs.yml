@@ -51,6 +51,7 @@ jobs:
         with:
           node-version: 14.x
           cache: "pnpm"
+          cache-dependency-path: client/pnpm-lock.yaml
 
       - name: Install Dependencies
         run: pnpm install
