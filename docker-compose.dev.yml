@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   stacks-blockchain:
-    image: blockstack/stacks-blockchain:2.0.11.2.0
+    image: blockstack/stacks-blockchain:2.05.0.0.0
     command: /bin/stacks-node start --config /src/stacks-node/Config.toml
     ports:
       - "20443:20443"
@@ -13,7 +13,7 @@ services:
       - stacks-blockchain
 
   stacks-blockchain-api:
-    image: blockstack/stacks-blockchain-api:0.63.1
+    image: blockstack/stacks-blockchain-api:0.71.2
     environment:
       NODE_ENV: production
       PG_HOST: postgres
@@ -39,7 +39,7 @@ services:
       - postgres
 
   postgres:
-    image: postgres:12.7
+    image: postgres:12.9
     restart: always
     ports:
       - "5432:5432"
@@ -54,7 +54,7 @@ services:
       - stacks-blockchain
 
   redis:
-    image: "redis:5"
+    image: "redis:5.0"
     command: "redis-server --requirepass hello"
     ports:
       - "6379:6379"
