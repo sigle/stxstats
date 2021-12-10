@@ -17,3 +17,12 @@ pnpm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Codebase
+
+Here is a list of the technologies we use:
+
+- [Next.js](https://nextjs.org/): React framework
+- [Stitches](https://stitches.dev/): CSS-in-JS lib
+- [Radix](https://www.radix-ui.com/): UI components
+- [Visx](https://airbnb.io/visx/): Charting library
