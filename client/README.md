@@ -1,4 +1,4 @@
-# stxstats Client
+# stxstats client
 
 A next.js static website showing stats from the Stacks blockchain.
 
