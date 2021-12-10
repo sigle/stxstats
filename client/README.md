@@ -25,4 +25,5 @@ Here is a list of the technologies we use:
 - [Next.js](https://nextjs.org/): React framework
 - [Stitches](https://stitches.dev/): CSS-in-JS lib
 - [Radix](https://www.radix-ui.com/): UI components
+- [Radix icons](https://icons.modulz.app/): Icons components
 - [Visx](https://airbnb.io/visx/): Charting library
