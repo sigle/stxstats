@@ -6,7 +6,7 @@ import { prisma } from "../prisma";
 /**
  * Dashboard statistics route
  */
-export const registerRoute = (fastify: FastifyInstance) => {
+export const registerDashboardRoute = (fastify: FastifyInstance) => {
   fastify.get("/dashboard", async (_, reply) => {
     const [blockHeight, totalTransactions, transactionsLast24h, poxInfos] =
       await Promise.all([

@@ -4,7 +4,7 @@ import { readData, startCron } from "./utils";
 import { tweetStatsQueue } from "./twitterBot/bullQueue";
 import { generateDataStatsQueue } from "./tasks/generateStatsQueue";
 import { generateDataStats } from "./tasks/generateDataStats";
-import { registerRoute } from "./routes/dashboard";
+import { registerDashboardRoute } from "./routes/dashboard";
 
 generateDataStats()
   .then(async () => {
@@ -31,7 +31,7 @@ fastify.get("/", (_, reply) => {
   reply.send(currentData || false);
 });
 
-registerRoute(fastify);
+registerDashboardRoute(fastify);
 
 // Run the server!
 fastify.listen(4000, "0.0.0.0", (err, address) => {
