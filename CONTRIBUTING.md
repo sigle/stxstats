@@ -45,5 +45,5 @@ pnpm install
 We use docker to create the stacks node and manage the services.
 
 ```sh
-docker-compose -f docker-compose.dev.yml up
+docker-compose -f docker-compose.dev.yml up -d
 ```
