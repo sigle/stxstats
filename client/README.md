@@ -1,19 +1,14 @@
-# new
+# Implemented changes
 
-Stacks UI - implemented stacks, a responsive box to display stats information.
+- Stacks UI: implemented stacks - a responsive box to display stats information
+- SideBarMenu Component: added a sidebar menu, including a footer inside
+- Colours: changed colour palette according to designs
+- Dialog - started implementing dialog for mobile menu (incomplete)
+# Outstanding
 
-SideBarMenu Component - added a sidebar menu, including a footer inside.
-
-Change colour palette accordingly to designs.
-
-Dialog - unfinished implementing dialog for mobile menu.
-# to do
-
-Stacks - need to add one more box, test and then link API.
-
-SideBarMenu - create separate footer items to iterate over. Also need to add transition for mobile view menu.
-
-Dialog - need to complete implementation of dialog for mobile menu. 
+- Stacks UI: need to add one more box, test, and then link API
+- SideBarMenu Component: create separate footer items to iterate over; add animation transition for mobile view menu
+- Dialog: complete implementation of dialog for mobile menu
 
 # stxstats client
 
