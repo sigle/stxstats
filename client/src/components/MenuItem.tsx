@@ -1,6 +1,7 @@
 // https://medium.com/the-coders-guide-to-javascript/smooth-scrolling-anchor-menu-in-reactjs-175030d0bce2
-import { useState, useEffect } from "react";
-import { Box } from "../ui/Box";
+import { useState, useEffect } from 'react';
+import { Box } from '../ui/Box';
+import { Button } from '../ui/MenuButton';
 
 /*
  * A single menu item
@@ -14,43 +15,27 @@ export const MenuItem = ({
   itemName: string;
   active: boolean;
 }) => {
-  /*
-   * Store our anchorTarget in state
-   * We do not set it here, preferring to wait for after the component
-   * is mounted to avoid any errors
-   */
-  const [anchorTarget, setAnchorTarget] = useState<HTMLElement | null>(null);
-
-  /*
-   * When the component mounts and/or updates, set our AnchorTarget based
-   * on the itemName
-   */
-  useEffect(() => {
-    setAnchorTarget(document.getElementById(itemName));
-  }, [itemName]);
-
-  /*
-   * Where all the magic happens -- scrollIntoView on click
-   */
-  const handleClick = (event: any) => {
-    event.preventDefault();
-    anchorTarget?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
-
-  let name = "";
+  let name = '';
   switch (itemName) {
-    case "number-of-txs":
-      name = "Number of transactions";
+    case 'overview':
+      name = 'Overview';
       break;
-    case "unique-addresses":
-      name = "Unique addresses";
+    case 'price':
+      name = 'Price';
       break;
-    case "transactions-fee":
-      name = "Transaction Fees";
+    case 'mempool':
+      name = 'Mempool';
       break;
-    case "active-addresses":
-      name = "Active addresses";
+    case 'smart-contracts':
+      name = 'Smart Contracts';
       break;
+    case 'wallets':
+      name = 'Wallets';
+      break;
+    case 'pools':
+      name = 'Pools';
+      break;
+
     default:
       throw new Error(`Unknown item ${itemName}`);
   }
@@ -60,23 +45,28 @@ export const MenuItem = ({
    * Remember to set your ariaLabel for accessability!
    */
   return (
-    <Box as={"li"} css={{ py: "$4" }}>
+    <Box as={'li'} css={{ py: '$1', px: '$1' }}>
       <Box
-        as={"a"}
+        as={'a'}
         css={{
-          textDecoration: "none",
-          color: "$gray12",
-          "&.active": {
-            color: "$primary",
+          textDecoration: 'none',
+          color: '$gray12',
+          '&.active': {
+            color: '$primary',
             fontWeight: 700,
           },
         }}
         href={`#${itemName}`}
-        onClick={handleClick}
-        className={active ? "active" : ""}
+        className={active ? 'active' : ''}
         aria-label={`Scroll to ${itemName}`}
       >
-        {name}
+        <Button
+          css={{
+            borderRadius: '$1',
+          }}
+        >
+          {name}
+        </Button>
       </Box>
     </Box>
   );

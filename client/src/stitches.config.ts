@@ -1,5 +1,6 @@
 import type * as Stitches from "@stitches/react";
 import { createStitches } from "@stitches/react";
+import { stackGap } from "./gap-util";
 
 const gray = {
   gray1: "#fcfcfc",
@@ -100,6 +101,8 @@ export const {
     "2xl": "(min-width: 1536px)",
   },
   utils: {
+    stackGap,
+    
     p: (value: Stitches.PropertyValue<"padding">) => ({
       paddingTop: value,
       paddingBottom: value,
@@ -158,6 +161,7 @@ export const {
       borderRadius: value,
     }),
   },
+  
 });
 
 export const darkTheme = createTheme("dark-theme", {

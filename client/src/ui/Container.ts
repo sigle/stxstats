@@ -3,7 +3,7 @@ import { styled } from "../stitches.config";
 export const Container = styled("div", {
   ml: "auto",
   mr: "auto",
-  px: "$5",
+  px: "$4",
 
   "@sm": {
     maxWidth: "640px",

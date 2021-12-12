@@ -1,3 +1,17 @@
+# new
+
+Stacks UI - implemented stacks, a responsive box to display stats information.
+
+SideBarMenu Component - added a sidebar menu, including a footer inside.
+
+Change colour pallette acordinly to designs.
+
+# to do
+
+Stacks - need to add a one more boxes and link with api.
+
+SideBarMenu - create footer items to iterate over.
+Also need to add transition and mobile menu.
 # stxstats client
 
 A next.js static website showing stats from the Stacks blockchain.

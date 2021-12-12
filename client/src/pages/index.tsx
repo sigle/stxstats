@@ -1,57 +1,131 @@
-import { useEffect, useState } from "react";
-import { useTheme } from "next-themes";
-import { SunIcon } from "@radix-ui/react-icons";
-import { NbTxsPerDay } from "../components/NbTxsPerDay";
-import { UniqueAddressGrowingPerDay } from "../components/UniqueAddressGrowingPerDay";
-import { TxsFeePerDay } from "../components/TxsFeePerDay";
-import { Menu } from "../components/Menu";
-import { Container } from "../ui/Container";
-import { Box } from "../ui/Box";
-import { Heading } from "../ui/Heading";
-import { Link } from "../ui/Link";
-import { Text } from "../ui/Text";
-import { Footer } from "../components/Footer";
-import { IconButton } from "../ui/IconButton";
-import { FileData } from "../types/FileData";
-import { ActiveAddressesPerDay } from "../components/ActiveAddressesPerDay";
+import { useEffect, useState } from 'react';
+import { useTheme } from 'next-themes';
+import { SunIcon } from '@radix-ui/react-icons';
+import { NbTxsPerDay } from '../components/NbTxsPerDay';
+import { UniqueAddressGrowingPerDay } from '../components/UniqueAddressGrowingPerDay';
+import { TxsFeePerDay } from '../components/TxsFeePerDay';
+import { Menu } from '../components/Menu';
+import { Container } from '../ui/Container';
+import { Box } from '../ui/Box';
+import { Heading } from '../ui/Heading';
+import { Link } from '../ui/Link';
+import { Text } from '../ui/Text';
+import { Footer } from '../components/Footer';
+import { IconButton } from '../ui/IconButton';
+import { FileData } from '../types/FileData';
+import { ActiveAddressesPerDay } from '../components/ActiveAddressesPerDay';
+import { SideBarMenu } from '../components/SideBarMenu';
+import { Stack } from '../ui/Stack';
+import { styled } from '../stitches.config';
+import * as SeparatorPrimitive from '@radix-ui/react-separator';
+import { Dialog } from '../ui/Dialog';
+import * as DialogPrimitive from '@radix-ui/react-dialog';
+import { keyframes } from '@stitches/react';
 
 interface HomeProps {
   statsData: FileData;
 }
 
+// importing separator for use in stats info
+const StyledSeparator = styled(SeparatorPrimitive.Root, {
+  backgroundColor: '$gray6',
+  '&[data-orientation=vertical]': { height: '100%', width: 2 },
+});
+
+export const Separator = StyledSeparator;
+
+// adding individual style for responsiveness - to do bring styles to a separate page
+const PlaceHolder = styled('div', {
+  minHeight: '50px',
+  minWidth: '50px',
+  padding: '$4',
+  fontSize: '$xl',
+  flexGrow: 1,
+  backgroundColor: '$gray4',
+  borderRadius: '5px',
+});
+
+const TextStats = styled('div', {
+  color: '#F76808',
+  weight: 700,
+  fontSize: '$6',
+  fontWeight: '$bold',
+  paddingTop: '$6',
+  paddingBottom: '$6',
+  paddingLeft: '$2',
+});
+
+const Title = styled('div', {
+  color: '#A1A1A1',
+  weight: 300,
+  fontSize: '$2',
+  paddingLeft: '$2',
+  paddingBottom: '$4',
+});
+
+const Flex = styled('div', { display: 'flex' });
+
+const contentShow = keyframes({
+  '0%': { opacity: 0, transform: 'translateX(-100%)' },
+  '100%': { opacity: 1, transform: 'translateX(0)' },
+});
+
+const StyledDialogContent = styled(DialogPrimitive.Content, {
+  transform: 'translateX(0)',
+  maxWidth: 'initial',
+  maxHeight: 'initial',
+  overflowY: 'auto',
+  width: '16rem',
+  backgroundColor: 'rgba(247,247,247)',
+  margin: 0,
+  padding: 0,
+  borderRadius: 0,
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  bottom: 0,
+  '@media (prefers-reduced-motion: no-preference)': {
+    animation: `${contentShow} 150ms cubic-bezier(0.16, 1, 0.3, 1)`,
+    willChange: 'translateX',
+  },
+});
+
 const Home = ({ statsData }: HomeProps) => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(true);
 
   useEffect(() => setMounted(true), []);
+
+  const handleCloseMobileMenu = () => setMobileMenuOpen(false);
 
   return (
     <>
       <Container>
         <Box
           css={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            py: "$5",
-            "@lg": {
-              py: "$10",
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'flex-start',
+            py: '$5',
+            '@lg': {
+              py: '$10',
             },
           }}
         >
           {mounted === true ? (
-            theme === "dark" ? (
+            theme === 'dark' ? (
               <img
                 height={52}
                 width={104}
-                src={"/images/stx_stats_logo.svg"}
+                src={'/images/stx_stats_logo.svg'}
                 alt="Stx stats logo"
               />
             ) : (
               <img
                 height={52}
                 width={104}
-                src={"/images/stx_stats_logo_black.svg"}
+                src={'/images/stx_stats_logo_black.svg'}
                 alt="Stx stats logo"
               />
             )
@@ -59,84 +133,49 @@ const Home = ({ statsData }: HomeProps) => {
             <Box css={{ height: 52 }} />
           )}
 
-          <Box>
-            <IconButton
-              onClick={() =>
-                theme === "dark" ? setTheme("light") : setTheme("dark")
-              }
-            >
-              <SunIcon height={14} width={14} />
-            </IconButton>
+          <Box css={{ pl: '$20' }}>
+            <Heading as={'h1'} size={'xl'} css={{ fontWeight: 600, pl: '$15' }}>
+              Overview
+            </Heading>
           </Box>
         </Box>
 
-        <Heading as={"h1"} size={"3xl"} css={{ mt: "$8" }}>
-          Get the latest data from Stacks blockchain
-        </Heading>
-        <Heading size={"2xl"} css={{ fontWeight: 400 }}>
-          A project made by{" "}
-          <Link
-            href="https://www.sigle.io/"
-            target="_blank"
-            rel="noreferrer"
-            css={{ fontFamily: "$lato" }}
-          >
-            Sigle
-          </Link>
-        </Heading>
-
         <Box
           css={{
-            mt: 64,
-            display: "grid",
-            gridTemplateColumns: "1fr",
-            "@lg": {
-              gridTemplateColumns: "1fr 3fr",
+            mt: 0,
+            display: 'grid',
+            gridTemplateColumns: '1fr',
+            '@lg': {
+              gridTemplateColumns: '1fr 3fr',
             },
           }}
         >
           <div>
-            <Menu />
+            {/*  <Dialog open={mobileMenuOpen} onOpenChange={handleCloseMobileMenu}>
+            <StyledDialogContent aria-label="Mobile menu"> */}
+            <SideBarMenu />
+            {/* </StyledDialogContent>
+          </Dialog> */}
           </div>
-          <Box css={{ py: "$4" }}>
-            <Box id="number-of-txs" css={{ pt: "$4" }}>
-              <Heading as={"h3"} size={"xl"} css={{ fontWeight: 400 }}>
-                Transactions per day
-              </Heading>
-              <Text size={"sm"}>
-                The chart shows the total number of transactions on the Stacks
-                blockchain daily.
+          <Box css={{ py: '$4' }}>
+            <Box
+              id="unique-addresses"
+              css={{
+                pt: '$4',
+                pr: '$4',
+                backgroundColor: '$gray4',
+                borderRadius: '5px',
+              }}
+            >
+              <Text css={{ paddingLeft: '$4', color: '#A1A1A1' }}>
+                Price evolution (last 30 days)
               </Text>
-              <Box css={{ position: "relative", height: 500, mt: "$4" }}>
+              <Box css={{ position: 'relative', height: 500, mt: '$4' }}>
                 <Box
                   css={{
-                    position: "absolute",
-                    width: "100%",
-                    height: "100%",
-                    left: 0,
-                    top: 0,
-                  }}
-                >
-                  <NbTxsPerDay statsData={statsData.nbTxsPerDay} />
-                </Box>
-              </Box>
-            </Box>
-
-            <Box id="unique-addresses" css={{ mt: 48, pt: "$4" }}>
-              <Heading as={"h3"} size={"xl"} css={{ fontWeight: 400 }}>
-                Unique addresses over time
-              </Heading>
-              <Text size={"sm"}>
-                The chart shows the total distinct numbers of address on the
-                Stacks blockchain and the increase in the number of address
-                daily.
-              </Text>
-              <Box css={{ position: "relative", height: 500, mt: "$4" }}>
-                <Box
-                  css={{
-                    position: "absolute",
-                    width: "100%",
-                    height: "100%",
+                    position: 'absolute',
+                    width: '100%',
+                    height: '100%',
                     left: 0,
                     top: 0,
                   }}
@@ -147,59 +186,74 @@ const Home = ({ statsData }: HomeProps) => {
                 </Box>
               </Box>
             </Box>
-
-            <Box id="transactions-fee" css={{ mt: 48, pt: "$4" }}>
-              <Heading as={"h3"} size={"xl"} css={{ fontWeight: 400 }}>
-                Transactions fees
-              </Heading>
-              <Text size={"sm"}>
-                The chart shows the historical total number of Stacks paid as
-                transaction fee daily.
-              </Text>
-              <Box css={{ position: "relative", height: 500, mt: "$4" }}>
-                <Box
-                  css={{
-                    position: "absolute",
-                    width: "100%",
-                    height: "100%",
-                    left: 0,
-                    top: 0,
-                  }}
-                >
-                  <TxsFeePerDay statsData={statsData.txsFeePerDay} />
-                </Box>
-              </Box>
-            </Box>
-
-            <Box id="active-addresses" css={{ mt: 48, pt: "$4" }}>
-              <Heading as={"h3"} size={"xl"} css={{ fontWeight: 400 }}>
-                Active addresses
-              </Heading>
-              <Text size={"sm"}>
-                The chart shows the number of active addresses on the Stacks
-                blockchain daily.
-              </Text>
-              <Box css={{ position: "relative", height: 500, mt: "$4" }}>
-                <Box
-                  css={{
-                    position: "absolute",
-                    width: "100%",
-                    height: "100%",
-                    left: 0,
-                    top: 0,
-                  }}
-                >
-                  <ActiveAddressesPerDay
-                    statsData={statsData.activeAddressesPerDay}
+            {/*  Stack responsive boxes with stats info */}
+            <Stack
+              direction={{
+                '@initial': 'column',
+                '@sm': 'row',
+              }}
+              css={{ stackGap: '$4', pt: '$5' }}
+            >
+              <PlaceHolder>
+                <Title>Block Height</Title>
+                <Flex css={{ height: 20, alignItems: 'center' }}>
+                  <TextStats>55,409,264</TextStats>
+                  <Separator
+                    decorative
+                    orientation="vertical"
+                    css={{ margin: '0 15px' }}
                   />
-                </Box>
-              </Box>
-            </Box>
+                  <TextStats>2</TextStats>
+                </Flex>
+              </PlaceHolder>
+              <PlaceHolder>
+                <Title>Total transactions</Title>
+                <Flex css={{ height: 20, alignItems: 'center' }}>
+                  <TextStats>42,501,750</TextStats>
+                  <Separator
+                    decorative
+                    orientation="vertical"
+                    css={{ margin: '0 15px' }}
+                  />
+                  <TextStats>36</TextStats>
+                </Flex>
+              </PlaceHolder>
+            </Stack>
+            <Stack
+              direction={{
+                '@initial': 'column',
+                '@sm': 'row',
+              }}
+              css={{ stackGap: '$4', pt: '$5' }}
+            >
+              <PlaceHolder>
+                <Title>Total stacked</Title>
+                <Flex css={{ height: 20, alignItems: 'center' }}>
+                  <TextStats>23,092 STX</TextStats>
+                  <Separator
+                    decorative
+                    orientation="vertical"
+                    css={{ margin: '0 15px' }}
+                  />
+                  <TextStats>2</TextStats>
+                </Flex>
+              </PlaceHolder>
+              <PlaceHolder>
+                <Title>BTC price</Title>
+                <Flex css={{ height: 20, alignItems: 'center' }}>
+                  <TextStats>$580,314 BTC</TextStats>
+                  <Separator
+                    decorative
+                    orientation="vertical"
+                    css={{ backgroundColor: '$gray4', marginLeft: '$2' }}
+                  />
+                  <text style={{ color: '#1DD4B4' }}>11%</text>
+                </Flex>
+              </PlaceHolder>
+            </Stack>
           </Box>
         </Box>
       </Container>
-
-      <Footer />
     </>
   );
 };

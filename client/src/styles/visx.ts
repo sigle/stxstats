@@ -4,8 +4,8 @@ export const tooltipStyles = {
   ...defaultStyles,
   minWidth: 60,
   backgroundColor: "#f1f1f1",
-  color: "#141629",
+  color: "#150701",
   display: "block",
 };
-export const accentColor = "#1DEFC7";
-export const accentColorDark = "#75daad";
+export const accentColor = "#B7410E";
+export const accentColorDark = "#FF802B";

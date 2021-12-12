@@ -104,13 +104,15 @@ export const Menu = () => {
       as={"nav"}
       css={{
         py: "$4",
-        "@lg": {
+        "@sm": {
           top: 0,
           position: "sticky",
         },
       }}
     >
-      <ul>{menuList}</ul>
+                <ul>{menuList}</ul>
+              
+      
     </Box>
   );
 };
