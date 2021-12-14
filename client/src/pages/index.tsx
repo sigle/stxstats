@@ -21,6 +21,7 @@ import * as SeparatorPrimitive from '@radix-ui/react-separator';
 import { Dialog } from '../ui/Dialog';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { keyframes } from '@stitches/react';
+import ExampleChart from '../components/ExampleChart';
 
 interface HomeProps {
   statsData: FileData;
@@ -44,6 +45,7 @@ const PlaceHolder = styled('div', {
   backgroundColor: '$gray4',
   borderRadius: '5px',
 });
+
 
 const TextStats = styled('div', {
   color: '#F76808',
@@ -90,9 +92,7 @@ const StyledDialogContent = styled(DialogPrimitive.Content, {
   },
 });
 
-const SideBarContainer = styled('div', { 
-  
-});
+const SideBarContainer = styled('div', {});
 
 const Home = ({ statsData }: HomeProps) => {
   const { theme, setTheme } = useTheme();
@@ -109,28 +109,24 @@ const Home = ({ statsData }: HomeProps) => {
         <Box
           css={{
             mt: 0,
-            display: 'flex',
+            display: 'grid',
             gridTemplateColumns: '1fr',
             '@lg': {
               gridTemplateColumns: '1fr 3fr',
             },
           }}
         >
-
-          <div>
-            <Dialog open={mobileMenuOpen} onOpenChange={handleCloseMobileMenu}>
-              <StyledDialogContent aria-label="Mobile menu">
-                <SideBarMenu />
-              </StyledDialogContent>
-            </Dialog>
-          </div>
+          <Dialog open={mobileMenuOpen} onOpenChange={handleCloseMobileMenu}>
+            <StyledDialogContent aria-label="Mobile menu">
+              <SideBarMenu />
+            </StyledDialogContent>
+          </Dialog>
 
           <SideBarContainer>
             <SideBarMenu />
           </SideBarContainer>
 
           <Box css={{ pb: '$4', pt: '$8' }}>
-          
             <IconButton
               css={{
                 '@sm': {
@@ -148,34 +144,50 @@ const Home = ({ statsData }: HomeProps) => {
             <Heading as={'h3'} size={'xl'} css={{ fontWeight: 700, pb: '$8' }}>
               Overview
             </Heading>
-            <Box
-              id="unique-addresses"
-              css={{
-                pt: '$4',
-                pr: '$1',
-                backgroundColor: '$gray4',
-                borderRadius: '5px',
+            {/*  Chart */}
+            <Stack
+              direction={{
+                '@initial': 'column',
+                '@sm': 'row',
               }}
+              css={{
+               
+                pt: '$5' }}
             >
-              <Text css={{ paddingLeft: '$4', color: '#A1A1A1' }}>
-                Price evolution (last 30 days)
-              </Text>
-              <Box css={{ position: 'relative', height: 500, mt: '$4' }}>
-                <Box
-                  css={{
-                    position: 'absolute',
-                    width: '100%',
-                    height: '100%',
-                    left: 0,
-                    top: 0,
-                  }}
-                >
-                  <UniqueAddressGrowingPerDay
-                    statsData={statsData.uniqueAddressGrowingPerDay}
+              
+
+              <PlaceHolder>
+            <ExampleChart />
+            </PlaceHolder>
+
+              <PlaceHolder>
+
+
+              <Stack direction="column" css={{ stackGap: "$4" }}>
+              <Title>STX price</Title>
+              <Separator
+                    decorative
+                    orientation="vertical"
+                    css={{ margin: '0 15px' }}
                   />
-                </Box>
-              </Box>
-            </Box>
+                <div> 
+                  <TextStats>$2,46</TextStats>
+                  </div>
+                <div >
+                <Title>24h volume</Title>
+                <TextStats>1.3B</TextStats>
+                </div>
+                <div >
+                <Title>Market cap (fully diluted)</Title>
+                <TextStats>86B</TextStats>
+                </div>
+              </Stack>
+
+              </PlaceHolder>
+
+            </Stack>
+
+
             {/*  Stack responsive boxes with stats info */}
             <Stack
               direction={{
