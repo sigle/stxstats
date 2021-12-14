@@ -11,7 +11,7 @@ import { Button } from '../ui/MenuButton';
 export const MenuItem = ({
   itemName,
   active,
-}: {
+} : {
   itemName: string;
   active: boolean;
 }) => {

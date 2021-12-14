@@ -21,6 +21,8 @@ import * as SeparatorPrimitive from '@radix-ui/react-separator';
 import { Dialog } from '../ui/Dialog';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { keyframes } from '@stitches/react';
+import { RowSpacingIcon, Cross2Icon } from '@radix-ui/react-icons';
+import { Logo } from '../components/Logo';
 
 interface HomeProps {
   statsData: FileData;
@@ -63,6 +65,11 @@ const Title = styled('div', {
   paddingBottom: '$4',
 });
 
+const LogoContainer = styled('div', {
+  display: 'flex',
+  alignItems: 'center',
+});
+
 const Flex = styled('div', { display: 'flex' });
 
 const contentShow = keyframes({
@@ -72,8 +79,8 @@ const contentShow = keyframes({
 
 const StyledDialogContent = styled(DialogPrimitive.Content, {
   transform: 'translateX(0)',
-  maxWidth: '100%',
-  maxHeight: '100%',
+  maxWidth: 'initial',
+  maxHeight: 'initial',
   overflowY: 'auto',
   width: '16rem',
   backgroundColor: '$gray1',
@@ -90,14 +97,10 @@ const StyledDialogContent = styled(DialogPrimitive.Content, {
   },
 });
 
-const SideBarContainer = styled('div', { 
-  
-});
-
 const Home = ({ statsData }: HomeProps) => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(true);
 
   useEffect(() => setMounted(true), []);
 
@@ -106,6 +109,21 @@ const Home = ({ statsData }: HomeProps) => {
   return (
     <>
       <Container>
+        <LogoContainer>
+          <IconButton onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+            <HamburgerMenuIcon />
+          </IconButton>
+          <Logo />
+        </LogoContainer>
+
+        <div style={{ display: 'flex' }}>
+          <Dialog open={mobileMenuOpen} onOpenChange={handleCloseMobileMenu}>
+            <StyledDialogContent aria-label="Mobile menu">
+              <SideBarMenu />
+            </StyledDialogContent>
+          </Dialog>
+        </div>
+
         <Box
           css={{
             mt: 0,
@@ -116,43 +134,20 @@ const Home = ({ statsData }: HomeProps) => {
             },
           }}
         >
-
-          <div>
-            <Dialog open={mobileMenuOpen} onOpenChange={handleCloseMobileMenu}>
-              <StyledDialogContent aria-label="Mobile menu">
-                <SideBarMenu />
-              </StyledDialogContent>
-            </Dialog>
-          </div>
-
-          <SideBarContainer>
-            <SideBarMenu />
-          </SideBarContainer>
-
-          <Box css={{ pb: '$4', pt: '$8' }}>
-          
-            <IconButton
-              css={{
-                '@sm': {
-                  display: 'contents',
-                },
-                '@lg': {
-                  display: 'none',
-                },
-              }}
-            >
-              <HamburgerMenuIcon
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              />
-            </IconButton>
-            <Heading as={'h3'} size={'xl'} css={{ fontWeight: 700, pb: '$8' }}>
-              Overview
-            </Heading>
+          <Box css={{ py: '$4' }}>
+            <Box css={{ pl: '$20', textAlign: 'left' }}>
+              <Heading
+                as={'h1'}
+                size={'xl'}
+                css={{ fontWeight: 600, pl: '$15' }}
+              >
+                Overview
+              </Heading>
+            </Box>
             <Box
               id="unique-addresses"
               css={{
-                pt: '$4',
-                pr: '$1',
+                pr: '$4',
                 backgroundColor: '$gray4',
                 borderRadius: '5px',
               }}

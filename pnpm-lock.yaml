@@ -1,0 +1,13 @@
+lockfileVersion: 5.3
+
+specifiers:
+  '@radix-ui/colors': ^0.1.8
+
+dependencies:
+  '@radix-ui/colors': 0.1.8
+
+packages:
+
+  /@radix-ui/colors/0.1.8:
+    resolution: {integrity: sha512-jwRMXYwC0hUo0mv6wGpuw254Pd9p/R6Td5xsRpOmaWkUHlooNWqVcadgyzlRumMq3xfOTXwJReU0Jv+EIy4Jbw==}
+    dev: false

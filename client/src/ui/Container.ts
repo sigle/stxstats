@@ -5,13 +5,16 @@ export const Container = styled("div", {
   mr: "auto",
   px: "$4",
 
-  "@sm": {
-    maxWidth: "640px",
+  '@sm': {
+    maxWidth: '640px',
   },
-  "@md": {
-    maxWidth: "768px",
+  '@md': {
+    maxWidth: '768px',
   },
-  "@lg": {
-    maxWidth: "1024px",
+  '@lg': {
+    maxWidth: '1024px',
+  },
+  '@xl': {
+    maxWidth: '1280px',
   },
 });

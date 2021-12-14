@@ -9,15 +9,6 @@ const overlayShow = keyframes({
   '100%': { opacity: 1 },
 });
 
-const StyledOverlay = styled(DialogPrimitive.Overlay, {
-  backgroundColor: 'rgba(26, 26, 26, 0.2)',
-  position: 'fixed',
-  inset: 0,
-  '@media (prefers-reduced-motion: no-preference)': {
-    animation: `${overlayShow} 150ms cubic-bezier(0.16, 1, 0.3, 1)`,
-  },
-});
-
 type DialogProps = React.ComponentProps<typeof DialogPrimitive.Root> & {
   children: React.ReactNode;
 };
@@ -25,7 +16,7 @@ type DialogProps = React.ComponentProps<typeof DialogPrimitive.Root> & {
 export function Dialog({ children, ...props }: DialogProps) {
   return (
     <DialogPrimitive.Root {...props}>
-      <StyledOverlay />
+      
       {children}
     </DialogPrimitive.Root>
   );
@@ -71,9 +62,10 @@ export function DialogContent({ children, ...props }: DialogContentProps) {
     <StyledContent {...props}>
       {children}
       <StyledCloseButton asChild>
-        <IconButton>
+        <div>
+          <text style={{ color: 'white' }}>HEY</text>
           <Cross1Icon width={15} height={15} />
-        </IconButton>
+        </div>
       </StyledCloseButton>
     </StyledContent>
   );

@@ -2,21 +2,22 @@ import { SunIcon } from '@radix-ui/react-icons';
 import { useTheme } from 'next-themes';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
-import { Box } from '../ui/Box';
-import { IconButton } from '../ui/IconButton';
-import { Button } from '../ui/MenuButton';
-import { MenuItem } from './MenuItem';
+import { Box } from '../../ui/Box';
+import { IconButton } from '../../ui/IconButton';
+import { Button } from '../../ui/MenuButton';
+import { Logo } from '../Logo';
+import { MenuItem } from '../MenuItem';
 
 /*
  * Sidebar menu + footer menu
  */
 const menuItems: { [key: string]: any } = {
-  overview: null,
-  price: null,
-  mempool: null,
+  'overview': null,
+  'price': null,
+  'mempool': null,
   'smart-contracts': null,
-  wallets: null,
-  pools: null,
+  'wallets': null,
+  'pools': null,
 };
 
 export const SideBarMenu = () => {
@@ -47,15 +48,17 @@ export const SideBarMenu = () => {
         py: '$1',
         '@sm': {
           top: 0,
-          position: 'left',
         },
       }}
     >
+      <Logo />
+
       <ul>{menuList}</ul>
       {/*  Footer items - to do, make a separate component to iterate items */}
-      <ul>
-        <Box css={{ position: 'absolute', bottom: '0' }}>
+      <ul style={{ marginTop: '10rem' }}>
+        
           <Box as={'li'} css={{ py: '$1', px: '$1' }}>
+            
             <Box
               as={'a'}
               css={{
@@ -139,7 +142,7 @@ export const SideBarMenu = () => {
               </Button>
             </Box>
           </Box>
-        </Box>
+        
       </ul>
     </Box>
   );
