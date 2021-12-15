@@ -1,10 +1,6 @@
-import { SunIcon } from '@radix-ui/react-icons';
-import { useTheme } from 'next-themes';
-import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
+import { Cross1Icon } from '@radix-ui/react-icons';
+import { useState } from 'react';
 import { Box } from '../../ui/Box';
-import { IconButton } from '../../ui/IconButton';
-import { Button } from '../../ui/MenuButton';
 import { Footer } from '../Footer';
 import { Logo } from '../Logo';
 import { MenuItem } from '../MenuItem';
@@ -21,7 +17,7 @@ const menuItems: { [key: string]: any } = {
   pools: null,
 };
 
-export const SideBarMenu = () => {
+export const SideBarMenuMobile = () => {
   /*
    * Store the active menuItem in state to force update
    * when changed
@@ -43,18 +39,24 @@ export const SideBarMenu = () => {
     <Box
       as={'nav'}
       css={{
-        display: 'none',
         px: '$1',
         py: '$1',
         '@sm': {
           top: 0,
         },
-        '@md': {
-          display: 'block',
-        },
       }}
     >
-      <Logo />
+      <Box
+        css={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          px: '$3',
+        }}
+      >
+        <Logo />
+        <Cross1Icon />
+      </Box>
 
       <ul>{menuList}</ul>
       {/*  Footer items - to do, make a separate component to iterate items */}

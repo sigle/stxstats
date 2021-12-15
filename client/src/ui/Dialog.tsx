@@ -57,10 +57,9 @@ export function DialogContent({ children, ...props }: DialogContentProps) {
     <StyledContent {...props}>
       {children}
       <StyledCloseButton asChild>
-        <div>
-          <text style={{ color: 'white' }}>HEY</text>
+        
           <Cross1Icon width={15} height={15} />
-        </div>
+       
       </StyledCloseButton>
     </StyledContent>
   );

@@ -2,18 +2,12 @@ import { useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
 import { HamburgerMenuIcon, SunIcon } from '@radix-ui/react-icons';
 import { NbTxsPerDay } from '../components/NbTxsPerDay';
-import { UniqueAddressGrowingPerDay } from '../components/UniqueAddressGrowingPerDay';
-import { TxsFeePerDay } from '../components/TxsFeePerDay';
-import { Menu } from '../components/Menu';
 import { Container } from '../ui/Container';
 import { Box } from '../ui/Box';
 import { Heading } from '../ui/Heading';
-import { Link } from '../ui/Link';
 import { Text } from '../ui/Text';
-import { Footer } from '../components/Footer';
 import { IconButton } from '../ui/IconButton';
 import { FileData } from '../types/FileData';
-import { ActiveAddressesPerDay } from '../components/ActiveAddressesPerDay';
 import { SideBarMenu } from '../components/SideBarMenu/SideBarMenu';
 import { Stack } from '../ui/Stack';
 import { styled } from '../stitches.config';
@@ -21,7 +15,7 @@ import * as SeparatorPrimitive from '@radix-ui/react-separator';
 import { Dialog } from '../ui/Dialog';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { keyframes } from '@stitches/react';
-import ExampleChart from '../components/ExampleChart';
+import { SideBarMenuMobile } from '../components/SideBarMenu/SideBarMenuMobile';
 
 interface HomeProps {
   statsData: FileData;
@@ -137,7 +131,7 @@ const Home = ({ statsData }: HomeProps) => {
         >
           <Dialog open={mobileMenuOpen} onOpenChange={handleCloseMobileMenu}>
             <StyledDialogContent aria-label="Mobile menu">
-              <SideBarMenu />
+              <SideBarMenuMobile />
             </StyledDialogContent>
           </Dialog>
 
@@ -154,6 +148,8 @@ const Home = ({ statsData }: HomeProps) => {
                 '@lg': {
                   display: 'none',
                 },
+                padding: 0,
+                mb: '$4',
               }}
             >
               <HamburgerMenuIcon
