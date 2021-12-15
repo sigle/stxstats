@@ -6,8 +6,8 @@ import { LinePath } from "@visx/shape";
 import { Text } from "@visx/text";
 
 export default function ExampleChart() {
-  const height = 166;
-  const width = 640;
+  const height = 266;
+  const width = 300;
   const padding = 0;
 
   const xScale = scaleLinear({

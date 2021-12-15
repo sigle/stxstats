@@ -46,7 +46,7 @@ const PlaceHolder = styled('div', {
   borderRadius: '5px',
 });
 
-
+// style for text and titles inside overview boxes
 const TextStats = styled('div', {
   color: '#F76808',
   weight: 700,
@@ -57,6 +57,23 @@ const TextStats = styled('div', {
   paddingLeft: '$2',
 });
 
+const TextOverview = styled('div', {
+  color: '#F76808',
+  weight: 700,
+  fontSize: '$6',
+  fontWeight: '$bold',
+  padding: 0,
+  margin: 0,
+});
+
+const TitleOverview = styled('div', {
+  color: '#A1A1A1',
+  weight: 300,
+  fontSize: '$2',
+  padding: 0,
+  margin: 0,
+});
+
 const Title = styled('div', {
   color: '#A1A1A1',
   weight: 300,
@@ -65,8 +82,10 @@ const Title = styled('div', {
   paddingBottom: '$4',
 });
 
+// flex box to add responsiveness
 const Flex = styled('div', { display: 'flex' });
 
+// dialog style when mobile sidebar is open
 const contentShow = keyframes({
   '0%': { opacity: 0, transform: 'translateX(-100%)' },
   '100%': { opacity: 1, transform: 'translateX(0)' },
@@ -144,49 +163,52 @@ const Home = ({ statsData }: HomeProps) => {
             <Heading as={'h3'} size={'xl'} css={{ fontWeight: 700, pb: '$8' }}>
               Overview
             </Heading>
-            {/*  Chart */}
+            {/*  Overview Chart */}
             <Stack
               direction={{
                 '@initial': 'column',
                 '@sm': 'row',
               }}
               css={{
-               
-                pt: '$5' }}
+                pt: '$5',
+              }}
             >
+              <PlaceHolder css={{ borderRadius: '5px 0px 0px 5px' }}>
+            <Box id="number-of-txs" css={{ pt: "$4" }}>
               
-
-              <PlaceHolder>
-            <ExampleChart />
+              <Text size={"sm"}>
+              Price evolution (last 30 days)
+              </Text>
+              <Box css={{ position: "relative", height: 200, mt: "$4" }}>
+                <Box
+                  css={{
+                    position: "absolute",
+                    width: "100%",
+                    height: "100%",
+                    left: 0,
+                    top: 0,
+                  }}
+                >
+                  <NbTxsPerDay statsData={statsData.nbTxsPerDay} />
+                </Box>
+              </Box>
+            </Box>
             </PlaceHolder>
+            
+              <PlaceHolder css={{ borderRadius: '0px 5px 5px 0px' }}>
+                <Stack direction="column" css={{  }}>
+                  
+                  <Title>STX price</Title>
+                  <TextOverview>$2,46 <text style={{ color: '#1DD4B4', fontSize: '13px', alignItems: 'center' }}>22%</text></TextOverview>
 
-              <PlaceHolder>
+                  <TitleOverview>24h volume</TitleOverview>
+                  <TextOverview>1.3B <text style={{ color: '#1DD4B4', fontSize: '13px', alignItems: 'center' }}>8%</text></TextOverview>
 
-
-              <Stack direction="column" css={{ stackGap: "$4" }}>
-              <Title>STX price</Title>
-              <Separator
-                    decorative
-                    orientation="vertical"
-                    css={{ margin: '0 15px' }}
-                  />
-                <div> 
-                  <TextStats>$2,46</TextStats>
-                  </div>
-                <div >
-                <Title>24h volume</Title>
-                <TextStats>1.3B</TextStats>
-                </div>
-                <div >
-                <Title>Market cap (fully diluted)</Title>
-                <TextStats>86B</TextStats>
-                </div>
-              </Stack>
-
+                  <TitleOverview>Market cap (fully diluted)</TitleOverview>
+                  <TextOverview>86B</TextOverview>
+                </Stack>
               </PlaceHolder>
-
             </Stack>
-
 
             {/*  Stack responsive boxes with stats info */}
             <Stack
@@ -205,7 +227,11 @@ const Home = ({ statsData }: HomeProps) => {
                     orientation="vertical"
                     css={{ margin: '0 15px' }}
                   />
-                  <TextStats>2</TextStats>
+                  <div>
+                  <Title css={{padding: 0 }}>Last block (minutes)</Title>
+                  <TextStats css={{padding: 0, marginBottom: '$6' }}>2</TextStats>
+                  </div>
+                  
                 </Flex>
               </PlaceHolder>
               <PlaceHolder>
@@ -217,9 +243,14 @@ const Home = ({ statsData }: HomeProps) => {
                     orientation="vertical"
                     css={{ margin: '0 15px' }}
                   />
-                  <TextStats>36</TextStats>
+                  <div>
+                  <Title css={{padding: 0 }}>Total transactions</Title>
+                  <TextStats css={{padding: 0, marginBottom: '$5' }}>36</TextStats>
+                  </div>
                 </Flex>
+                
               </PlaceHolder>
+              
             </Stack>
             <Stack
               direction={{
@@ -231,25 +262,29 @@ const Home = ({ statsData }: HomeProps) => {
               <PlaceHolder>
                 <Title>Total stacked</Title>
                 <Flex css={{ height: 20, alignItems: 'center' }}>
-                  <TextStats>23,092 STX</TextStats>
+                  <TextStats>23,092 <text style={{  color: '#BC410D' }}>STX</text></TextStats>
                   <Separator
                     decorative
                     orientation="vertical"
                     css={{ margin: '0 15px' }}
                   />
-                  <TextStats>2</TextStats>
+                  <div>
+                  <Title css={{padding: 0 }}>Next cycle (in days)</Title>
+                  <TextStats css={{padding: 0, marginBottom: '$6' }}>8</TextStats>
+                  </div>
                 </Flex>
               </PlaceHolder>
               <PlaceHolder>
                 <Title>BTC price</Title>
                 <Flex css={{ height: 20, alignItems: 'center' }}>
-                  <TextStats>$580,314 BTC</TextStats>
+                  <TextStats>$42,501,750</TextStats>
                   <Separator
                     decorative
                     orientation="vertical"
                     css={{ backgroundColor: '$gray4', marginLeft: '$2' }}
                   />
                   <text style={{ color: '#1DD4B4' }}>11%</text>
+                  <text style={{ color: '#282828' }}>00000000</text>
                 </Flex>
               </PlaceHolder>
             </Stack>
