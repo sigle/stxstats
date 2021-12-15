@@ -1,9 +1,9 @@
-import { Axis } from "@visx/axis";
-import { curveNatural } from "@visx/curve";
-import { LinearGradient } from "@visx/gradient";
-import { scaleLinear } from "@visx/scale";
-import { LinePath } from "@visx/shape";
-import { Text } from "@visx/text";
+import { Axis } from '@visx/axis';
+import { curveNatural } from '@visx/curve';
+import { LinearGradient } from '@visx/gradient';
+import { scaleLinear } from '@visx/scale';
+import { LinePath } from '@visx/shape';
+import { Text } from '@visx/text';
 
 export default function ExampleChart() {
   const height = 166;
@@ -12,21 +12,21 @@ export default function ExampleChart() {
 
   const xScale = scaleLinear({
     domain: [1, 10],
-    range: [0 + padding, width - padding]
+    range: [0 + padding, width - padding],
   });
 
   const yScale = scaleLinear({
     domain: [0, 50],
-    range: [height - padding, padding * 2]
+    range: [height - padding, padding * 2],
   });
 
   const colors = {
-    white: "#FFFFFF",
-    black: "#1B1B1B",
-    gray: "#98A7C0",
-    darkGray: "#2A2A2A",
-    accent: "#F76808",
-    darkAccent: "#F76808" 
+    white: '#FFFFFF',
+    black: '#1B1B1B',
+    gray: '#98A7C0',
+    darkGray: '#2A2A2A',
+    accent: '#F76808',
+    darkAccent: '#F76808',
   };
 
   const data = [
@@ -39,12 +39,12 @@ export default function ExampleChart() {
     [7, 48],
     [8, 43],
     [9, 38],
-    [10, 0]
+    [10, 0],
   ];
 
   return (
     <svg height={height} width={width}>
-     {/*  <rect
+      {/*  <rect
         x={0}
         y={0}
         width={width}
@@ -74,7 +74,6 @@ export default function ExampleChart() {
         from={colors.accent}
         to={colors.darkAccent}
       />
-      
 
       <LinePath
         data={data}
@@ -85,7 +84,6 @@ export default function ExampleChart() {
         curve={curveNatural}
         markerEnd="url(#marker-circle)"
       />
-
     </svg>
   );
 }

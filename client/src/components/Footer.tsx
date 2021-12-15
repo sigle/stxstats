@@ -1,95 +1,103 @@
-import { useEffect, useState } from "react";
-import { useTheme } from "next-themes";
-import { DiscordIcon } from "../images/Discord";
-import { GithubIcon } from "../images/Github";
-import { TwitterIcon } from "../images/Twitter";
-import { styled } from "../stitches.config";
-import { Box } from "../ui/Box";
-import { Container } from "../ui/Container";
-import { Link } from "../ui/Link";
-import { Text } from "../ui/Text";
+import { useEffect, useState } from 'react';
+import { useTheme } from 'next-themes';
+import { Box } from '../ui/Box';
+import { Button } from '../ui/MenuButton';
+import { IconButton } from '../ui/IconButton';
+import { SunIcon } from '@radix-ui/react-icons';
 
 export const Footer = () => {
-  const { theme } = useTheme();
+  // setting theme in from the footer in sidebar
+  const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => setMounted(true), []);
 
   return (
-    
-    <Box
-      as={"nav"}
-      css={{
-        py: "$4",
-        "@sm": {
-          top: 0,
-          position: "left",
-        },
-      }}
-    >
-      <ul>
-            <Link
-              href="https://explorer.stacks.co/address/SP6FRH7STC0G94N3PQ9BAGWF3W61R5BCEEEZB11A?chain=mainnet"
-              target="_blank"
-              rel="noreferrer"
-              css={{
-                color: "$gray12",
-                borderBottom: "none",
-                mr: "$2",
-                hover: {
-                  borderBottom: "2px solid $gray1",
-                },
-              }}
+    <>
+      <Box as={'li'} css={{ py: '$1', px: '$1' }}>
+        <Box
+          as={'a'}
+          css={{
+            textDecoration: 'none',
+            color: '$gray12',
+            '&.active': {
+              color: '$primary',
+              fontWeight: 700,
+            },
+          }}
+          href="https://twitter.com/sigleapp"
+          target="_blank"
+        >
+          <Button
+            css={{
+              borderRadius: '$1',
+            }}
+          >
+            Twitter
+          </Button>
+        </Box>
+      </Box>
+
+      <Box as={'li'} css={{ py: '$1', px: '$1' }}>
+        <Box
+          as={'a'}
+          css={{
+            textDecoration: 'none',
+            color: '$gray12',
+            '&.active': {
+              color: '$primary',
+              fontWeight: 700,
+            },
+          }}
+          href="https://discord.gg/X2Dbz3xbrs"
+          target="_blank"
+        >
+          <Button
+            css={{
+              borderRadius: '$1',
+            }}
+          >
+            Discord
+          </Button>
+        </Box>
+      </Box>
+
+      <Box as={'li'} css={{ py: '$1', px: '$1' }}>
+        <Box as={'a'} href="https://www.sigle.io/" target="_blank">
+          <Button
+            css={{
+              borderRadius: '$1',
+              backgroundColor: '$gray12',
+              color: '$gray1',
+              '&:hover': {
+                backgroundColor: '$gray5',
+                color: '$gray12',
+              },
+            }}
+          >
+            Visit Sigle.io
+          </Button>
+        </Box>
+      </Box>
+
+      <Box as={'li'} css={{ py: '$1', px: '$1' }}>
+        <Box as={'a'} href="#">
+          <Button
+            css={{
+              borderRadius: '$1',
+            }}
+          >
+            Mode
+            <IconButton
+              onClick={() =>
+                theme === 'dark' ? setTheme('light') : setTheme('dark')
+              }
             >
-              Donate
-            </Link>
-            <Link
-              href="https://twitter.com/sigleapp"
-              target="_blank"
-              rel="noreferrer"
-              css={{
-                color: "$gray12",
-                borderBottom: "none",
-                mr: "$2",
-                hover: {
-                  borderBottom: "2px solid $gray1",
-                },
-              }}
-            >
-              Twitter
-            </Link>
-            <Link
-              href="https://discord.gg/X2Dbz3xbrs"
-              target="_blank"
-              rel="noreferrer"
-              css={{
-                color: "$gray12",
-                borderBottom: "none",
-                mr: "$2",
-                hover: {
-                  borderBottom: "2px solid $gray1",
-                },
-              }}
-            >
-              Discord
-            </Link>
-            <Link
-              href="https://github.com/sigle/stxstats"
-              target="_blank"
-              rel="noreferrer"
-              css={{
-                color: "$gray12",
-                borderBottom: "none",
-                mr: "$2",
-                hover: {
-                  borderBottom: "2px solid $gray1",
-                },
-              }}
-            >
-              Github
-            </Link>
-            </ul>
-          </Box>
-       
+              <SunIcon height={14} width={14} />
+            </IconButton>
+          </Button>
+        </Box>
+      </Box>
+    </>
   );
 };

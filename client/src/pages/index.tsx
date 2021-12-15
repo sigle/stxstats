@@ -174,35 +174,53 @@ const Home = ({ statsData }: HomeProps) => {
               }}
             >
               <PlaceHolder css={{ borderRadius: '5px 0px 0px 5px' }}>
-            <Box id="number-of-txs" css={{ pt: "$4" }}>
-              
-              <Text size={"sm"}>
-              Price evolution (last 30 days)
-              </Text>
-              <Box css={{ position: "relative", height: 200, mt: "$4" }}>
-                <Box
-                  css={{
-                    position: "absolute",
-                    width: "100%",
-                    height: "100%",
-                    left: 0,
-                    top: 0,
-                  }}
-                >
-                  <NbTxsPerDay statsData={statsData.nbTxsPerDay} />
+                <Box id="number-of-txs" css={{ pt: '$4' }}>
+                  <Text size={'sm'}>Price evolution (last 30 days)</Text>
+                  <Box css={{ position: 'relative', height: 200, mt: '$4' }}>
+                    <Box
+                      css={{
+                        position: 'absolute',
+                        width: '100%',
+                        height: '100%',
+                        left: 0,
+                        top: 0,
+                      }}
+                    >
+                      <NbTxsPerDay statsData={statsData.nbTxsPerDay} />
+                    </Box>
+                  </Box>
                 </Box>
-              </Box>
-            </Box>
-            </PlaceHolder>
-            
+              </PlaceHolder>
+
               <PlaceHolder css={{ borderRadius: '0px 5px 5px 0px' }}>
-                <Stack direction="column" css={{  }}>
-                  
+                <Stack direction="column" css={{}}>
                   <Title>STX price</Title>
-                  <TextOverview>$2,46 <text style={{ color: '#1DD4B4', fontSize: '13px', alignItems: 'center' }}>22%</text></TextOverview>
+                  <TextOverview>
+                    $2,46{' '}
+                    <text
+                      style={{
+                        color: '#1DD4B4',
+                        fontSize: '13px',
+                        alignItems: 'center',
+                      }}
+                    >
+                      22%
+                    </text>
+                  </TextOverview>
 
                   <TitleOverview>24h volume</TitleOverview>
-                  <TextOverview>1.3B <text style={{ color: '#1DD4B4', fontSize: '13px', alignItems: 'center' }}>8%</text></TextOverview>
+                  <TextOverview>
+                    1.3B{' '}
+                    <text
+                      style={{
+                        color: '#1DD4B4',
+                        fontSize: '13px',
+                        alignItems: 'center',
+                      }}
+                    >
+                      8%
+                    </text>
+                  </TextOverview>
 
                   <TitleOverview>Market cap (fully diluted)</TitleOverview>
                   <TextOverview>86B</TextOverview>
@@ -228,10 +246,11 @@ const Home = ({ statsData }: HomeProps) => {
                     css={{ margin: '0 15px' }}
                   />
                   <div>
-                  <Title css={{padding: 0 }}>Last block (minutes)</Title>
-                  <TextStats css={{padding: 0, marginBottom: '$6' }}>2</TextStats>
+                    <Title css={{ padding: 0 }}>Last block (minutes)</Title>
+                    <TextStats css={{ padding: 0, marginBottom: '$6' }}>
+                      2
+                    </TextStats>
                   </div>
-                  
                 </Flex>
               </PlaceHolder>
               <PlaceHolder>
@@ -244,13 +263,13 @@ const Home = ({ statsData }: HomeProps) => {
                     css={{ margin: '0 15px' }}
                   />
                   <div>
-                  <Title css={{padding: 0 }}>Total transactions</Title>
-                  <TextStats css={{padding: 0, marginBottom: '$5' }}>36</TextStats>
+                    <Title css={{ padding: 0 }}>Total transactions</Title>
+                    <TextStats css={{ padding: 0, marginBottom: '$5' }}>
+                      36
+                    </TextStats>
                   </div>
                 </Flex>
-                
               </PlaceHolder>
-              
             </Stack>
             <Stack
               direction={{
@@ -262,15 +281,19 @@ const Home = ({ statsData }: HomeProps) => {
               <PlaceHolder>
                 <Title>Total stacked</Title>
                 <Flex css={{ height: 20, alignItems: 'center' }}>
-                  <TextStats>23,092 <text style={{  color: '#BC410D' }}>STX</text></TextStats>
+                  <TextStats>
+                    23,092 <text style={{ color: '#BC410D' }}>STX</text>
+                  </TextStats>
                   <Separator
                     decorative
                     orientation="vertical"
                     css={{ margin: '0 15px' }}
                   />
                   <div>
-                  <Title css={{padding: 0 }}>Next cycle (in days)</Title>
-                  <TextStats css={{padding: 0, marginBottom: '$6' }}>8</TextStats>
+                    <Title css={{ padding: 0 }}>Next cycle (in days)</Title>
+                    <TextStats css={{ padding: 0, marginBottom: '$6' }}>
+                      8
+                    </TextStats>
                   </div>
                 </Flex>
               </PlaceHolder>

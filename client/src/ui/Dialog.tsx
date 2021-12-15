@@ -14,12 +14,7 @@ type DialogProps = React.ComponentProps<typeof DialogPrimitive.Root> & {
 };
 
 export function Dialog({ children, ...props }: DialogProps) {
-  return (
-    <DialogPrimitive.Root {...props}>
-      
-      {children}
-    </DialogPrimitive.Root>
-  );
+  return <DialogPrimitive.Root {...props}>{children}</DialogPrimitive.Root>;
 }
 
 const contentShow = keyframes({
