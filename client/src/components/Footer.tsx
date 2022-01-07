@@ -27,6 +27,7 @@ export const Footer = () => {
           }}
           href="https://twitter.com/sigleapp"
           target="_blank"
+          rel="noreferrer"
         >
           <Button
             css={{
@@ -51,6 +52,7 @@ export const Footer = () => {
           }}
           href="https://discord.gg/X2Dbz3xbrs"
           target="_blank"
+          rel="noreferrer"
         >
           <Button
             css={{
@@ -63,7 +65,7 @@ export const Footer = () => {
       </Box>
 
       <Box as={'li'} css={{ py: '$1', px: '$1' }}>
-        <Box as={'a'} href="https://www.sigle.io/" target="_blank">
+        <Box as={'a'} href="https://www.sigle.io/" target="_blank" rel="noreferrer">
           <Button
             css={{
               borderRadius: '$1',

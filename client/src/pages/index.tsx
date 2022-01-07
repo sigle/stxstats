@@ -193,7 +193,7 @@ const Home = ({ statsData }: HomeProps) => {
                   <Title>STX price</Title>
                   <TextOverview>
                     $2,46{' '}
-                    <text
+                    <Text
                       style={{
                         color: '#1DD4B4',
                         fontSize: '13px',
@@ -201,7 +201,7 @@ const Home = ({ statsData }: HomeProps) => {
                       }}
                     >
                       22%
-                    </text>
+                    </Text>
                   </TextOverview>
 
                   <TitleOverview>24h volume</TitleOverview>
@@ -302,8 +302,6 @@ const Home = ({ statsData }: HomeProps) => {
                     orientation="vertical"
                     css={{ backgroundColor: '$gray4', marginLeft: '$2' }}
                   />
-                  <text style={{ color: '#1DD4B4' }}>11%</text>
-                  <text style={{ color: '#282828' }}>00000000</text>
                 </Flex>
               </PlaceHolder>
             </Stack>

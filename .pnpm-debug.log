@@ -1,0 +1,15 @@
+{
+  "0 debug pnpm:scope": {
+    "selected": 1
+  },
+  "1 error pnpm": {
+    "code": "ERR_PNPM_CANNOT_REMOVE_MISSING_DEPS",
+    "hint": "Available dependencies: @radix-ui/colors, @visx/text",
+    "err": {
+      "name": "pnpm",
+      "message": "Cannot remove '@types/node': no such dependency found",
+      "code": "ERR_PNPM_CANNOT_REMOVE_MISSING_DEPS",
+      "stack": "pnpm: Cannot remove '@types/node': no such dependency found\n    at Object.handler (/Users/gisellechacon/.npm-global/pnpm-global/5/node_modules/.pnpm/pnpm@6.25.0/node_modules/pnpm/dist/pnpm.cjs:120996:15)\n    at async /Users/gisellechacon/.npm-global/pnpm-global/5/node_modules/.pnpm/pnpm@6.25.0/node_modules/pnpm/dist/pnpm.cjs:184995:21\n    at async run (/Users/gisellechacon/.npm-global/pnpm-global/5/node_modules/.pnpm/pnpm@6.25.0/node_modules/pnpm/dist/pnpm.cjs:184969:34)\n    at async runPnpm (/Users/gisellechacon/.npm-global/pnpm-global/5/node_modules/.pnpm/pnpm@6.25.0/node_modules/pnpm/dist/pnpm.cjs:185180:5)\n    at async /Users/gisellechacon/.npm-global/pnpm-global/5/node_modules/.pnpm/pnpm@6.25.0/node_modules/pnpm/dist/pnpm.cjs:185172:7"
+    }
+  }
+}
