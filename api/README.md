@@ -17,3 +17,17 @@ Sample Response:
   { "date": "2021-01-16", "txCount": 3011 }
 ]
 ```
+
+### Daily transactions network fees
+
+`https://api.stxstats.co/api/dailyTransactionsNetworkFees` - Get the daily amount of transactions fees paid to miners of the Stacks Blockchain.
+
+Sample Response:
+
+```json
+[
+  { "date": "2021-01-14", "txFee": 8660 },
+  { "date": "2021-01-15", "txFee": 344805 },
+  { "date": "2021-01-16", "txFee": 520020 }
+]
+```
