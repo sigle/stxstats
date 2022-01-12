@@ -15,7 +15,7 @@ export async function generateDataStats() {
   console.log("Number of unique addresses generated");
 
   console.log("Starting total fees...");
-  const txsFeePerDay = await generateTxsFeePerDay(currentData?.txsFeePerDay);
+  const txsFeePerDay = await generateTxsFeePerDay();
   console.log("Total fees generated");
 
   console.log("Starting number of active addresses...");
