@@ -7,7 +7,7 @@ import { generateActiveAddressesPerDay } from "./generateActiveAddressesPerDay";
 export async function generateDataStats() {
   const currentData = readData();
   console.log("Starting number of transactions...");
-  const nbTxsPerDay = await generateNbTxsPerDay(currentData?.nbTxsPerDay);
+  const nbTxsPerDay = await generateNbTxsPerDay();
   console.log("Number of transactions generated");
 
   console.log("Starting number of unique addresses...");
