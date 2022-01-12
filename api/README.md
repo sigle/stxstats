@@ -6,7 +6,7 @@ This service is responsible of generating the data used by the client. It expose
 
 ### Daily transactions count
 
-`https://api.stxstats.co/api/dailyTransactions` - Get the daily transactions count of the Stacks Blockchain.
+`https://api.stxstats.co/dailyTransactions` - Get the daily transactions count of the Stacks Blockchain.
 
 Sample Response:
 
@@ -20,7 +20,7 @@ Sample Response:
 
 ### Daily transactions network fees
 
-`https://api.stxstats.co/api/dailyTransactionsNetworkFees` - Get the daily amount of transactions fees paid to miners of the Stacks Blockchain.
+`https://api.stxstats.co/dailyTransactionsNetworkFees` - Get the daily amount of transactions fees paid to miners of the Stacks Blockchain.
 
 Sample Response:
 
