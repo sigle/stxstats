@@ -12,8 +12,8 @@ Sample Response:
 
 ```json
 [
-  { "date": "2021-01-14", "value": 46 },
-  { "date": "2021-01-15", "value": 1537 },
-  { "date": "2021-01-16", "value": 3011 }
+  { "date": "2021-01-14", "txCount": 46 },
+  { "date": "2021-01-15", "txCount": 1537 },
+  { "date": "2021-01-16", "txCount": 3011 }
 ]
 ```
