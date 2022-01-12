@@ -5,6 +5,7 @@ import { tweetStatsQueue } from "./twitterBot/bullQueue";
 import { generateDataStatsQueue } from "./tasks/generateStatsQueue";
 import { generateDataStats } from "./tasks/generateDataStats";
 import { registerDashboardRoute } from "./routes/dashboard";
+import { routes } from "./api";
 
 generateDataStats()
   .then(async () => {
@@ -30,6 +31,8 @@ fastify.get("/", (_, reply) => {
   const currentData = readData();
   reply.send(currentData || false);
 });
+
+fastify.register(routes);
 
 registerDashboardRoute(fastify);
 
