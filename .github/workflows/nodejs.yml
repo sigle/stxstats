@@ -35,11 +35,29 @@ jobs:
       - name: Test
         run: pnpx tsc --noEmit
 
+  test-api-docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          driver: docker
+
+      # Same process as for the release, this step ensure that the docker release is not broken
       - name: Build the Docker image
-        run: |
-          docker build .. --file Dockerfile --tag stxstats-api:$(date +%s)
-          # Print docker images so we can check the size
-          docker images | grep stxstats-api
+        uses: docker/build-push-action@v2
+        with:
+          push: false
+          context: .
+          file: ./api/Dockerfile
+          tags: stxstats-api:test-api-docker
+
+      # Print docker images so we can check the size
+      - name: Print docker image size
+        run: docker images | grep stxstats-api
 
   test-client:
     runs-on: ubuntu-latest

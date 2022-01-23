@@ -12,6 +12,7 @@ RUN pnpm install --frozen-lockfile --filter=api
 
 COPY . .
 
+RUN pnpm prisma:generate --filter=api
 RUN pnpm run build --filter=api
 
 # Stage 2 - Run the built application
