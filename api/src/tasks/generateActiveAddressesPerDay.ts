@@ -1,7 +1,7 @@
-import { addDays, isBefore, format, isSameDay } from "date-fns";
-import { prisma } from "../prisma";
-import { ResultActiveAddresses } from "../types/FileData";
-import { startDate } from "../utils";
+import { addDays, isBefore, format, isSameDay } from 'date-fns';
+import { prisma } from '../prisma';
+import { ResultActiveAddresses } from '../types/FileData';
+import { startDate } from '../utils';
 
 export async function generateActiveAddressesPerDay(
   currentData: ResultActiveAddresses[] | undefined
@@ -38,7 +38,7 @@ export async function generateActiveAddressesPerDay(
       },
     });
 
-    const dateFormatted = format(iteratorDate, "yyyy-MM-dd");
+    const dateFormatted = format(iteratorDate, 'yyyy-MM-dd');
 
     if (blocks.length > 0) {
       const startBlock = blocks[0].block_height;

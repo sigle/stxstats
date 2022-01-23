@@ -1,4 +1,4 @@
-import { cleanEnv, str } from "envalid";
+import { cleanEnv, str } from 'envalid';
 
 export const config = cleanEnv(process.env, {
   TWITTER_API_KEY: str(),

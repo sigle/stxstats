@@ -1,7 +1,7 @@
-import { addDays, isBefore, format } from "date-fns";
-import { prisma } from "../prisma";
-import { Result } from "../types/FileData";
-import { startDate } from "../utils";
+import { addDays, isBefore, format } from 'date-fns';
+import { prisma } from '../prisma';
+import { Result } from '../types/FileData';
+import { startDate } from '../utils';
 
 export async function generateUniqueAddressGrowingPerDay() {
   const endDate = new Date();
@@ -26,7 +26,7 @@ export async function generateUniqueAddressGrowingPerDay() {
       },
     });
 
-    const dateFormatted = format(iteratorDate, "yyyy-MM-dd");
+    const dateFormatted = format(iteratorDate, 'yyyy-MM-dd');
 
     if (blocks.length > 0) {
       const startBlock = blocks[0].block_height;

@@ -1,5 +1,5 @@
-import { FastifyReply } from "fastify";
-import { prisma } from "../prisma";
+import { FastifyReply } from 'fastify';
+import { prisma } from '../prisma';
 
 interface DataResponse {
   date: string;

@@ -1,18 +1,18 @@
-import { useCallback, useMemo } from "react";
-import format from "date-fns/format";
-import { withParentSize } from "@visx/responsive";
+import { useCallback, useMemo } from 'react';
+import format from 'date-fns/format';
+import { withParentSize } from '@visx/responsive';
 import {
   WithParentSizeProps,
   WithParentSizeProvidedProps,
-} from "@visx/responsive/lib/enhancers/withParentSize";
-import { scaleTime, scaleLinear } from "@visx/scale";
-import { Bar } from "@visx/shape";
-import { localPoint } from "@visx/event";
-import { max, extent, bisector } from "d3-array";
-import { useTooltip, useTooltipInPortal } from "@visx/tooltip";
-import AreaChart from "./AreaChart";
-import { accentColor, accentColorDark, tooltipStyles } from "../styles/visx";
-import { Tooltip, TooltipDate, TooltipText } from "./TooltipChart";
+} from '@visx/responsive/lib/enhancers/withParentSize';
+import { scaleTime, scaleLinear } from '@visx/scale';
+import { Bar } from '@visx/shape';
+import { localPoint } from '@visx/event';
+import { max, extent, bisector } from 'd3-array';
+import { useTooltip, useTooltipInPortal } from '@visx/tooltip';
+import AreaChart from './AreaChart';
+import { accentColor, accentColorDark, tooltipStyles } from '../styles/visx';
+import { Tooltip, TooltipDate, TooltipText } from './TooltipChart';
 
 interface StatsData {
   value: number;
@@ -167,7 +167,7 @@ const NbTxsPerDay = ({
         >
           <Tooltip>
             <TooltipDate>
-              {format(new Date(tooltipData.date), "EEEE, MMMM d, yyyy")}
+              {format(new Date(tooltipData.date), 'EEEE, MMMM d, yyyy')}
             </TooltipDate>
             <TooltipText>{tooltipData.value} transactions</TooltipText>
           </Tooltip>

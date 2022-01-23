@@ -1,6 +1,6 @@
-import { Queue } from "bullmq";
-import { readFileSync, writeFileSync, existsSync } from "fs";
-import { FileData } from "./types/FileData";
+import { Queue } from 'bullmq';
+import { readFileSync, writeFileSync, existsSync } from 'fs';
+import { FileData } from './types/FileData';
 
 /**
  * @description Convert micro to stacks.
@@ -11,20 +11,20 @@ export const microToStacks = (amountInMicroStacks: string | number) =>
 
 // Reading current data.json
 export const readData = (): FileData | undefined => {
-  const doesDataExist = existsSync("./data.json");
+  const doesDataExist = existsSync('./data.json');
   if (doesDataExist) {
-    const data = readFileSync("./data.json", "utf-8");
+    const data = readFileSync('./data.json', 'utf-8');
     return JSON.parse(data);
   } else {
-    console.log("Current data does not exist");
+    console.log('Current data does not exist');
     return undefined;
   }
 };
 
 // Writing to data.json
 export const writeData = function (fileData: FileData) {
-  writeFileSync("./data.json", JSON.stringify(fileData), {
-    encoding: "utf-8",
+  writeFileSync('./data.json', JSON.stringify(fileData), {
+    encoding: 'utf-8',
   });
 };
 

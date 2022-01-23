@@ -1,10 +1,10 @@
-import React from "react";
-import { Group } from "@visx/group";
-import { AreaClosed } from "@visx/shape";
-import { AxisLeft, AxisBottom, AxisScale } from "@visx/axis";
-import { LinearGradient } from "@visx/gradient";
-import { curveMonotoneX } from "@visx/curve";
-import { theme } from "../stitches.config";
+import React from 'react';
+import { Group } from '@visx/group';
+import { AreaClosed } from '@visx/shape';
+import { AxisLeft, AxisBottom, AxisScale } from '@visx/axis';
+import { LinearGradient } from '@visx/gradient';
+import { curveMonotoneX } from '@visx/curve';
+import { theme } from '../stitches.config';
 
 interface StatsData {
   value: number;
@@ -50,17 +50,17 @@ export default function AreaChart({
 
   const axisColor = theme.colors.gray10.toString();
   const axisBottomTickLabelProps = {
-    textAnchor: "middle" as const,
+    textAnchor: 'middle' as const,
     fontFamily,
     fontSize: 12,
     fill: axisColor,
   };
   const axisLeftTickLabelProps = {
-    dx: "-0.25em",
-    dy: "0.25em",
+    dx: '-0.25em',
+    dy: '0.25em',
     fontFamily,
     fontSize: 12,
-    textAnchor: "end" as const,
+    textAnchor: 'end' as const,
     fill: axisColor,
   };
 

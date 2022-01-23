@@ -1,5 +1,5 @@
-import { prisma } from "../prisma";
-import { Result } from "../types/FileData";
+import { prisma } from '../prisma';
+import { Result } from '../types/FileData';
 
 export async function generateTxsFeePerDay() {
   const result = await prisma.$queryRaw<Result[]>`

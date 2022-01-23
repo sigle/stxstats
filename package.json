@@ -3,6 +3,9 @@
   "scripts": {
     "prettier": "prettier --write \"**/*.{js,ts,tsx,css,scss,json,md,mdx,yml}\""
   },
+  "prettier": {
+    "singleQuote": true
+  },
   "devDependencies": {
     "prettier": "2.5.1"
   }

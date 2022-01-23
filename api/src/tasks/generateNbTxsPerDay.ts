@@ -1,5 +1,5 @@
-import { prisma } from "../prisma";
-import { Result } from "../types/FileData";
+import { prisma } from '../prisma';
+import { Result } from '../types/FileData';
 
 /**
  * Generate the number of transactions per day.

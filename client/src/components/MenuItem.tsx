@@ -1,6 +1,6 @@
 // https://medium.com/the-coders-guide-to-javascript/smooth-scrolling-anchor-menu-in-reactjs-175030d0bce2
-import { useState, useEffect } from "react";
-import { Box } from "../ui/Box";
+import { useState, useEffect } from 'react';
+import { Box } from '../ui/Box';
 
 /*
  * A single menu item
@@ -34,22 +34,22 @@ export const MenuItem = ({
    */
   const handleClick = (event: any) => {
     event.preventDefault();
-    anchorTarget?.scrollIntoView({ behavior: "smooth", block: "start" });
+    anchorTarget?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  let name = "";
+  let name = '';
   switch (itemName) {
-    case "number-of-txs":
-      name = "Number of transactions";
+    case 'number-of-txs':
+      name = 'Number of transactions';
       break;
-    case "unique-addresses":
-      name = "Unique addresses";
+    case 'unique-addresses':
+      name = 'Unique addresses';
       break;
-    case "transactions-fee":
-      name = "Transaction Fees";
+    case 'transactions-fee':
+      name = 'Transaction Fees';
       break;
-    case "active-addresses":
-      name = "Active addresses";
+    case 'active-addresses':
+      name = 'Active addresses';
       break;
     default:
       throw new Error(`Unknown item ${itemName}`);
@@ -60,20 +60,20 @@ export const MenuItem = ({
    * Remember to set your ariaLabel for accessability!
    */
   return (
-    <Box as={"li"} css={{ py: "$4" }}>
+    <Box as={'li'} css={{ py: '$4' }}>
       <Box
-        as={"a"}
+        as={'a'}
         css={{
-          textDecoration: "none",
-          color: "$gray12",
-          "&.active": {
-            color: "$primary",
+          textDecoration: 'none',
+          color: '$gray12',
+          '&.active': {
+            color: '$primary',
             fontWeight: 700,
           },
         }}
         href={`#${itemName}`}
         onClick={handleClick}
-        className={active ? "active" : ""}
+        className={active ? 'active' : ''}
         aria-label={`Scroll to ${itemName}`}
       >
         {name}

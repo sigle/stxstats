@@ -1,5 +1,5 @@
-import Twit from "twit";
-import { config } from "../config";
+import Twit from 'twit';
+import { config } from '../config';
 
 export const T = new Twit({
   consumer_key: config.TWITTER_API_KEY,
@@ -11,7 +11,7 @@ export const T = new Twit({
 });
 
 export const tweet = (status: string) => {
-  T.post("statuses/update", { status }, function (err, data: any, response) {
+  T.post('statuses/update', { status }, function (err, data: any, response) {
     console.log(err);
     if (!err) {
       console.log(`https://twitter.com/stxstats/status/${data.id_str}`);
