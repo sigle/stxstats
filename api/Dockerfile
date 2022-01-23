@@ -26,6 +26,7 @@ COPY api/package.json ./api/
 COPY api/prisma ./api/prisma
 
 RUN pnpm install --frozen-lockfile --prod --filter=api
+RUN pnpm prisma:generate --filter=api
 
 COPY --from=BUILD_SERVER /usr/src/app/api/dist ./api/dist
 

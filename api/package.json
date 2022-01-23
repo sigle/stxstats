@@ -6,6 +6,7 @@
     "dev": "nodemon --watch './**/*.ts' --exec ts-node src/index.ts",
     "start": "node dist/index.js",
     "build": "tsc",
+    "prisma:generate": "pnpx prisma generate",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
