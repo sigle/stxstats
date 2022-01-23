@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- [Node](https://nodejs.org/en/) 14.0.0+
+- [Node](https://nodejs.org/en/) 16.0.0+
 - [pnpm](https://pnpm.io/) 6.0+
 - [Docker](https://www.docker.com/)
 
