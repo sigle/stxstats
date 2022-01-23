@@ -49,8 +49,8 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: false
-          context: ./
           file: ./api/Dockerfile
+          tag: stxstats-api
 
       # Print docker images so we can check the size
       - name: Print docker image size
