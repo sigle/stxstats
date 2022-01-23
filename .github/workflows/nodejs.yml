@@ -50,7 +50,7 @@ jobs:
         with:
           push: false
           file: ./api/Dockerfile
-          tag: stxstats-api
+          tags: stxstats-api:test-api-docker
 
       # Print docker images so we can check the size
       - name: Print docker image size
