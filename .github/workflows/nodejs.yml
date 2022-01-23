@@ -43,8 +43,6 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
-        with:
-          driver: docker
 
       # Same process as for the release, this step ensure that the docker release is not broken
       - name: Build the Docker image
