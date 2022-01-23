@@ -26,17 +26,9 @@ Stxstats is a monorepo made of 2 parts applications:
 
 To setup the project locally you first need to fork the project on Github (top right on the project page). Then clone the project: `git clone git@github.com:yourname/stxstats.git`.
 
-Now you can run run the following command to install the dependencies for the server:
+Now you can run run the following command to install the dependencies for the project:
 
 ```sh
-cd api
-pnpm install
-```
-
-And for the client:
-
-```sh
-cd client
 pnpm install
 ```
 
