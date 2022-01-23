@@ -1,5 +1,5 @@
 # Stage 1 - build the api server
-FROM node:14-alpine AS BUILD_SERVER
+FROM node:16-alpine AS BUILD_SERVER
 
 WORKDIR /usr/src/app
 
@@ -15,7 +15,7 @@ COPY . .
 RUN pnpm run build
 
 # Stage 2 - Run the built application
-FROM node:14-alpine AS RUNTIME_CONTAINER
+FROM node:16-alpine AS RUNTIME_CONTAINER
 
 WORKDIR /usr/src/app
 
