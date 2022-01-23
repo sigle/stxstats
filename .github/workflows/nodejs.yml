@@ -43,6 +43,8 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
+        with:
+          driver: docker
 
       # Same process as for the release, this step ensure that the docker release is not broken
       - name: Build the Docker image
@@ -55,7 +57,7 @@ jobs:
 
       # Print docker images so we can check the size
       - name: Print docker image size
-        run: docker images
+        run: docker images | grep stxstats-api
 
   test-client:
     runs-on: ubuntu-latest
