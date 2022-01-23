@@ -6,10 +6,11 @@
     "dev": "nodemon --watch './**/*.ts' --exec ts-node src/index.ts",
     "start": "node dist/index.js",
     "build": "tsc",
+    "prisma:generate": "pnpx prisma generate",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@prisma/client": "3.6.0",
+    "@prisma/client": "3.8.1",
     "bullmq": "1.9.0",
     "date-fns": "2.27.0",
     "debug": "4.3.3",
@@ -18,7 +19,7 @@
     "fastify": "3.24.1",
     "ioredis": "4.27.7",
     "node-fetch": "2.6.1",
-    "prisma": "3.6.0",
+    "prisma": "3.8.1",
     "twit": "2.2.11"
   },
   "devDependencies": {

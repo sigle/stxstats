@@ -1,20 +1,20 @@
-import { FastifyInstance } from "fastify";
-import { subDays } from "date-fns";
-import fetch from "node-fetch";
-import { prisma } from "../prisma";
+import { FastifyInstance } from 'fastify';
+import { subDays } from 'date-fns';
+import fetch from 'node-fetch';
+import { prisma } from '../prisma';
 
 /**
  * Dashboard statistics route
  */
 export const registerDashboardRoute = (fastify: FastifyInstance) => {
-  fastify.get("/dashboard", async (_, reply) => {
+  fastify.get('/dashboard', async (_, reply) => {
     const [blockHeight, totalTransactions, transactionsLast24h, poxInfos] =
       await Promise.all([
         // Get the latest block infos
         (async () => {
           const lastBlock = await prisma.blocks.findFirst({
             select: { block_height: true, burn_block_time: true },
-            orderBy: { block_height: "desc" },
+            orderBy: { block_height: 'desc' },
           });
           return lastBlock;
         })(),
@@ -40,9 +40,9 @@ export const registerDashboardRoute = (fastify: FastifyInstance) => {
         // Get the POX infos
         (async () => {
           const response = await fetch(
-            "https://stacks-node-api.mainnet.stacks.co/v2/pox",
+            'https://stacks-node-api.mainnet.stacks.co/v2/pox',
             {
-              method: "GET",
+              method: 'GET',
             }
           );
           const data = await response.json();

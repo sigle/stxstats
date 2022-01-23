@@ -1,7 +1,7 @@
-import { styled } from "../stitches.config";
+import { styled } from '../stitches.config';
 
-export const Tooltip = styled("div", { padding: "$1" });
+export const Tooltip = styled('div', { padding: '$1' });
 
-export const TooltipDate = styled("p", { fontSize: 14 });
+export const TooltipDate = styled('p', { fontSize: 14 });
 
-export const TooltipText = styled("p", { mt: "$1" });
+export const TooltipText = styled('p', { mt: '$1' });

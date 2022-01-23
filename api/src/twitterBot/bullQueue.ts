@@ -1,12 +1,12 @@
-import { Worker, Queue, QueueScheduler } from "bullmq";
-import createDebug from "debug";
-import Redis from "ioredis";
-import { format, subDays } from "date-fns";
-import { tweet } from "./twit";
-import { microToStacks, readData } from "../utils";
-import { config } from "../config";
+import { Worker, Queue, QueueScheduler } from 'bullmq';
+import createDebug from 'debug';
+import Redis from 'ioredis';
+import { format, subDays } from 'date-fns';
+import { tweet } from './twit';
+import { microToStacks, readData } from '../utils';
+import { config } from '../config';
 
-const queueName = "tweet-stats";
+const queueName = 'tweet-stats';
 const debug = createDebug(`queue:${queueName}`);
 const redisClient = new Redis(config.REDIS_URL);
 
@@ -22,7 +22,7 @@ const worker = new Worker(
   async () => {
     const currentData = readData();
     if (!currentData) {
-      debug("No current data about STX blockchain available");
+      debug('No current data about STX blockchain available');
       return;
     }
 
@@ -36,7 +36,7 @@ const worker = new Worker(
       // Date of the day before ( to make sure we have all the data )
       `Stats from Stacks blockchain on ${format(
         subDays(new Date(), 1),
-        "yyyy-MM-dd"
+        'yyyy-MM-dd'
       )} :\n  
 ${nbTxsPerDay[nbTxsPerDay.length - 2].value} transactions
 ${
@@ -60,6 +60,6 @@ ${
   { connection: redisClient }
 );
 
-worker.on("failed", async (job, err) => {
+worker.on('failed', async (job, err) => {
   debug(`${job.id} has failed for with this err: ${err.message}`);
 });

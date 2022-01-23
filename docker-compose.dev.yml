@@ -1,11 +1,11 @@
-version: "3.7"
+version: '3.7'
 services:
   stacks-blockchain:
     image: blockstack/stacks-blockchain:2.05.0.0.0
     command: /bin/stacks-node start --config /src/stacks-node/Config.toml
     ports:
-      - "20443:20443"
-      - "20444:20444"
+      - '20443:20443'
+      - '20444:20444'
     volumes:
       - ./stacks-node/persistent-data/stacks-blockchain:/root/stacks-node/data
       - ./stacks-node/config:/src/stacks-node
@@ -31,8 +31,8 @@ services:
       STACKS_CORE_RPC_HOST: stacks-blockchain
       STACKS_CORE_RPC_PORT: 20443
     ports:
-      - "3700:3700"
-      - "3999:3999"
+      - '3700:3700'
+      - '3999:3999'
     networks:
       - stacks-blockchain
     depends_on:
@@ -42,7 +42,7 @@ services:
     image: postgres:12.9
     restart: always
     ports:
-      - "5432:5432"
+      - '5432:5432'
     volumes:
       - ./stacks-node/persistent-data/postgres:/var/lib/postgresql/data
     environment:
@@ -54,10 +54,10 @@ services:
       - stacks-blockchain
 
   redis:
-    image: "redis:5.0"
-    command: "redis-server --requirepass hello"
+    image: 'redis:5.0'
+    command: 'redis-server --requirepass hello'
     ports:
-      - "6379:6379"
+      - '6379:6379'
     networks:
       - stacks-blockchain
 
@@ -69,9 +69,9 @@ services:
       - ./api:/usr/src/app
       - /usr/src/app/node_modules/
     ports:
-      - "4000:4000"
+      - '4000:4000'
     environment:
-      DATABASE_URL: "postgresql://postgres:postgres@postgres:5432/postgres?schema=public"
+      DATABASE_URL: 'postgresql://postgres:postgres@postgres:5432/postgres?schema=public'
     networks:
       - stacks-blockchain
     depends_on:

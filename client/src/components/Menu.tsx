@@ -1,11 +1,11 @@
 // https://medium.com/the-coders-guide-to-javascript/smooth-scrolling-anchor-menu-in-reactjs-175030d0bce2
-import { useState, useEffect } from "react";
-import { Box } from "../ui/Box";
+import { useState, useEffect } from 'react';
+import { Box } from '../ui/Box';
 
 /*
  * We will include our MenuItem Component
  */
-import { MenuItem } from "./MenuItem";
+import { MenuItem } from './MenuItem';
 
 /*
  * The list of our Menu Titles (Sections) as keys, with their
@@ -13,10 +13,10 @@ import { MenuItem } from "./MenuItem";
  * 'Top' generically references the top of the page
  */
 const menuItems: { [key: string]: any } = {
-  "number-of-txs": null,
-  "unique-addresses": null,
-  "transactions-fee": null,
-  "active-addresses": null,
+  'number-of-txs': null,
+  'unique-addresses': null,
+  'transactions-fee': null,
+  'active-addresses': null,
 };
 
 /*
@@ -27,7 +27,7 @@ export const Menu = () => {
    * Store the active menuItem in state to force update
    * when changed
    */
-  const [activeItem, setActiveItem] = useState("Top");
+  const [activeItem, setActiveItem] = useState('Top');
 
   /*
    * The MutationObserver allows us to watch for a few different
@@ -39,11 +39,11 @@ export const Menu = () => {
    */
   useEffect(() => {
     const observer = new MutationObserver(getAnchorPoints);
-    observer.observe(document.getElementById("__next")!, {
+    observer.observe(document.getElementById('__next')!, {
       childList: true,
       subtree: true,
     });
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
   }, []);
 
   /*
@@ -101,12 +101,12 @@ export const Menu = () => {
    */
   return (
     <Box
-      as={"nav"}
+      as={'nav'}
       css={{
-        py: "$4",
-        "@lg": {
+        py: '$4',
+        '@lg': {
           top: 0,
-          position: "sticky",
+          position: 'sticky',
         },
       }}
     >

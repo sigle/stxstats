@@ -1,11 +1,11 @@
-version: "3.7"
+version: '3.7'
 services:
   stacks-blockchain:
     image: blockstack/stacks-blockchain:2.05.0.0.0
     command: /bin/stacks-node start --config /src/stacks-node/Config.toml
     ports:
-      - "20443:20443"
-      - "20444:20444"
+      - '20443:20443'
+      - '20444:20444'
     volumes:
       - ./stacks-node/persistent-data/stacks-blockchain:/root/stacks-node/data
       - ./stacks-node/config:/src/stacks-node
@@ -18,9 +18,9 @@ services:
       NODE_ENV: production
       PG_HOST: postgres
       PG_PORT: 5432
-      PG_USER: "${POSTGRES_USER}"
-      PG_PASSWORD: "${POSTGRES_PASSWORD}"
-      PG_DATABASE: "${POSTGRES_DB}"
+      PG_USER: '${POSTGRES_USER}'
+      PG_PASSWORD: '${POSTGRES_PASSWORD}'
+      PG_DATABASE: '${POSTGRES_DB}'
       STACKS_CHAIN_ID: 0x00000001
       V2_POX_MIN_AMOUNT_USTX: 90000000260
       STACKS_CORE_EVENT_PORT: 3700
@@ -31,8 +31,8 @@ services:
       STACKS_CORE_RPC_HOST: stacks-blockchain
       STACKS_CORE_RPC_PORT: 20443
     ports:
-      - "3700:3700"
-      - "3999:3999"
+      - '3700:3700'
+      - '3999:3999'
     networks:
       - stacks-blockchain
     depends_on:
@@ -42,38 +42,38 @@ services:
     image: postgres:12.9
     restart: always
     ports:
-      - "5432:5432"
+      - '5432:5432'
     volumes:
       - ./stacks-node/persistent-data/postgres:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: "${POSTGRES_USER}"
-      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
-      POSTGRES_DB: "${POSTGRES_DB}"
+      POSTGRES_USER: '${POSTGRES_USER}'
+      POSTGRES_PASSWORD: '${POSTGRES_PASSWORD}'
+      POSTGRES_DB: '${POSTGRES_DB}'
       POSTGRES_PORT: 5432
     networks:
       - stacks-blockchain
 
   redis:
-    image: "redis:5.0"
-    command: "redis-server --requirepass ${REDIS_PASSWORD}"
+    image: 'redis:5.0'
+    command: 'redis-server --requirepass ${REDIS_PASSWORD}'
     ports:
-      - "6379:6379"
+      - '6379:6379'
     networks:
       - stacks-blockchain
 
   api:
     image: ghcr.io/sigle/stxstats:main
     ports:
-      - "4000:4000"
+      - '4000:4000'
     environment:
       NODE_ENV: production
-      DATABASE_URL: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?schema=public"
-      REDIS_URL: "redis://:${REDIS_PASSWORD}@redis:6379/0"
-      REBUILD_WEBHOOK_URL: "${REBUILD_WEBHOOK_URL}"
-      TWITTER_API_KEY: "${TWITTER_API_KEY}"
-      TWITTER_API_SECRET_KEY: "${TWITTER_API_SECRET_KEY}"
-      TWITTER_ACCESS_TOKEN: "${TWITTER_ACCESS_TOKEN}"
-      TWITTER_ACCESS_TOKEN_SECRET: "${TWITTER_ACCESS_TOKEN_SECRET}"
+      DATABASE_URL: 'postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?schema=public'
+      REDIS_URL: 'redis://:${REDIS_PASSWORD}@redis:6379/0'
+      REBUILD_WEBHOOK_URL: '${REBUILD_WEBHOOK_URL}'
+      TWITTER_API_KEY: '${TWITTER_API_KEY}'
+      TWITTER_API_SECRET_KEY: '${TWITTER_API_SECRET_KEY}'
+      TWITTER_ACCESS_TOKEN: '${TWITTER_ACCESS_TOKEN}'
+      TWITTER_ACCESS_TOKEN_SECRET: '${TWITTER_ACCESS_TOKEN_SECRET}'
     networks:
       - stacks-blockchain
     depends_on:

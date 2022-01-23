@@ -1,17 +1,17 @@
-import { styled } from "../stitches.config";
+import { styled } from '../stitches.config';
 
-export const Container = styled("div", {
-  ml: "auto",
-  mr: "auto",
-  px: "$5",
+export const Container = styled('div', {
+  ml: 'auto',
+  mr: 'auto',
+  px: '$5',
 
-  "@sm": {
-    maxWidth: "640px",
+  '@sm': {
+    maxWidth: '640px',
   },
-  "@md": {
-    maxWidth: "768px",
+  '@md': {
+    maxWidth: '768px',
   },
-  "@lg": {
-    maxWidth: "1024px",
+  '@lg': {
+    maxWidth: '1024px',
   },
 });

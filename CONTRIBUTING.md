@@ -26,19 +26,19 @@ Stxstats is a monorepo made of 2 parts applications:
 
 To setup the project locally you first need to fork the project on Github (top right on the project page). Then clone the project: `git clone git@github.com:yourname/stxstats.git`.
 
-Now you can run run the following command to install the dependencies for the server:
+Now you can run run the following command to install the dependencies for the project:
 
 ```sh
-cd api
 pnpm install
 ```
 
-And for the client:
+Then to generate the prisma client for the API run:
 
 ```sh
-cd client
-pnpm install
+pnpm prisma:generate --filter=api
 ```
+
+Every time a change is made to the `api/prisma` folder you need to re-run this command.
 
 ### Start the stacks node locally
 
