@@ -32,6 +32,14 @@ Now you can run run the following command to install the dependencies for the pr
 pnpm install
 ```
 
+Then to generate the prisma client for the API run:
+
+```sh
+pnpm prisma:generate --filter=api
+```
+
+Every time a change is made to the `api/prisma` folder you need to re-run this command.
+
 ### Start the stacks node locally
 
 We use docker to create the stacks node and manage the services.
