@@ -7,7 +7,7 @@ RUN wget -qO- https://get.pnpm.io/v6.16.js | node - add --global pnpm
 
 COPY package.json pnpm-*.yaml ./
 
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --frozen-lockfile --filter=api
 
 COPY . .
 
@@ -23,9 +23,9 @@ RUN wget -qO- https://get.pnpm.io/v6.16.js | node - add --global pnpm
 COPY package.json pnpm-*.yaml ./
 COPY api/prisma ./api/prisma
 
-RUN pnpm install --frozen-lockfile --prod
+RUN pnpm install --frozen-lockfile --prod --filter=api
 
-COPY --from=BUILD_SERVER /usr/src/app/dist ./dist
+COPY --from=BUILD_SERVER /usr/src/app/api/dist ./api/dist
 
 ENV NODE_ENV production
 
