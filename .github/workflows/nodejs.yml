@@ -23,7 +23,7 @@ jobs:
       - name: Use Node.js 16.x
         uses: actions/setup-node@v2
         with:
-          node-version: 1.x
+          node-version: 16.x
           cache: "pnpm"
           cache-dependency-path: api/pnpm-lock.yaml
 
