@@ -6,6 +6,7 @@ WORKDIR /usr/src/app
 RUN wget -qO- https://get.pnpm.io/v6.16.js | node - add --global pnpm
 
 COPY package.json pnpm-*.yaml ./
+COPY api/package.json ./api/
 
 RUN pnpm install --frozen-lockfile --filter=api
 
@@ -21,6 +22,7 @@ WORKDIR /usr/src/app
 RUN wget -qO- https://get.pnpm.io/v6.16.js | node - add --global pnpm
 
 COPY package.json pnpm-*.yaml ./
+COPY api/package.json ./api/
 COPY api/prisma ./api/prisma
 
 RUN pnpm install --frozen-lockfile --prod --filter=api
