@@ -48,8 +48,8 @@ jobs:
       - name: Build the Docker image
         uses: docker/build-push-action@v2
         with:
-          context: .
           push: false
+          context: .
           file: ./api/Dockerfile
           tags: stxstats-api:test-api-docker
 
