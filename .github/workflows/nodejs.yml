@@ -55,7 +55,7 @@ jobs:
 
       # Print docker images so we can check the size
       - name: Print docker image size
-        run: docker images | grep stxstats-api
+        run: docker images
 
   test-client:
     runs-on: ubuntu-latest
