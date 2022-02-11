@@ -9,3 +9,6 @@ export const tooltipStyles = {
 };
 export const accentColor = '#1DEFC7';
 export const accentColorDark = '#75daad';
+
+export const accentOrange = '#CA470F';
+export const accentOrangeDark = '#F76808';
