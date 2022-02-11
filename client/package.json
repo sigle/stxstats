@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@radix-ui/colors": "0.1.8",
+    "@radix-ui/react-dialog": "^0.1.5",
     "@radix-ui/react-icons": "1.0.3",
     "@stitches/react": "1.2.6",
     "@visx/axis": "2.4.0",
