@@ -3,7 +3,6 @@ import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 import { config } from '../config';
 import { Box } from '../ui/Box';
 import { Button } from '../ui/Button';
@@ -52,10 +51,22 @@ interface LayoutProps {
 }
 
 export const DashboardLayout = ({ children }: LayoutProps) => {
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme, resolvedTheme } = useTheme();
 
-  useEffect(() => setMounted(true), []);
+  let src;
+
+  switch (resolvedTheme) {
+    case 'light':
+      src = '/images/new_logo_stxstats_black.svg';
+      break;
+    case 'dark':
+      src = '/images/new_logo_stxstats_white.svg';
+      break;
+    default:
+      src =
+        'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+      break;
+  }
 
   return (
     <>
@@ -81,27 +92,13 @@ export const DashboardLayout = ({ children }: LayoutProps) => {
             align={'start'}
           >
             <Box>
-              {mounted === true ? (
-                theme === 'dark' ? (
-                  <Image
-                    height={38}
-                    width={81}
-                    src={'/images/new_logo_stxstats_white.svg'}
-                    alt="Stx stats logo"
-                    priority
-                  />
-                ) : (
-                  <Image
-                    height={38}
-                    width={81}
-                    src={'/images/new_logo_stxstats_black.svg'}
-                    alt="Stx stats logo"
-                    priority
-                  />
-                )
-              ) : (
-                <Box css={{ height: 38 }} />
-              )}
+              <Image
+                height={38}
+                width={81}
+                src={src}
+                alt="Stx stats logo"
+                priority
+              />
               <Flex css={{ mt: '$10' }} direction={'column'} gap={'2'}>
                 <NavItem href={'/dashboard'}>Overview</NavItem>
                 <NavItem href={'#'}>Price</NavItem>
@@ -156,27 +153,13 @@ export const DashboardLayout = ({ children }: LayoutProps) => {
           justify={'between'}
         >
           <Box>
-            {mounted === true ? (
-              theme === 'dark' ? (
-                <Image
-                  height={38}
-                  width={81}
-                  src={'/images/new_logo_stxstats_white.svg'}
-                  alt="Stx stats logo"
-                  priority
-                />
-              ) : (
-                <Image
-                  height={38}
-                  width={81}
-                  src={'/images/new_logo_stxstats_black.svg'}
-                  alt="Stx stats logo"
-                  priority
-                />
-              )
-            ) : (
-              <Box css={{ height: 38 }} />
-            )}
+            <Image
+              height={38}
+              width={81}
+              src={src}
+              alt="Stx stats logo"
+              priority
+            />
             <Flex css={{ mt: '$10' }} direction={'column'} gap={'2'}>
               <NavItem href={'/dashboard'}>Overview</NavItem>
               <NavItem href={'#'}>Price</NavItem>
