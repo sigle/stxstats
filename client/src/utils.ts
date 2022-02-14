@@ -30,8 +30,13 @@ export const numFormatter = (num: number): string | undefined => {
   }
 };
 
-export const getNextCycle = (block: number) => {
-  const timeInDays = (block * 10) / 1440;
+/**
+ * @description Calculate an estimate for the next cycle.
+ * @param remainingBlocks - the amount of blocks remaining before next cycle
+ */
+export const getNextCycle = (remainingBlocks: number) => {
+  // multiply blocks remaining by 10 (average block time) and divide by 1440 (minutes in a day) to get remaining number of days
+  const timeInDays = (remainingBlocks * 10) / 1440;
   if (timeInDays > 1) {
     return Math.floor(timeInDays);
   }
