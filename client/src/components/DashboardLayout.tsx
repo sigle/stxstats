@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { config } from '../config';
 import { Box } from '../ui/Box';
 import { Button } from '../ui/Button';
 import { Container } from '../ui/Container';
@@ -111,11 +112,11 @@ export const DashboardLayout = ({ children }: LayoutProps) => {
               </Flex>
             </Box>
             <Flex gap={'2'} direction={'column'}>
-              <NavItem href="https://twitter.com/sigleapp">Twitter</NavItem>
-              <NavItem href="https://discord.gg/PsMxnkqunJ">Discord</NavItem>
+              <NavItem href={config.twitterUrl}>Twitter</NavItem>
+              <NavItem href={config.discordUrl}>Discord</NavItem>
               <Button
                 as="a"
-                href="https://www.sigle.io/"
+                href={config.landingUrl}
                 target="_blank"
                 size={'lg'}
               >
@@ -186,12 +187,12 @@ export const DashboardLayout = ({ children }: LayoutProps) => {
             </Flex>
           </Box>
           <Flex gap={'2'} direction={'column'}>
-            <NavItem href="https://twitter.com/sigleapp">Twitter</NavItem>
-            <NavItem href="https://discord.gg/PsMxnkqunJ">Discord</NavItem>
+            <NavItem href={config.twitterUrl}>Twitter</NavItem>
+            <NavItem href={config.discordUrl}>Discord</NavItem>
             <Button
               css={{ alignSelf: 'start' }}
               as="a"
-              href="https://www.sigle.io/"
+              href={config.landingUrl}
               target="_blank"
               size={'lg'}
             >
