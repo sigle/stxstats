@@ -8,9 +8,7 @@ export const microToStacks = (amountInMicroStacks: string | number) =>
   Number(amountInMicroStacks) / Math.pow(10, 6);
 
 export const numberWithCommas = (x: string | number): string => {
-  let parts = x.toString().split('.');
-  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  return parts.join('.');
+  return new Intl.NumberFormat('en-US').format(Number(x)).toString();
 };
 
 export const getLastBlockTime = (lastBlockTimestamp: number): number => {
