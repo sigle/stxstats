@@ -103,8 +103,8 @@ export const Overview = ({ statsData }: OverviewProps) => {
                   fontSize: '$1',
                   color:
                     statsData.priceData.blockstack.usd_24h_change > 0
-                      ? '#23A77F'
-                      : '#E5484D',
+                      ? '$green11'
+                      : '$red11',
                 }}
               >
                 <Box
@@ -112,9 +112,9 @@ export const Overview = ({ statsData }: OverviewProps) => {
                   css={{ display: 'inline-block', verticalAlign: 'middle' }}
                 >
                   {statsData.priceData.blockstack.usd_24h_change > 0 ? (
-                    <ArrowUpIcon style={{ color: '#23A77F' }} />
+                    <ArrowUpIcon />
                   ) : (
-                    <ArrowDownIcon style={{ color: '#E5484D' }} />
+                    <ArrowDownIcon />
                   )}
                 </Box>
                 {statsData.priceData.blockstack.usd_24h_change.toFixed()}%
@@ -328,8 +328,8 @@ export const Overview = ({ statsData }: OverviewProps) => {
                   fontSize: '$2',
                   color:
                     statsData.priceData.bitcoin.usd_24h_change > 0
-                      ? '#23A77F'
-                      : '#E5484D',
+                      ? '$green11'
+                      : '$red11',
                 }}
               >
                 <Box
@@ -337,9 +337,9 @@ export const Overview = ({ statsData }: OverviewProps) => {
                   css={{ display: 'inline-block', verticalAlign: 'middle' }}
                 >
                   {statsData.priceData.bitcoin.usd_24h_change > 0 ? (
-                    <ArrowUpIcon style={{ color: '#23A77F' }} />
+                    <ArrowUpIcon />
                   ) : (
-                    <ArrowDownIcon style={{ color: '#E5484D' }} />
+                    <ArrowDownIcon />
                   )}
                 </Box>
                 {statsData.priceData.bitcoin.usd_24h_change.toFixed()}%
