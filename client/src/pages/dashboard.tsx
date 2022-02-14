@@ -36,7 +36,7 @@ const Dashboard = ({ statsData }: DashboardProps) => {
 };
 
 export async function getStaticProps() {
-  const res = await fetch(process.env.DASHBOARD_API_URL!);
+  const res = await fetch(`${process.env.API_URL!}/dashboard`);
   const stxStats = await res.json();
 
   const priceRes = await fetch(process.env.STX_PRICE_API_URL!);
