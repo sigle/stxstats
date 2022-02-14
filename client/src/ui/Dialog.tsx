@@ -3,6 +3,11 @@ import { Cross1Icon } from '@radix-ui/react-icons';
 import { styled } from '../stitches.config';
 import { IconButton } from './IconButton';
 
+const StyledOverlay = styled(DialogPrimitive.Overlay, {
+  position: 'fixed',
+  inset: 0,
+});
+
 const StyledContent = styled(DialogPrimitive.Content, {
   display: 'flex',
   flexDirection: 'column',
@@ -18,7 +23,12 @@ type DialogProps = React.ComponentProps<typeof DialogPrimitive.Root> & {
 };
 
 export const Dialog = ({ children, ...props }: DialogProps) => {
-  return <DialogPrimitive.Root {...props}>{children}</DialogPrimitive.Root>;
+  return (
+    <DialogPrimitive.Root {...props}>
+      <StyledOverlay />
+      {children}
+    </DialogPrimitive.Root>
+  );
 };
 
 const StyledCloseButton = styled(DialogPrimitive.Close, {
