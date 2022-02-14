@@ -25,10 +25,11 @@ const NavItem = ({ href, children }: NavItemProps) => {
           py: '$3',
           px: '$3',
           br: '$2',
+          alignSelf: 'start',
           backgroundColor: router.pathname === href ? '$gray5' : 'transparent',
 
           '&:hover': {
-            backgroundColor: '$gray4',
+            backgroundColor: router.pathname === href ? undefined : '$gray5',
           },
 
           '&:active': {
@@ -113,7 +114,6 @@ export const DashboardLayout = ({ children }: LayoutProps) => {
               <NavItem href="https://twitter.com/sigleapp">Twitter</NavItem>
               <NavItem href="https://discord.gg/PsMxnkqunJ">Discord</NavItem>
               <Button
-                css={{ justifyContent: 'start' }}
                 as="a"
                 href="https://www.sigle.io/"
                 target="_blank"
@@ -122,7 +122,7 @@ export const DashboardLayout = ({ children }: LayoutProps) => {
                 Visit Sigle.io
               </Button>
               <Button
-                css={{ justifyContent: 'start', display: 'flex', gap: '$2' }}
+                css={{ alignSelf: 'start', display: 'flex', gap: '$2' }}
                 variant={'ghost'}
                 onClick={() =>
                   theme === 'dark' ? setTheme('light') : setTheme('dark')
@@ -189,7 +189,7 @@ export const DashboardLayout = ({ children }: LayoutProps) => {
             <NavItem href="https://twitter.com/sigleapp">Twitter</NavItem>
             <NavItem href="https://discord.gg/PsMxnkqunJ">Discord</NavItem>
             <Button
-              css={{ justifyContent: 'start' }}
+              css={{ alignSelf: 'start' }}
               as="a"
               href="https://www.sigle.io/"
               target="_blank"
@@ -198,7 +198,7 @@ export const DashboardLayout = ({ children }: LayoutProps) => {
               Visit Sigle.io
             </Button>
             <Button
-              css={{ justifyContent: 'start', display: 'flex', gap: '$2' }}
+              css={{ alignSelf: 'start', display: 'flex', gap: '$2' }}
               variant={'ghost'}
               onClick={() =>
                 theme === 'dark' ? setTheme('light') : setTheme('dark')
