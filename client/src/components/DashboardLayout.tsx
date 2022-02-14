@@ -61,9 +61,7 @@ export const DashboardLayout = ({ children }: LayoutProps) => {
         <DialogTrigger asChild>
           <IconButton
             css={{
-              alignItems: 'center',
-              justifyContent: 'space-between',
-
+              alignSelf: 'start',
               '@lg': {
                 display: 'none',
               },
