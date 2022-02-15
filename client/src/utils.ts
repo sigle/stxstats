@@ -7,7 +7,7 @@ import { differenceInMinutes, fromUnixTime, toDate } from 'date-fns';
 export const microToStacks = (amountInMicroStacks: string | number) =>
   Number(amountInMicroStacks) / Math.pow(10, 6);
 
-export const numberWithCommas = (x: string | number): string => {
+export const numberWithCommas = (x: string | number | undefined): string => {
   return new Intl.NumberFormat('en-US').format(Number(x)).toString();
 };
 
@@ -20,7 +20,11 @@ export const getLastBlockTime = (lastBlockTimestamp: number): number => {
   );
 };
 
-export const numFormatter = (num: number): string | undefined => {
+export const numFormatter = (num: number | undefined): string | undefined => {
+  if (!num) {
+    return;
+  }
+
   if (num > 1000000 && num < 1000000000) {
     return (num / 1000000).toFixed(0) + 'M';
   }

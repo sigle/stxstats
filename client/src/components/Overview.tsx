@@ -1,5 +1,5 @@
 import { ArrowDownIcon, ArrowUpIcon } from '@radix-ui/react-icons';
-import { DashboardData } from '../types/FileData';
+import { PriceData, Result, StxStats } from '../types/FileData';
 import { Box } from '../ui/Box';
 import { Flex } from '../ui/Flex';
 import { Heading } from '../ui/Heading';
@@ -14,10 +14,24 @@ import {
 import { PriceEvolution } from './PriceEvolution';
 
 interface OverviewProps {
-  statsData: DashboardData;
+  stxStats: StxStats;
+  priceData: PriceData | undefined;
+  priceEvolution: Result[];
 }
 
-export const Overview = ({ statsData }: OverviewProps) => {
+export const Overview = ({
+  stxStats,
+  priceData,
+  priceEvolution,
+}: OverviewProps) => {
+  const stxPercentage = priceData
+    ? priceData?.blockstack.usd_24h_change
+    : undefined;
+
+  const btcPercentage = priceData
+    ? priceData?.bitcoin.usd_24h_change
+    : undefined;
+
   return (
     <Box
       css={{
@@ -61,7 +75,7 @@ export const Overview = ({ statsData }: OverviewProps) => {
             <Text as="h3" css={{ pl: '$4', fontSize: '$1', color: '$gray9' }}>
               Price evolution (last 30 days)
             </Text>
-            <PriceEvolution priceEvolution={statsData.stxPriceEvolution} />
+            <PriceEvolution priceEvolution={priceEvolution} />
           </Box>
         </Box>
         <Box
@@ -83,58 +97,67 @@ export const Overview = ({ statsData }: OverviewProps) => {
             <Text as="h3" css={{ mb: '$1', fontSize: '$1', color: '$gray9' }}>
               STX price
             </Text>
-            <Flex
-              css={{
-                gap: '$2',
-
-                '@lg': {
-                  gap: 0,
-                },
-              }}
-            >
-              <Heading size={'2xl'} css={{ color: '$orange11' }}>
-                <Box css={{ color: '$orange9' }} as="span">
-                  $
-                </Box>
-                {statsData.priceData?.blockstack.usd}
-              </Heading>
-              <Text
+            {priceData ? (
+              <Flex
                 css={{
-                  fontSize: '$1',
-                  color:
-                    statsData.priceData.blockstack.usd_24h_change > 0
-                      ? '$green11'
-                      : '$red11',
+                  gap: '$2',
+
+                  '@lg': {
+                    gap: 0,
+                  },
                 }}
               >
-                <Box
-                  as="span"
-                  css={{ display: 'inline-block', verticalAlign: 'middle' }}
+                <Heading size={'2xl'} css={{ color: '$orange11' }}>
+                  <Box css={{ color: '$orange9' }} as="span">
+                    $
+                  </Box>
+                  {priceData?.blockstack.usd}
+                </Heading>
+                <Text
+                  css={{
+                    fontSize: '$1',
+                    color:
+                      stxPercentage && stxPercentage > 0
+                        ? '$green11'
+                        : '$red11',
+                  }}
                 >
-                  {statsData.priceData.blockstack.usd_24h_change > 0 ? (
-                    <ArrowUpIcon />
-                  ) : (
-                    <ArrowDownIcon />
-                  )}
-                </Box>
-                {statsData.priceData.blockstack.usd_24h_change.toFixed()}%
-              </Text>
-            </Flex>
+                  <Box
+                    as="span"
+                    css={{ display: 'inline-block', verticalAlign: 'middle' }}
+                  >
+                    {stxPercentage && stxPercentage > 0 ? (
+                      <ArrowUpIcon />
+                    ) : (
+                      <ArrowDownIcon />
+                    )}
+                  </Box>
+                  {priceData?.blockstack.usd_24h_change.toFixed()}%
+                </Text>
+              </Flex>
+            ) : (
+              <Box css={{ height: '$8' }} />
+            )}
           </Box>
           <Box>
             <Text as="h3" css={{ mb: '$1', fontSize: '$1', color: '$gray9' }}>
               24h volume
             </Text>
-            <Heading size={'2xl'} css={{ color: '$orange11' }}>
-              {numFormatter(statsData.priceData?.blockstack.usd_24h_vol)}
-            </Heading>
+            {priceData ? (
+              <Heading size={'2xl'} css={{ color: '$orange11' }}>
+                {numFormatter(priceData.blockstack.usd_24h_vol)}
+              </Heading>
+            ) : (
+              <Box css={{ height: '$8' }} />
+            )}
           </Box>
           <Box>
             <Text as="h3" css={{ mb: '$1', fontSize: '$1', color: '$gray9' }}>
               Market cap (fully diluted)
             </Text>
             <Heading size={'2xl'} css={{ color: '$orange11' }}>
-              {numFormatter(statsData.priceData?.blockstack.usd_market_cap)}
+              {''}
+              {numFormatter(priceData?.blockstack.usd_market_cap)}
             </Heading>
           </Box>
         </Flex>
@@ -167,7 +190,7 @@ export const Overview = ({ statsData }: OverviewProps) => {
               Block height
             </Text>
             <Heading size={'2xl'} css={{ color: '$orange11' }}>
-              {numberWithCommas(statsData.stxStats.blockHeight)}
+              {numberWithCommas(stxStats.blockHeight)}
             </Heading>
           </Box>
           <Box
@@ -183,7 +206,7 @@ export const Overview = ({ statsData }: OverviewProps) => {
               Last block (minutes)
             </Text>
             <Heading size={'2xl'} css={{ color: '$orange11' }}>
-              {getLastBlockTime(statsData.stxStats.lastBlockTime)}
+              {getLastBlockTime(stxStats.lastBlockTime)}
             </Heading>
           </Box>
         </Flex>
@@ -209,7 +232,7 @@ export const Overview = ({ statsData }: OverviewProps) => {
               Total Transactions
             </Text>
             <Heading size={'2xl'} css={{ color: '$orange11' }}>
-              {numberWithCommas(statsData.stxStats.totalTransactions)}
+              {numberWithCommas(stxStats.totalTransactions)}
             </Heading>
           </Box>
           <Box
@@ -228,7 +251,7 @@ export const Overview = ({ statsData }: OverviewProps) => {
               Transactions last 24h
             </Text>
             <Heading size={'2xl'} css={{ color: '$orange11' }}>
-              {numberWithCommas(statsData.stxStats.transactionsLast24h)}
+              {numberWithCommas(stxStats.transactionsLast24h)}
             </Heading>
           </Box>
         </Flex>
@@ -260,9 +283,7 @@ export const Overview = ({ statsData }: OverviewProps) => {
               Total stacked
             </Text>
             <Heading size={'2xl'} css={{ color: '$orange11' }}>
-              {numberWithCommas(
-                microToStacks(statsData.stxStats.totalStacked).toFixed()
-              )}{' '}
+              {numberWithCommas(microToStacks(stxStats.totalStacked).toFixed())}{' '}
               <Box css={{ color: '$orange9' }} as="span">
                 STX
               </Box>
@@ -290,7 +311,7 @@ export const Overview = ({ statsData }: OverviewProps) => {
                 Next cycle (days)
               </Text>
               <Heading size={'2xl'} css={{ color: '$orange11' }}>
-                {getNextCycle(statsData.stxStats.nextCycleIn)}
+                {getNextCycle(stxStats.nextCycleIn)}
               </Heading>
             </Box>
           </Box>
@@ -316,35 +337,39 @@ export const Overview = ({ statsData }: OverviewProps) => {
             <Text as="h3" css={{ mb: '$2', fontSize: '$1', color: '$gray9' }}>
               BTC price
             </Text>
-            <Flex gap={'2'}>
-              <Heading size={'2xl'} css={{ color: '$orange11' }}>
-                <Box css={{ color: '$orange9' }} as="span">
-                  $
-                </Box>
-                {numberWithCommas(statsData.priceData?.bitcoin.usd)}
-              </Heading>
-              <Text
-                css={{
-                  fontSize: '$2',
-                  color:
-                    statsData.priceData.bitcoin.usd_24h_change > 0
-                      ? '$green11'
-                      : '$red11',
-                }}
-              >
-                <Box
-                  as="span"
-                  css={{ display: 'inline-block', verticalAlign: 'middle' }}
+            {priceData ? (
+              <Flex gap={'2'}>
+                <Heading size={'2xl'} css={{ color: '$orange11' }}>
+                  <Box css={{ color: '$orange9' }} as="span">
+                    $
+                  </Box>
+                  {numberWithCommas(priceData?.bitcoin.usd)}
+                </Heading>
+                <Text
+                  css={{
+                    fontSize: '$2',
+                    color:
+                      btcPercentage && btcPercentage > 0
+                        ? '$green11'
+                        : '$red11',
+                  }}
                 >
-                  {statsData.priceData.bitcoin.usd_24h_change > 0 ? (
-                    <ArrowUpIcon />
-                  ) : (
-                    <ArrowDownIcon />
-                  )}
-                </Box>
-                {statsData.priceData.bitcoin.usd_24h_change.toFixed()}%
-              </Text>
-            </Flex>
+                  <Box
+                    as="span"
+                    css={{ display: 'inline-block', verticalAlign: 'middle' }}
+                  >
+                    {btcPercentage && btcPercentage > 0 ? (
+                      <ArrowUpIcon />
+                    ) : (
+                      <ArrowDownIcon />
+                    )}
+                  </Box>
+                  {priceData?.bitcoin.usd_24h_change.toFixed()}%
+                </Text>
+              </Flex>
+            ) : (
+              <Box css={{ width: '150px' }} />
+            )}
           </Box>
           <Box
             css={{
