@@ -58,7 +58,6 @@ const Dashboard = ({ stxStats }: DashboardProps) => {
       `${config.coingeckoApiUrl}coins/blockstack/market_chart/range?vs_currency=usd&from=${fromDate}&to=${toDate}`
     );
     const rangeData = await rangeRes.json();
-    console.log(rangeData);
 
     const priceEvolutionRes: PriceResult[] = rangeData.prices;
 
