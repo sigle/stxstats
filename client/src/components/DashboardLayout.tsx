@@ -92,13 +92,7 @@ export const DashboardLayout = ({ children }: LayoutProps) => {
             align={'start'}
           >
             <Box>
-              <Image
-                height={38}
-                width={81}
-                src={src}
-                alt="Stx stats logo"
-                priority
-              />
+              <Image height={38} width={81} src={src} alt="Stx stats logo" />
               <Flex css={{ mt: '$10' }} direction={'column'} gap={'2'}>
                 <NavItem href={'/dashboard'}>Overview</NavItem>
                 <NavItem href={'#'}>Price</NavItem>
@@ -153,13 +147,7 @@ export const DashboardLayout = ({ children }: LayoutProps) => {
           justify={'between'}
         >
           <Box>
-            <Image
-              height={38}
-              width={81}
-              src={src}
-              alt="Stx stats logo"
-              priority
-            />
+            <Image height={38} width={81} src={src} alt="Stx stats logo" />
             <Flex css={{ mt: '$10' }} direction={'column'} gap={'2'}>
               <NavItem href={'/dashboard'}>Overview</NavItem>
               <NavItem href={'#'}>Price</NavItem>
