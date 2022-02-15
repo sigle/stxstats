@@ -61,22 +61,11 @@ const Dashboard = ({ stxStats }: DashboardProps) => {
 
     const priceEvolutionRes: PriceResult[] = rangeData.prices;
 
-    let stxPriceEvolution: Result[] = [];
-
-    priceEvolutionRes.forEach((element) => {
-      const formattedDate = format(
-        fromUnixTime(element[0] / 1000),
-        'yyyy-MM-dd'
-      );
-
-      const target = {
-        date: formattedDate,
-        value: Number(element[1].toFixed(1)),
+    const stxPriceEvolution = priceEvolutionRes.map((element) => {
+      return {
+        date: element[0] as any,
+        value: Number(element[1].toFixed(2)),
       };
-
-      const toObj = Object.assign({}, target);
-
-      stxPriceEvolution.push(toObj);
     });
 
     setPriceEvolution(stxPriceEvolution);
