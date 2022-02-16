@@ -87,7 +87,7 @@ export default function AreaChart({
         <AxisBottom
           top={yMax}
           scale={xScale}
-          numTicks={width > 520 ? 10 : 5}
+          numTicks={5}
           stroke={axisColor}
           tickStroke={axisColor}
           tickLabelProps={() => axisBottomTickLabelProps}
