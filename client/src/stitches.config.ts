@@ -31,6 +31,50 @@ const grayDark = {
   gray12: '#fcfcfc',
 };
 
+const orange = {
+  orange1: '#FFF9F6',
+  orange2: '#FFF1EC',
+  orange3: '#FFE9E1',
+  orange4: '#FFE0D5',
+  orange5: '#FFD6C7',
+  orange6: '#FFC8B4',
+  orange7: '#FFB79D',
+  orange8: '#FF9873',
+  orange9: '#F9703E',
+  orange10: '#E9531D',
+  orange11: '#DA3A00',
+  orange12: '#CC3600',
+};
+
+const orangeDark = {
+  orange1: '#1D0900',
+  orange2: '#2C1004',
+  orange3: '#391505',
+  orange4: '#4C1D08',
+  orange5: '#572109',
+  orange6: '#6D2607',
+  orange7: '#812E0A',
+  orange8: '#A33D10',
+  orange9: '#BC410D',
+  orange10: '#CA470F',
+  orange11: '#F76808',
+  orange12: '#FF802B',
+};
+
+const green = {
+  green11: '#23A77F',
+};
+const greenDark = {
+  green11: '#1DD4B4',
+};
+
+const red = {
+  red11: '#F43939',
+};
+const redDark = {
+  red11: '#FF6C6C',
+};
+
 export const {
   styled,
   css,
@@ -43,6 +87,9 @@ export const {
   theme: {
     colors: {
       ...gray,
+      ...orange,
+      ...green,
+      ...red,
     },
     fonts: {
       openSans: "'Open Sans', sans-serif",
@@ -74,8 +121,8 @@ export const {
       10: '40px',
     },
     fontSizes: {
-      1: '12px',
-      2: '14px',
+      1: '13px',
+      2: '15px',
       3: '16px',
       4: '21px',
       5: '24px',
@@ -163,5 +210,8 @@ export const {
 export const darkTheme = createTheme('dark-theme', {
   colors: {
     ...grayDark,
+    ...orangeDark,
+    ...greenDark,
+    ...redDark,
   },
 });
