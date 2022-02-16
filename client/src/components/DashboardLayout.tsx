@@ -12,37 +12,38 @@ import { Flex } from '../ui/Flex';
 import { IconButton } from '../ui/IconButton';
 
 interface NavItemProps {
-  href: string;
+  href?: string;
+  target?: string;
+  rel?: string;
   children: React.ReactNode;
 }
 
-const NavItem = ({ href, children }: NavItemProps) => {
+const NavItem = ({ children, ...props }: NavItemProps) => {
   const router = useRouter();
   return (
-    <Link href={href} passHref>
-      <Box
-        css={{
-          py: '$3',
-          px: '$3',
-          br: '$2',
-          alignSelf: 'start',
-          backgroundColor: router.pathname === href ? '$gray5' : 'transparent',
+    <Box
+      {...props}
+      css={{
+        py: '$3',
+        px: '$3',
+        br: '$2',
+        alignSelf: 'start',
+        backgroundColor:
+          router.pathname === props.href ? '$gray5' : 'transparent',
 
-          '&:hover': {
-            backgroundColor: router.pathname === href ? undefined : '$gray5',
-          },
+        '&:hover': {
+          backgroundColor:
+            router.pathname === props.href ? undefined : '$gray5',
+        },
 
-          '&:active': {
-            backgroundColor: '$gray5',
-          },
-        }}
-        target={href.includes('https') ? '_blank' : undefined}
-        rel="noreferrer"
-        as="a"
-      >
-        {children}
-      </Box>
-    </Link>
+        '&:active': {
+          backgroundColor: '$gray5',
+        },
+      }}
+      as="a"
+    >
+      {children}
+    </Box>
   );
 };
 
@@ -94,21 +95,46 @@ export const DashboardLayout = ({ children }: LayoutProps) => {
             <Box>
               <Image height={38} width={81} src={src} alt="Stx stats logo" />
               <Flex css={{ mt: '$10' }} direction={'column'} gap={'2'}>
-                <NavItem href={'/dashboard'}>Overview</NavItem>
-                <NavItem href={'#'}>Price</NavItem>
-                <NavItem href={'#'}>Mempool</NavItem>
-                <NavItem href={'#'}>Smart contracts</NavItem>
-                <NavItem href={'#'}>Wallets</NavItem>
-                <NavItem href={'#'}>Pools</NavItem>
+                <Link href={'/dashboard'} passHref>
+                  <NavItem>Overview</NavItem>
+                </Link>
+                <Link href={'#'} passHref>
+                  <NavItem>Price</NavItem>
+                </Link>
+                <Link href={'#'} passHref>
+                  <NavItem>Mempool</NavItem>
+                </Link>
+                <Link href={'#'} passHref>
+                  <NavItem>Smart contracts</NavItem>
+                </Link>
+                <Link href={'#'} passHref>
+                  <NavItem>Wallets</NavItem>
+                </Link>
+                <Link href={'#'} passHref>
+                  <NavItem>Pools</NavItem>
+                </Link>
               </Flex>
             </Box>
             <Flex gap={'2'} direction={'column'}>
-              <NavItem href={config.twitterUrl}>Twitter</NavItem>
-              <NavItem href={config.discordUrl}>Discord</NavItem>
+              <NavItem
+                href={config.twitterUrl}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Twitter
+              </NavItem>
+              <NavItem
+                href={config.discordUrl}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Discord
+              </NavItem>
               <Button
                 as="a"
                 href={config.landingUrl}
                 target="_blank"
+                rel="noreferrer"
                 size={'lg'}
               >
                 Visit Sigle.io
@@ -153,22 +179,39 @@ export const DashboardLayout = ({ children }: LayoutProps) => {
               direction={'column'}
               gap={'2'}
             >
-              <NavItem href={'/dashboard'}>Overview</NavItem>
-              <NavItem href={'#'}>Price</NavItem>
-              <NavItem href={'#'}>Mempool</NavItem>
-              <NavItem href={'#'}>Smart contracts</NavItem>
-              <NavItem href={'#'}>Wallets</NavItem>
-              <NavItem href={'#'}>Pools</NavItem>
+              <Link href={'/dashboard'} passHref>
+                <NavItem>Overview</NavItem>
+              </Link>
+              <Link href={'#'} passHref>
+                <NavItem>Price</NavItem>
+              </Link>
+              <Link href={'#'} passHref>
+                <NavItem>Mempool</NavItem>
+              </Link>
+              <Link href={'#'} passHref>
+                <NavItem>Smart contracts</NavItem>
+              </Link>
+              <Link href={'#'} passHref>
+                <NavItem>Wallets</NavItem>
+              </Link>
+              <Link href={'#'} passHref>
+                <NavItem>Pools</NavItem>
+              </Link>
             </Flex>
           </Box>
           <Flex gap={'2'} direction={'column'}>
-            <NavItem href={config.twitterUrl}>Twitter</NavItem>
-            <NavItem href={config.discordUrl}>Discord</NavItem>
+            <NavItem href={config.twitterUrl} target="_blank" rel="noreferrer">
+              Twitter
+            </NavItem>
+            <NavItem href={config.discordUrl} target="_blank" rel="noreferrer">
+              Discord
+            </NavItem>
             <Button
               css={{ alignSelf: 'start' }}
               as="a"
               href={config.landingUrl}
               target="_blank"
+              rel="noreferrer"
               size={'lg'}
             >
               Visit Sigle.io
