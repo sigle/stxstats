@@ -10,24 +10,16 @@ import { Container } from '../ui/Container';
 const today = new Date();
 const fromDate = new Date(new Date().setDate(today.getDate() - 30));
 
-let initialRange: Result[] = [];
-
 const dates = eachDayOfInterval({
   start: fromDate,
   end: today,
 });
 
-dates.forEach((date) => {
-  const dateAsString = date.toString();
-
-  const target = {
-    date: dateAsString,
+const initialRange: Result[] = dates.map((date) => {
+  return {
     value: 1,
+    date: date.toString(),
   };
-
-  const toObj = Object.assign({}, target);
-
-  initialRange.push(toObj);
 });
 
 interface DashboardProps {
