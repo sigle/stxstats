@@ -83,12 +83,15 @@ const Dashboard = ({ stxStats }: DashboardProps) => {
         '@lg': {
           gap: '$20',
           flexDirection: 'row',
-          py: '$10',
           height: '100vh',
         },
 
         '@xl': {
           gap: '128px',
+        },
+
+        '@2xl': {
+          py: '$10',
         },
       }}
     >

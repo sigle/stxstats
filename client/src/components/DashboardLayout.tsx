@@ -148,7 +148,11 @@ export const DashboardLayout = ({ children }: LayoutProps) => {
         >
           <Box>
             <Image height={38} width={81} src={src} alt="Stx stats logo" />
-            <Flex css={{ mt: '$10' }} direction={'column'} gap={'2'}>
+            <Flex
+              css={{ mt: '$5', '@2xl': { mt: '$10' } }}
+              direction={'column'}
+              gap={'2'}
+            >
               <NavItem href={'/dashboard'}>Overview</NavItem>
               <NavItem href={'#'}>Price</NavItem>
               <NavItem href={'#'}>Mempool</NavItem>

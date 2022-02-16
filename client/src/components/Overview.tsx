@@ -40,7 +40,7 @@ export const Overview = ({
         },
       }}
     >
-      <Heading css={{ mb: '$5', '@lg': { mb: '$10' } }} as="h1" size={'2xl'}>
+      <Heading css={{ mb: '$5', '@2xl': { mb: '$10' } }} as="h1" size={'2xl'}>
         Overview
       </Heading>
 
