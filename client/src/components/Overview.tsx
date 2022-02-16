@@ -72,7 +72,7 @@ export const Overview = ({
               left: 0,
             }}
           >
-            <Text as="h3" css={{ pl: '$4', fontSize: '$1', color: '$gray9' }}>
+            <Text as="h3" size="xs" css={{ pl: '$4' }}>
               Price evolution (last 30 days)
             </Text>
             <PriceEvolution priceEvolution={priceEvolution} />
@@ -94,7 +94,7 @@ export const Overview = ({
 
         <Flex css={{ p: '$3' }} direction={'column'} gap="5">
           <Box>
-            <Text as="h3" css={{ mb: '$1', fontSize: '$1', color: '$gray9' }}>
+            <Text as="h3" size="xs" css={{ mb: '$1' }}>
               STX price
             </Text>
             {priceData ? (
@@ -140,7 +140,7 @@ export const Overview = ({
             )}
           </Box>
           <Box>
-            <Text as="h3" css={{ mb: '$1', fontSize: '$1', color: '$gray9' }}>
+            <Text as="h3" size="xs" css={{ mb: '$1' }}>
               24h volume
             </Text>
             {priceData ? (
@@ -152,7 +152,7 @@ export const Overview = ({
             )}
           </Box>
           <Box>
-            <Text as="h3" css={{ mb: '$1', fontSize: '$1', color: '$gray9' }}>
+            <Text as="h3" size="xs" css={{ mb: '$1', color: '$gray9' }}>
               Market cap (fully diluted)
             </Text>
             <Heading size={'2xl'} css={{ color: '$orange11' }}>
@@ -186,7 +186,7 @@ export const Overview = ({
           direction={'row'}
         >
           <Box css={{ width: '100%' }}>
-            <Text as="h3" css={{ mb: '$2', fontSize: '$1', color: '$gray9' }}>
+            <Text as="h3" size="xs" css={{ mb: '$2' }}>
               Block height
             </Text>
             <Heading size={'2xl'} css={{ color: '$orange11' }}>
@@ -202,7 +202,7 @@ export const Overview = ({
             }}
           />
           <Box css={{ pl: '$3', width: '100%' }}>
-            <Text as="h3" css={{ mb: '$2', fontSize: '$1', color: '$gray9' }}>
+            <Text as="h3" size="xs" css={{ mb: '$2' }}>
               Last block (minutes)
             </Text>
             <Heading size={'2xl'} css={{ color: '$orange11' }}>
@@ -228,7 +228,7 @@ export const Overview = ({
           }}
         >
           <Box css={{ width: '100%' }}>
-            <Text as="h3" css={{ mb: '$2', fontSize: '$1', color: '$gray9' }}>
+            <Text as="h3" size="xs" css={{ mb: '$2' }}>
               Total Transactions
             </Text>
             <Heading size={'2xl'} css={{ color: '$orange11' }}>
@@ -247,7 +247,7 @@ export const Overview = ({
             }}
           />
           <Box css={{ width: '100%', '@lg': { pl: '$3' } }}>
-            <Text as="h3" css={{ mb: '$2', fontSize: '$1', color: '$gray9' }}>
+            <Text as="h3" size="xs" css={{ mb: '$2' }}>
               Transactions last 24h
             </Text>
             <Heading size={'2xl'} css={{ color: '$orange11' }}>
@@ -279,7 +279,7 @@ export const Overview = ({
               },
             }}
           >
-            <Text as="h3" css={{ mb: '$2', fontSize: '$1', color: '$gray9' }}>
+            <Text as="h3" size="xs" css={{ mb: '$2' }}>
               Total stacked
             </Text>
             <Heading size={'2xl'} css={{ color: '$orange11' }}>
@@ -307,7 +307,7 @@ export const Overview = ({
               }}
             />
             <Box css={{ '@md': { pl: '$3' } }}>
-              <Text as="h3" css={{ mb: '$2', fontSize: '$1', color: '$gray9' }}>
+              <Text as="h3" size="xs" css={{ mb: '$2' }}>
                 Next cycle (days)
               </Text>
               <Heading size={'2xl'} css={{ color: '$orange11' }}>
@@ -334,7 +334,7 @@ export const Overview = ({
           }}
         >
           <Box>
-            <Text as="h3" css={{ mb: '$2', fontSize: '$1', color: '$gray9' }}>
+            <Text as="h3" size="xs" css={{ mb: '$2' }}>
               BTC price
             </Text>
             {priceData ? (

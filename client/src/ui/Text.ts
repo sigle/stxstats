@@ -6,6 +6,7 @@ export const Text = styled('p', {
       xs: {
         fontSize: '$1',
         color: '$gray9',
+        lineHeight: '18px',
         letterSpacing: '0.2px',
       },
       sm: {
