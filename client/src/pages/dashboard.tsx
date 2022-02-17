@@ -97,7 +97,7 @@ const Dashboard = ({ stxStats }: DashboardProps) => {
   );
 };
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const res = await fetch(`${process.env.API_URL!}/dashboard`);
   const stxStats = await res.json();
 

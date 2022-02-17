@@ -1,9 +1,15 @@
-import { FastifyReply } from 'fastify';
+import { FastifyReply, FastifyRequest } from 'fastify';
 import { subDays } from 'date-fns';
 import fetch from 'node-fetch';
 import { prisma } from '../prisma';
+import { apiCache } from './cache';
 
-export async function dashboard(_: unknown, reply: FastifyReply) {
+export async function dashboard(request: FastifyRequest, reply: FastifyReply) {
+  const apiRoute = request.routerPath;
+  if (apiCache.has(apiRoute)) {
+    return reply.send(apiCache.get(apiRoute));
+  }
+
   const [blockHeight, totalTransactions, transactionsLast24h, poxInfos] =
     await Promise.all([
       // Get the latest block infos
@@ -49,12 +55,15 @@ export async function dashboard(_: unknown, reply: FastifyReply) {
       })(),
     ]);
 
-  reply.send({
+  const response = {
     blockHeight: blockHeight?.block_height || 0,
     lastBlockTime: blockHeight?.burn_block_time || 0,
     totalTransactions,
     transactionsLast24h,
     totalStacked: poxInfos.totalStacked,
     nextCycleIn: poxInfos.nextCycleIn,
-  });
+  };
+
+  apiCache.set(apiRoute, response);
+  reply.send(response);
 }
