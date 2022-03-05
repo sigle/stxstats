@@ -19,7 +19,7 @@
     "fastify": "3.24.1",
     "ioredis": "4.27.7",
     "node-cache": "5.1.2",
-    "node-fetch": "2.6.1",
+    "node-fetch": "2.6.7",
     "prisma": "3.10.0",
     "twit": "2.2.11"
   },
