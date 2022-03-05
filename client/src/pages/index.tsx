@@ -212,6 +212,8 @@ export async function getStaticProps() {
     props: {
       statsData,
     },
+    // Regenerate the page every minute
+    revalidate: 60,
   };
 }
 
