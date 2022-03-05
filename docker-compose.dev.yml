@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   stacks-blockchain:
-    image: blockstack/stacks-blockchain:2.05.0.0.0
+    image: blockstack/stacks-blockchain:2.05.0.1.0
     command: /bin/stacks-node start --config /src/stacks-node/Config.toml
     ports:
       - '20443:20443'
@@ -13,7 +13,7 @@ services:
       - stacks-blockchain
 
   stacks-blockchain-api:
-    image: blockstack/stacks-blockchain-api:0.71.2
+    image: blockstack/stacks-blockchain-api:3.0.0
     environment:
       NODE_ENV: production
       PG_HOST: postgres
