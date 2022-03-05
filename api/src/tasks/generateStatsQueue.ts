@@ -3,7 +3,6 @@ import createDebug from 'debug';
 import Redis from 'ioredis';
 import { generateDataStats } from './generateDataStats';
 import { config } from '../config';
-import fetch from 'node-fetch';
 
 const queueName = 'generate-data-stats';
 const debug = createDebug(`queue:${queueName}`);
@@ -22,13 +21,6 @@ const worker = new Worker(
     await generateDataStats()
       .then(async () => {
         debug(`Successfully generated data`);
-        if (config.isProduction) {
-          const response = await fetch(config.REBUILD_WEBHOOK_URL, {
-            method: 'GET',
-          });
-          const data = await response.json();
-          console.log(`Called webhook`, data);
-        }
       })
       .catch((err) => {
         debug('failed to generate data', err);
