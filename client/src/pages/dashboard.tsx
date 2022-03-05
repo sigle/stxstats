@@ -97,7 +97,7 @@ const Dashboard = ({ stxStats }: DashboardProps) => {
   );
 };
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const res = await fetch(`${process.env.API_URL!}/dashboard`);
   const stxStats = await res.json();
 
@@ -105,6 +105,8 @@ export async function getServerSideProps() {
     props: {
       stxStats,
     },
+    // Regenerate the page every minute
+    revalidate: 60,
   };
 }
 
