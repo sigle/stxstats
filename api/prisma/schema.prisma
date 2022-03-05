@@ -8,24 +8,29 @@ datasource db {
 }
 
 model blocks {
-  index_block_hash           Bytes   @id
-  block_hash                 Bytes
-  block_height               Int
-  burn_block_time            Int
-  burn_block_hash            Bytes
-  burn_block_height          Int
-  miner_txid                 Bytes
-  parent_index_block_hash    Bytes
-  parent_block_hash          Bytes
-  parent_microblock_hash     Bytes
-  parent_microblock_sequence Int
-  canonical                  Boolean
+  index_block_hash            Bytes   @id
+  block_hash                  Bytes
+  block_height                Int
+  burn_block_time             Int
+  burn_block_hash             Bytes
+  burn_block_height           Int
+  miner_txid                  Bytes
+  parent_index_block_hash     Bytes
+  parent_block_hash           Bytes
+  parent_microblock_hash      Bytes
+  parent_microblock_sequence  Int
+  canonical                   Boolean
+  execution_cost_read_count   BigInt
+  execution_cost_read_length  BigInt
+  execution_cost_runtime      BigInt
+  execution_cost_write_count  BigInt
+  execution_cost_write_length BigInt
 
   @@index([block_hash], map: "blocks_block_hash_index")
   @@index([block_height], map: "blocks_block_height_index")
-  @@index([canonical], map: "blocks_canonical_index")
-  @@index([parent_block_hash], map: "blocks_parent_block_hash_index")
-  @@index([parent_index_block_hash], map: "blocks_parent_index_block_hash_index")
+  @@index([burn_block_hash], map: "blocks_burn_block_hash_index")
+  @@index([burn_block_height], map: "blocks_burn_block_height_index")
+  @@index([index_block_hash], map: "blocks_index_block_hash_index")
 }
 
 model burnchain_rewards {
@@ -40,7 +45,6 @@ model burnchain_rewards {
 
   @@index([burn_block_hash], map: "burnchain_rewards_burn_block_hash_index")
   @@index([burn_block_height], map: "burnchain_rewards_burn_block_height_index")
-  @@index([canonical], map: "burnchain_rewards_canonical_index")
   @@index([reward_recipient], map: "burnchain_rewards_reward_recipient_index")
 }
 
@@ -67,16 +71,9 @@ model contract_logs {
   topic                   String
   value                   Bytes
 
-  @@index([block_height], map: "contract_logs_block_height_index")
-  @@index([canonical], map: "contract_logs_canonical_index")
-  @@index([canonical, microblock_canonical], map: "contract_logs_canonical_microblock_canonical_index")
-  @@index([contract_identifier], map: "contract_logs_contract_identifier_index")
   @@index([event_index], map: "contract_logs_event_index_index")
   @@index([index_block_hash], map: "contract_logs_index_block_hash_index")
-  @@index([microblock_canonical], map: "contract_logs_microblock_canonical_index")
   @@index([microblock_hash], map: "contract_logs_microblock_hash_index")
-  @@index([microblock_sequence], map: "contract_logs_microblock_sequence_index")
-  @@index([parent_index_block_hash], map: "contract_logs_parent_index_block_hash_index")
   @@index([tx_id], map: "contract_logs_tx_id_index")
 }
 
@@ -95,7 +92,6 @@ model faucet_requests {
   occurred_at BigInt
 
   @@index([address], map: "faucet_requests_address_index")
-  @@index([ip], map: "faucet_requests_ip_index")
 }
 
 model ft_events {
@@ -116,19 +112,29 @@ model ft_events {
   sender                  String?
   recipient               String?
 
-  @@index([asset_identifier], map: "ft_events_asset_identifier_index")
   @@index([block_height], map: "ft_events_block_height_index")
-  @@index([canonical], map: "ft_events_canonical_index")
-  @@index([canonical, microblock_canonical], map: "ft_events_canonical_microblock_canonical_index")
   @@index([event_index], map: "ft_events_event_index_index")
   @@index([index_block_hash], map: "ft_events_index_block_hash_index")
-  @@index([microblock_canonical], map: "ft_events_microblock_canonical_index")
   @@index([microblock_hash], map: "ft_events_microblock_hash_index")
-  @@index([microblock_sequence], map: "ft_events_microblock_sequence_index")
-  @@index([parent_index_block_hash], map: "ft_events_parent_index_block_hash_index")
   @@index([recipient], map: "ft_events_recipient_index")
   @@index([sender], map: "ft_events_sender_index")
   @@index([tx_id], map: "ft_events_tx_id_index")
+}
+
+model ft_metadata {
+  id                  Int    @id @default(autoincrement())
+  name                String
+  token_uri           String
+  description         String
+  image_uri           String
+  image_canonical_uri String
+  contract_id         String
+  symbol              String
+  decimals            Int
+  tx_id               Bytes
+  sender_address      String
+
+  @@index([contract_id], map: "ft_metadata_contract_id_index")
 }
 
 model mempool_txs {
@@ -159,14 +165,14 @@ model mempool_txs {
   poison_microblock_header_2       Bytes?
   coinbase_payload                 Bytes?
 
-  @@index([pruned], map: "mempool_txs_pruned_index")
+  @@index([contract_call_contract_id], map: "mempool_txs_contract_call_contract_id_index")
+  @@index([nonce], map: "mempool_txs_nonce_index")
   @@index([receipt_time], map: "mempool_txs_receipt_time_index")
   @@index([sender_address], map: "mempool_txs_sender_address_index")
+  @@index([smart_contract_contract_id], map: "mempool_txs_smart_contract_contract_id_index")
   @@index([sponsor_address], map: "mempool_txs_sponsor_address_index")
-  @@index([status], map: "mempool_txs_status_index")
   @@index([token_transfer_recipient_address], map: "mempool_txs_token_transfer_recipient_address_index")
   @@index([tx_id], map: "mempool_txs_tx_id_index")
-  @@index([type_id], map: "mempool_txs_type_id_index")
 }
 
 model microblocks {
@@ -187,9 +193,8 @@ model microblocks {
   parent_burn_block_hash   Bytes
   block_hash               Bytes
 
-  @@index([block_height], map: "microblocks_block_height_index")
-  @@index([canonical], map: "microblocks_canonical_index")
-  @@index([index_block_hash], map: "microblocks_index_block_hash_index")
+  @@index([block_height, microblock_sequence], map: "microblocks_block_height_microblock_sequence_index")
+  @@index([microblock_hash], map: "microblocks_microblock_hash_index")
   @@index([parent_index_block_hash], map: "microblocks_parent_index_block_hash_index")
 }
 
@@ -206,48 +211,37 @@ model miner_rewards {
   tx_fees_streamed_confirmed Decimal @db.Decimal
   tx_fees_streamed_produced  Decimal @db.Decimal
 
-  @@index([block_hash], map: "miner_rewards_block_hash_index")
-  @@index([canonical], map: "miner_rewards_canonical_index")
-  @@index([from_index_block_hash], map: "miner_rewards_from_index_block_hash_index")
   @@index([index_block_hash], map: "miner_rewards_index_block_hash_index")
   @@index([mature_block_height], map: "miner_rewards_mature_block_height_index")
   @@index([recipient], map: "miner_rewards_recipient_index")
 }
 
 model names {
-  id                      Int      @id @default(autoincrement())
+  id                      Int     @id @default(autoincrement())
   name                    String
   address                 String
   registered_at           Int
   expire_block            Int
   zonefile_hash           String
-  zonefile                String
   namespace_id            String
   grace_period            String?
   renewal_deadline        Int?
   resolver                String?
   tx_id                   Bytes?
-  tx_index                Int      @db.SmallInt
+  tx_index                Int     @db.SmallInt
   status                  String?
-  canonical               Boolean  @default(true)
+  canonical               Boolean @default(true)
   index_block_hash        Bytes?
   parent_index_block_hash Bytes
   microblock_hash         Bytes
   microblock_sequence     Int
   microblock_canonical    Boolean
-  atch_resolved           Boolean? @default(true)
 
-  @@index([canonical], map: "names_canonical_index")
   @@index([index_block_hash], map: "names_index_block_hash_index")
-  @@index([microblock_canonical], map: "names_microblock_canonical_index")
   @@index([microblock_hash], map: "names_microblock_hash_index")
-  @@index([name, canonical, microblock_canonical, registered_at, tx_index], map: "names_name_canonical_microblock_canonical_registered_at_tx_inde")
-  @@index([namespace_id], map: "names_namespace_id_index")
-  @@index([parent_index_block_hash], map: "names_parent_index_block_hash_index")
+  @@index([name], map: "names_name_index")
   @@index([registered_at], map: "names_registered_at_index")
   @@index([tx_id], map: "names_tx_id_index")
-  @@index([tx_index], map: "names_tx_index_index")
-  @@index([zonefile_hash], map: "names_zonefile_hash_index")
 }
 
 model namespaces {
@@ -273,11 +267,8 @@ model namespaces {
   microblock_sequence     Int
   microblock_canonical    Boolean
 
-  @@index([canonical], map: "namespaces_canonical_index")
-  @@index([microblock_canonical], map: "namespaces_microblock_canonical_index")
+  @@index([index_block_hash], map: "namespaces_index_block_hash_index")
   @@index([microblock_hash], map: "namespaces_microblock_hash_index")
-  @@index([namespace_id, canonical, microblock_canonical, ready_block, tx_index], map: "namespaces_namespace_id_canonical_microblock_canonical_ready_bl")
-  @@index([namespace_id], map: "namespaces_namespace_id_index")
   @@index([ready_block], map: "namespaces_ready_block_index")
 }
 
@@ -299,26 +290,50 @@ model nft_events {
   sender                  String?
   recipient               String?
 
-  @@index([asset_identifier], map: "nft_events_asset_identifier_index")
   @@index([asset_identifier, value], map: "nft_events_asset_identifier_value_index")
   @@index([block_height], map: "nft_events_block_height_index")
-  @@index([canonical], map: "nft_events_canonical_index")
-  @@index([canonical, microblock_canonical], map: "nft_events_canonical_microblock_canonical_index")
   @@index([event_index], map: "nft_events_event_index_index")
   @@index([index_block_hash], map: "nft_events_index_block_hash_index")
-  @@index([microblock_canonical], map: "nft_events_microblock_canonical_index")
   @@index([microblock_hash], map: "nft_events_microblock_hash_index")
-  @@index([microblock_sequence], map: "nft_events_microblock_sequence_index")
-  @@index([parent_index_block_hash], map: "nft_events_parent_index_block_hash_index")
   @@index([recipient], map: "nft_events_recipient_index")
   @@index([sender], map: "nft_events_sender_index")
   @@index([tx_id], map: "nft_events_tx_id_index")
+}
+
+model nft_metadata {
+  id                  Int    @id @default(autoincrement())
+  name                String
+  token_uri           String
+  description         String
+  image_uri           String
+  image_canonical_uri String
+  contract_id         String
+  tx_id               Bytes
+  sender_address      String
+
+  @@index([contract_id], map: "nft_metadata_contract_id_index")
 }
 
 model pgmigrations {
   id     Int      @id @default(autoincrement())
   name   String   @db.VarChar(255)
   run_on DateTime @db.Timestamp(6)
+}
+
+model principal_stx_txs {
+  id                   Int     @id @default(autoincrement())
+  principal            String
+  tx_id                Bytes
+  block_height         Int
+  microblock_sequence  Int
+  tx_index             Int     @db.SmallInt
+  canonical            Boolean
+  microblock_canonical Boolean
+
+  @@unique([principal, tx_id], map: "unique_principal_tx_id")
+  @@index([block_height, microblock_sequence, tx_index], map: "principal_stx_txs_block_height_microblock_sequence_tx_index_ind")
+  @@index([principal], map: "principal_stx_txs_principal_index")
+  @@index([tx_id], map: "principal_stx_txs_tx_id_index")
 }
 
 model reward_slot_holders {
@@ -329,10 +344,8 @@ model reward_slot_holders {
   address           String
   slot_index        Int
 
-  @@index([address], map: "reward_slot_holders_address_index")
   @@index([burn_block_hash], map: "reward_slot_holders_burn_block_hash_index")
   @@index([burn_block_height], map: "reward_slot_holders_burn_block_height_index")
-  @@index([canonical], map: "reward_slot_holders_canonical_index")
 }
 
 model smart_contracts {
@@ -347,17 +360,11 @@ model smart_contracts {
   microblock_sequence     Int
   microblock_canonical    Boolean
   source_code             String
-  abi                     String
+  abi                     Json
 
-  @@index([block_height], map: "smart_contracts_block_height_index")
-  @@index([canonical], map: "smart_contracts_canonical_index")
   @@index([contract_id], map: "smart_contracts_contract_id_index")
   @@index([index_block_hash], map: "smart_contracts_index_block_hash_index")
-  @@index([microblock_canonical], map: "smart_contracts_microblock_canonical_index")
   @@index([microblock_hash], map: "smart_contracts_microblock_hash_index")
-  @@index([microblock_sequence], map: "smart_contracts_microblock_sequence_index")
-  @@index([parent_index_block_hash], map: "smart_contracts_parent_index_block_hash_index")
-  @@index([tx_id], map: "smart_contracts_tx_id_index")
 }
 
 model stx_events {
@@ -378,14 +385,9 @@ model stx_events {
   recipient               String?
 
   @@index([block_height], map: "stx_events_block_height_index")
-  @@index([canonical], map: "stx_events_canonical_index")
-  @@index([canonical, microblock_canonical], map: "stx_events_canonical_microblock_canonical_index")
   @@index([event_index], map: "stx_events_event_index_index")
   @@index([index_block_hash], map: "stx_events_index_block_hash_index")
-  @@index([microblock_canonical], map: "stx_events_microblock_canonical_index")
   @@index([microblock_hash], map: "stx_events_microblock_hash_index")
-  @@index([microblock_sequence], map: "stx_events_microblock_sequence_index")
-  @@index([parent_index_block_hash], map: "stx_events_parent_index_block_hash_index")
   @@index([recipient], map: "stx_events_recipient_index")
   @@index([sender], map: "stx_events_sender_index")
   @@index([tx_id], map: "stx_events_tx_id_index")
@@ -408,49 +410,51 @@ model stx_lock_events {
   locked_address          String
 
   @@index([block_height], map: "stx_lock_events_block_height_index")
-  @@index([canonical], map: "stx_lock_events_canonical_index")
-  @@index([event_index], map: "stx_lock_events_event_index_index")
   @@index([index_block_hash], map: "stx_lock_events_index_block_hash_index")
   @@index([locked_address], map: "stx_lock_events_locked_address_index")
-  @@index([microblock_canonical], map: "stx_lock_events_microblock_canonical_index")
+  @@index([microblock_hash], map: "stx_lock_events_microblock_hash_index")
   @@index([tx_id], map: "stx_lock_events_tx_id_index")
+  @@index([unlock_height], map: "stx_lock_events_unlock_height_index")
 }
 
 model subdomains {
-  id                        Int      @id @default(autoincrement())
+  id                        Int     @id @default(autoincrement())
   name                      String
   namespace_id              String
   fully_qualified_subdomain String
   owner                     String
-  zonefile                  String
   zonefile_hash             String
   parent_zonefile_hash      String
   parent_zonefile_index     Int
-  tx_index                  Int      @db.SmallInt
+  tx_index                  Int     @db.SmallInt
   block_height              Int
   zonefile_offset           Int?
   resolver                  String?
   tx_id                     Bytes?
-  canonical                 Boolean  @default(true)
-  atch_resolved             Boolean? @default(true)
+  canonical                 Boolean @default(true)
   index_block_hash          Bytes?
   parent_index_block_hash   Bytes
   microblock_hash           Bytes
   microblock_sequence       Int
   microblock_canonical      Boolean
 
-  @@index([atch_resolved], map: "subdomains_atch_resolved_index")
-  @@index([canonical], map: "subdomains_canonical_index")
-  @@index([canonical, microblock_canonical], map: "subdomains_canonical_microblock_canonical_index")
-  @@index([fully_qualified_subdomain, canonical, microblock_canonical, block_height, tx_index], map: "subdomains_fully_qualified_subdomain_canonical_microblock_canon")
+  @@index([block_height], map: "subdomains_block_height_index")
   @@index([fully_qualified_subdomain], map: "subdomains_fully_qualified_subdomain_index")
   @@index([index_block_hash], map: "subdomains_index_block_hash_index")
-  @@index([microblock_canonical], map: "subdomains_microblock_canonical_index")
   @@index([microblock_hash], map: "subdomains_microblock_hash_index")
   @@index([owner], map: "subdomains_owner_index")
-  @@index([parent_index_block_hash], map: "subdomains_parent_index_block_hash_index")
-  @@index([resolver], map: "subdomains_resolver_index")
-  @@index([tx_id], map: "subdomains_tx_id_index")
+  @@index([zonefile_hash], map: "subdomains_zonefile_hash_index")
+}
+
+model token_metadata_queue {
+  queue_id     Int     @id @default(autoincrement())
+  tx_id        Bytes
+  contract_id  String
+  contract_abi String
+  block_height Int
+  processed    Boolean
+
+  @@index([block_height], map: "token_metadata_queue_block_height_index")
 }
 
 model token_offering_locked {
@@ -485,6 +489,11 @@ model txs {
   sender_address                   String
   origin_hash_mode                 Int     @db.SmallInt
   event_count                      Int
+  execution_cost_read_count        BigInt
+  execution_cost_read_length       BigInt
+  execution_cost_runtime           BigInt
+  execution_cost_write_count       BigInt
+  execution_cost_write_length      BigInt
   raw_tx                           Bytes
   microblock_canonical             Boolean
   microblock_sequence              Int
@@ -502,19 +511,24 @@ model txs {
   poison_microblock_header_2       Bytes?
   coinbase_payload                 Bytes?
 
-  @@unique([tx_id, index_block_hash, microblock_hash], name: "unique_tx_id_index_block_hash_microblock_hash", map: "unique_tx_id_index_block_hash_microblock_hash")
-  @@index([block_height], map: "txs_block_height_index")
-  @@index([canonical], map: "txs_canonical_index")
-  @@index([canonical, microblock_canonical], map: "txs_canonical_microblock_canonical_index")
+  @@unique([tx_id, index_block_hash, microblock_hash], map: "unique_tx_id_index_block_hash_microblock_hash")
+  @@index([block_height, microblock_sequence, tx_index], map: "txs_block_height_microblock_sequence_tx_index_index")
   @@index([contract_call_contract_id], map: "txs_contract_call_contract_id_index")
   @@index([index_block_hash], map: "txs_index_block_hash_index")
   @@index([microblock_hash], map: "txs_microblock_hash_index")
-  @@index([parent_index_block_hash], map: "txs_parent_index_block_hash_index")
   @@index([sender_address], map: "txs_sender_address_index")
   @@index([smart_contract_contract_id], map: "txs_smart_contract_contract_id_index")
   @@index([sponsor_address], map: "txs_sponsor_address_index")
-  @@index([status], map: "txs_status_index")
   @@index([token_transfer_recipient_address], map: "txs_token_transfer_recipient_address_index")
   @@index([tx_id], map: "txs_tx_id_index")
+  @@index([tx_index], map: "txs_tx_index_index")
   @@index([type_id], map: "txs_type_id_index")
+}
+
+model zonefiles {
+  id            Int    @id @default(autoincrement())
+  zonefile      String
+  zonefile_hash String
+
+  @@index([zonefile_hash], map: "zonefiles_zonefile_hash_index")
 }
