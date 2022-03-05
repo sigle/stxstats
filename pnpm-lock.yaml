@@ -14,7 +14,7 @@ importers:
 
   api:
     specifiers:
-      '@prisma/client': 3.8.1
+      '@prisma/client': 3.10.0
       '@types/debug': 4.1.7
       '@types/node': 16.11.12
       '@types/node-fetch': 2.5.12
@@ -22,29 +22,29 @@ importers:
       bullmq: 1.9.0
       date-fns: 2.27.0
       debug: 4.3.3
-      dotenv: 10.0.0
-      envalid: 7.2.2
+      dotenv: 16.0.0
+      envalid: 7.3.0
       fastify: 3.24.1
       ioredis: 4.27.7
       node-cache: 5.1.2
       node-fetch: 2.6.1
       nodemon: 2.0.15
-      prisma: 3.8.1
+      prisma: 3.10.0
       ts-node: 10.4.0
       twit: 2.2.11
       typescript: 4.5.2
     dependencies:
-      '@prisma/client': 3.8.1_prisma@3.8.1
+      '@prisma/client': 3.10.0_prisma@3.10.0
       bullmq: 1.9.0
       date-fns: 2.27.0
       debug: 4.3.3
-      dotenv: 10.0.0
-      envalid: 7.2.2
+      dotenv: 16.0.0
+      envalid: 7.3.0
       fastify: 3.24.1
       ioredis: 4.27.7
       node-cache: 5.1.2
       node-fetch: 2.6.1
-      prisma: 3.8.1
+      prisma: 3.10.0
       twit: 2.2.11
     devDependencies:
       '@types/debug': 4.1.7
@@ -429,8 +429,8 @@ packages:
       fastq: 1.13.0
     dev: true
 
-  /@prisma/client/3.8.1_prisma@3.8.1:
-    resolution: {integrity: sha512-NxD1Xbkx1eT1mxSwo1RwZe665mqBETs0VxohuwNfFIxMqcp0g6d4TgugPxwZ4Jb4e5wCu8mQ9quMedhNWIWcZQ==}
+  /@prisma/client/3.10.0_prisma@3.10.0:
+    resolution: {integrity: sha512-6P4sV7WFuODSfSoSEzCH1qfmWMrCUBk1LIIuTbQf6m1LI/IOpLN4lnqGDmgiBGprEzuWobnGLfe9YsXLn0inrg==}
     engines: {node: '>=12.6'}
     requiresBuild: true
     peerDependencies:
@@ -439,16 +439,16 @@ packages:
       prisma:
         optional: true
     dependencies:
-      '@prisma/engines-version': 3.8.0-43.34df67547cf5598f5a6cd3eb45f14ee70c3fb86f
-      prisma: 3.8.1
+      '@prisma/engines-version': 3.10.0-50.73e60b76d394f8d37d8ebd1f8918c79029f0db86
+      prisma: 3.10.0
     dev: false
 
-  /@prisma/engines-version/3.8.0-43.34df67547cf5598f5a6cd3eb45f14ee70c3fb86f:
-    resolution: {integrity: sha512-G2JH6yWt6ixGKmsRmVgaQYahfwMopim0u/XLIZUo2o/mZ5jdu7+BL+2V5lZr7XiG1axhyrpvlyqE/c0OgYSl3g==}
+  /@prisma/engines-version/3.10.0-50.73e60b76d394f8d37d8ebd1f8918c79029f0db86:
+    resolution: {integrity: sha512-cVYs5gyQH/qyut24hUvDznCfPrWiNMKNfPb9WmEoiU6ihlkscIbCfkmuKTtspVLWRdl0LqjYEC7vfnPv17HWhw==}
     dev: false
 
-  /@prisma/engines/3.8.0-43.34df67547cf5598f5a6cd3eb45f14ee70c3fb86f:
-    resolution: {integrity: sha512-bHYubuItSN/DGYo36aDu7xJiJmK52JOSHs4MK+KbceAtwS20BCWadRgtpQ3iZ2EXfN/B1T0iCXlNraaNwnpU2w==}
+  /@prisma/engines/3.10.0-50.73e60b76d394f8d37d8ebd1f8918c79029f0db86:
+    resolution: {integrity: sha512-LjRssaWu9w2SrXitofnutRIyURI7l0veQYIALz7uY4shygM9nMcK3omXcObRm7TAcw3Z+9ytfK1B+ySOsOesxQ==}
     requiresBuild: true
     dev: false
 
@@ -1992,9 +1992,9 @@ packages:
       is-obj: 2.0.0
     dev: true
 
-  /dotenv/10.0.0:
-    resolution: {integrity: sha512-rlBi9d8jpv9Sf1klPjNfFAuWDjKLwTIJJ/VxtoTwIR6hnZxcEOQCZg2oIL3MWBYw5GpUDKOEnND7LXTbIpQ03Q==}
-    engines: {node: '>=10'}
+  /dotenv/16.0.0:
+    resolution: {integrity: sha512-qD9WU0MPM4SWLPJy/r2Be+2WgQj8plChsyrCNQzW/0WjvcJQiKQJ9mH3ZgB3fxbUUxgc/11ZJ0Fi5KiimWGz2Q==}
+    engines: {node: '>=12'}
     dev: false
 
   /duplexer3/0.1.4:
@@ -2060,8 +2060,8 @@ packages:
       ansi-colors: 4.1.1
     dev: true
 
-  /envalid/7.2.2:
-    resolution: {integrity: sha512-bl/3VF5PhoF26HlDWiE0NRRHUbKT/+UDP/+0JtOFmhUwK3cUPS7JgWYGbE8ArvA61T+SyNquxscLCS6y4Wnpdw==}
+  /envalid/7.3.0:
+    resolution: {integrity: sha512-RWAAXLU+s884YwbVQ+D8OYRIspo7hvF9zPTvjToVzqZknHwycAuGiiHG/XiI1UDY/PeYSlMwQvMUGb25n06iwA==}
     engines: {node: '>=8.12'}
     dependencies:
       tslib: 2.3.1
@@ -3985,13 +3985,13 @@ packages:
     hasBin: true
     dev: true
 
-  /prisma/3.8.1:
-    resolution: {integrity: sha512-Q8zHwS9m70TaD7qI8u+8hTAmiTpK+IpvRYF3Rgb/OeWGQJOMgZCFFvNCiSfoLEQ95wilK7ctW3KOpc9AuYnRUA==}
+  /prisma/3.10.0:
+    resolution: {integrity: sha512-dAld12vtwdz9Rz01nOjmnXe+vHana5PSog8t0XGgLemKsUVsaupYpr74AHaS3s78SaTS5s2HOghnJF+jn91ZrA==}
     engines: {node: '>=12.6'}
     hasBin: true
     requiresBuild: true
     dependencies:
-      '@prisma/engines': 3.8.0-43.34df67547cf5598f5a6cd3eb45f14ee70c3fb86f
+      '@prisma/engines': 3.10.0-50.73e60b76d394f8d37d8ebd1f8918c79029f0db86
     dev: false
 
   /process-warning/1.0.0:
