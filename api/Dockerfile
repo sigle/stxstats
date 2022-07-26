@@ -12,8 +12,8 @@ RUN pnpm install --frozen-lockfile --filter=api
 
 COPY . .
 
-RUN pnpm prisma:generate --filter=api
-RUN pnpm run build --filter=api
+RUN pnpm --filter=api prisma:generate
+RUN pnpm --filter=api run build
 
 # Stage 2 - Run the built application
 FROM node:16-alpine AS RUNTIME_CONTAINER
@@ -27,7 +27,7 @@ COPY api/package.json ./api/
 COPY api/prisma ./api/prisma
 
 RUN pnpm install --frozen-lockfile --prod --filter=api
-RUN pnpm prisma:generate --filter=api
+RUN pnpm --filter=api prisma:generate
 
 COPY --from=BUILD_SERVER /usr/src/app/api/dist ./api/dist
 
