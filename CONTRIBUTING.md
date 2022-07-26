@@ -45,5 +45,5 @@ Every time a change is made to the `api/prisma` folder you need to re-run this c
 We use docker to create the stacks node and manage the services.
 
 ```sh
-docker-compose -f docker-compose.dev.yml up -d
+docker compose -f docker-compose.dev.yml up -d
 ```

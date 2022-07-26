@@ -28,12 +28,12 @@ TWITTER_ACCESS_TOKEN_SECRET=
 
 ### Start the services
 
-Before starting the services you can verify that the environment variables are properly setup. Run `docker-compose config` to see the docker-compose.yml file printed with the right values.
+Before starting the services you can verify that the environment variables are properly setup. Run `docker compose config` to see the docker-compose.yml file printed with the right values.
 
 To start the services run
 
 ```
-docker-compose up -d
+docker compose up -d
 ```
 
 Once the services are started properly it will take a few days to sync all the data of the network.
