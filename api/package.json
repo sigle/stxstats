@@ -10,7 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@prisma/client": "3.10.0",
+    "@prisma/client": "4.1.0",
     "bullmq": "1.9.0",
     "date-fns": "2.28.0",
     "debug": "4.3.3",
@@ -20,7 +20,7 @@
     "ioredis": "4.27.7",
     "node-cache": "5.1.2",
     "node-fetch": "2.6.7",
-    "prisma": "3.10.0",
+    "prisma": "4.1.0",
     "twit": "2.2.11"
   },
   "devDependencies": {
