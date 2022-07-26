@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   stacks-blockchain:
-    image: blockstack/stacks-blockchain:2.05.0.1.0
+    image: blockstack/stacks-blockchain:2.05.0.2.2
     command: /bin/stacks-node start --config /src/stacks-node/Config.toml
     ports:
       - '20443:20443'
@@ -13,7 +13,7 @@ services:
       - stacks-blockchain
 
   stacks-blockchain-api:
-    image: blockstack/stacks-blockchain-api:3.0.0
+    image: blockstack/stacks-blockchain-api:4.1.0
     environment:
       NODE_ENV: production
       PG_HOST: postgres
@@ -39,7 +39,7 @@ services:
       - postgres
 
   postgres:
-    image: postgres:12.9
+    image: postgres:14
     restart: always
     ports:
       - '5432:5432'
@@ -61,23 +61,23 @@ services:
     networks:
       - stacks-blockchain
 
-  api:
-    image: ghcr.io/sigle/stxstats:main
-    ports:
-      - '4000:4000'
-    environment:
-      NODE_ENV: production
-      DATABASE_URL: 'postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?schema=public'
-      REDIS_URL: 'redis://:${REDIS_PASSWORD}@redis:6379/0'
-      TWITTER_API_KEY: '${TWITTER_API_KEY}'
-      TWITTER_API_SECRET_KEY: '${TWITTER_API_SECRET_KEY}'
-      TWITTER_ACCESS_TOKEN: '${TWITTER_ACCESS_TOKEN}'
-      TWITTER_ACCESS_TOKEN_SECRET: '${TWITTER_ACCESS_TOKEN_SECRET}'
-    networks:
-      - stacks-blockchain
-    depends_on:
-      - postgres
-      - redis
+  # api:
+  #   image: ghcr.io/sigle/stxstats:main
+  #   ports:
+  #     - '4000:4000'
+  #   environment:
+  #     NODE_ENV: production
+  #     DATABASE_URL: 'postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?schema=public'
+  #     REDIS_URL: 'redis://:${REDIS_PASSWORD}@redis:6379/0'
+  #     TWITTER_API_KEY: '${TWITTER_API_KEY}'
+  #     TWITTER_API_SECRET_KEY: '${TWITTER_API_SECRET_KEY}'
+  #     TWITTER_ACCESS_TOKEN: '${TWITTER_ACCESS_TOKEN}'
+  #     TWITTER_ACCESS_TOKEN_SECRET: '${TWITTER_ACCESS_TOKEN_SECRET}'
+  #   networks:
+  #     - stacks-blockchain
+  #   depends_on:
+  #     - postgres
+  #     - redis
 
 volumes:
   db_data:
