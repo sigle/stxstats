@@ -16,6 +16,7 @@ services:
     image: blockstack/stacks-blockchain-api:4.1.0
     environment:
       NODE_ENV: production
+      STACKS_NETWORK: mainnet
       PG_HOST: postgres
       PG_PORT: 5432
       PG_USER: '${POSTGRES_USER}'
