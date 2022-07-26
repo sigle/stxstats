@@ -2,3 +2,4 @@ stacks-node/persistent-data
 node_modules
 data.json
 .env
+*.csv

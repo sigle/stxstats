@@ -23,9 +23,15 @@ export const readData = (): FileData | undefined => {
 
 // Writing to data.json
 export const writeData = function (fileData: FileData) {
-  writeFileSync('./data.json', JSON.stringify(fileData), {
-    encoding: 'utf-8',
-  });
+  writeFileSync(
+    './data.json',
+    JSON.stringify(fileData, (_, value) =>
+      typeof value === 'bigint' ? value.toString() : value
+    ),
+    {
+      encoding: 'utf-8',
+    }
+  );
 };
 
 // Clean up previous cron and start a new one
