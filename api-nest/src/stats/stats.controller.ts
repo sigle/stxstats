@@ -47,4 +47,10 @@ export class StatsController {
   dailyTransactionsNetworkFees() {
     return this.statsService.dailyTransactionsNetworkFees();
   }
+
+  @CacheTTL(120)
+  @Get('activeAddressesPerDay')
+  activeAddressesPerDay() {
+    return this.statsService.activeAddressesPerDay();
+  }
 }
