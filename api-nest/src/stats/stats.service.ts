@@ -122,21 +122,33 @@ export class StatsService {
         const startBlock = blocks[0].block_height;
         const endBlock = blocks[blocks.length - 1].block_height;
 
-        const totalUniqueAddresses = (
-          await this.prisma.$queryRaw<
-            { count: number }[]
-          >`SELECT COUNT(*) FROM (SELECT DISTINCT sender, recipient FROM stx_events WHERE block_height >= ${startBlock} AND block_height <= ${endBlock}) t;`
-        )[0].count;
-        const senderUniqueAddresses = (
-          await this.prisma.$queryRaw<
-            { count: number }[]
-          >`SELECT COUNT(*) FROM (SELECT DISTINCT sender FROM stx_events WHERE block_height >= ${startBlock} AND block_height <= ${endBlock}) t;`
-        )[0].count;
-        const recipientUniqueAddresses = (
-          await this.prisma.$queryRaw<
-            { count: number }[]
-          >`SELECT COUNT(*) FROM (SELECT DISTINCT recipient FROM stx_events WHERE block_height >= ${startBlock} AND block_height <= ${endBlock}) t;`
-        )[0].count;
+        const [
+          totalUniqueAddresses,
+          senderUniqueAddresses,
+          recipientUniqueAddresses,
+        ] = await Promise.all([
+          // Get the number of unique addresses
+          (async () => {
+            const response = await this.prisma.$queryRaw<{
+              count: number;
+            }>`SELECT COUNT(*) FROM (SELECT DISTINCT sender, recipient FROM stx_events WHERE block_height >= ${startBlock} AND block_height <= ${endBlock}) t;`;
+            return response.count;
+          })(),
+          // Get the number of unique senders
+          (async () => {
+            const response = await this.prisma.$queryRaw<{
+              count: number;
+            }>`SELECT COUNT(*) FROM (SELECT DISTINCT sender FROM stx_events WHERE block_height >= ${startBlock} AND block_height <= ${endBlock}) t;`;
+            return response.count;
+          })(),
+          // Get the number of unique recipients
+          (async () => {
+            const response = await this.prisma.$queryRaw<{
+              count: number;
+            }>`SELECT COUNT(*) FROM (SELECT DISTINCT recipient FROM stx_events WHERE block_height >= ${startBlock} AND block_height <= ${endBlock}) t;`;
+            return response.count;
+          })(),
+        ]);
 
         result.push({
           date: dateFormatted,
