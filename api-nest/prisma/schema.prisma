@@ -1,0 +1,540 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model blocks {
+  index_block_hash            Bytes   @id
+  block_hash                  Bytes
+  block_height                Int
+  burn_block_time             Int
+  burn_block_hash             Bytes
+  burn_block_height           Int
+  miner_txid                  Bytes
+  parent_index_block_hash     Bytes
+  parent_block_hash           Bytes
+  parent_microblock_hash      Bytes
+  parent_microblock_sequence  Int
+  canonical                   Boolean
+  execution_cost_read_count   BigInt
+  execution_cost_read_length  BigInt
+  execution_cost_runtime      BigInt
+  execution_cost_write_count  BigInt
+  execution_cost_write_length BigInt
+
+  @@index([block_hash], map: "blocks_block_hash_index", type: Hash)
+  @@index([block_height(sort: Desc)], map: "blocks_block_height_index")
+  @@index([burn_block_hash], map: "blocks_burn_block_hash_index", type: Hash)
+  @@index([burn_block_height(sort: Desc)], map: "blocks_burn_block_height_index")
+  @@index([index_block_hash], map: "blocks_index_block_hash_index", type: Hash)
+}
+
+model burnchain_rewards {
+  id                Int     @id @default(autoincrement())
+  canonical         Boolean
+  burn_block_hash   Bytes
+  burn_block_height Int
+  burn_amount       Decimal @db.Decimal
+  reward_recipient  String
+  reward_amount     Decimal @db.Decimal
+  reward_index      Int
+
+  @@index([burn_block_hash], map: "burnchain_rewards_burn_block_hash_index", type: Hash)
+  @@index([burn_block_height(sort: Desc)], map: "burnchain_rewards_burn_block_height_index")
+  @@index([reward_recipient], map: "burnchain_rewards_reward_recipient_index", type: Hash)
+}
+
+model config_state {
+  id                         Boolean @id @default(true)
+  bns_names_onchain_imported Boolean @default(false)
+  bns_subdomains_imported    Boolean @default(false)
+  token_offering_imported    Boolean @default(false)
+}
+
+model contract_logs {
+  id                      Int     @id @default(autoincrement())
+  event_index             Int
+  tx_id                   Bytes
+  tx_index                Int     @db.SmallInt
+  block_height            Int
+  index_block_hash        Bytes
+  parent_index_block_hash Bytes
+  microblock_hash         Bytes
+  microblock_sequence     Int
+  microblock_canonical    Boolean
+  canonical               Boolean
+  contract_identifier     String
+  topic                   String
+  value                   Bytes
+
+  @@index([event_index], map: "contract_logs_event_index_index")
+  @@index([index_block_hash], map: "contract_logs_index_block_hash_index", type: Hash)
+  @@index([microblock_hash], map: "contract_logs_microblock_hash_index", type: Hash)
+  @@index([tx_id], map: "contract_logs_tx_id_index", type: Hash)
+}
+
+model event_observer_requests {
+  id                BigInt   @id @default(autoincrement())
+  receive_timestamp DateTime @default(dbgenerated("(now() AT TIME ZONE 'utc'::text)")) @db.Timestamptz(6)
+  event_path        String
+  payload           Json
+}
+
+model faucet_requests {
+  id          Int    @id @default(autoincrement())
+  currency    String
+  address     String
+  ip          String
+  occurred_at BigInt
+
+  @@index([address], map: "faucet_requests_address_index", type: Hash)
+}
+
+model ft_events {
+  id                      Int     @id @default(autoincrement())
+  event_index             Int
+  tx_id                   Bytes
+  tx_index                Int     @db.SmallInt
+  block_height            Int
+  index_block_hash        Bytes
+  parent_index_block_hash Bytes
+  microblock_hash         Bytes
+  microblock_sequence     Int
+  microblock_canonical    Boolean
+  canonical               Boolean
+  asset_event_type_id     Int     @db.SmallInt
+  asset_identifier        String
+  amount                  Decimal @db.Decimal
+  sender                  String?
+  recipient               String?
+
+  @@index([block_height(sort: Desc)], map: "ft_events_block_height_index")
+  @@index([event_index], map: "ft_events_event_index_index")
+  @@index([index_block_hash], map: "ft_events_index_block_hash_index", type: Hash)
+  @@index([microblock_hash], map: "ft_events_microblock_hash_index", type: Hash)
+  @@index([recipient], map: "ft_events_recipient_index", type: Hash)
+  @@index([sender], map: "ft_events_sender_index", type: Hash)
+  @@index([tx_id], map: "ft_events_tx_id_index", type: Hash)
+}
+
+model ft_metadata {
+  id                  Int    @id @default(autoincrement())
+  name                String
+  token_uri           String
+  description         String
+  image_uri           String
+  image_canonical_uri String
+  contract_id         String
+  symbol              String
+  decimals            Int
+  tx_id               Bytes
+  sender_address      String
+
+  @@index([contract_id], map: "ft_metadata_contract_id_index", type: Hash)
+}
+
+model mempool_txs {
+  id                               Int     @id @default(autoincrement())
+  pruned                           Boolean
+  tx_id                            Bytes   @unique(map: "unique_tx_id")
+  type_id                          Int     @db.SmallInt
+  anchor_mode                      Int     @db.SmallInt
+  status                           Int     @db.SmallInt
+  post_conditions                  Bytes
+  nonce                            Int
+  fee_rate                         BigInt
+  sponsored                        Boolean
+  sponsor_address                  String?
+  sponsor_nonce                    Int?
+  sender_address                   String
+  origin_hash_mode                 Int     @db.SmallInt
+  raw_tx                           Bytes
+  receipt_time                     Int
+  receipt_block_height             Int
+  token_transfer_recipient_address String?
+  token_transfer_amount            BigInt?
+  token_transfer_memo              Bytes?
+  smart_contract_contract_id       String?
+  smart_contract_source_code       String?
+  contract_call_contract_id        String?
+  contract_call_function_name      String?
+  contract_call_function_args      Bytes?
+  poison_microblock_header_1       Bytes?
+  poison_microblock_header_2       Bytes?
+  coinbase_payload                 Bytes?
+
+  @@index([contract_call_contract_id], map: "mempool_txs_contract_call_contract_id_index", type: Hash)
+  @@index([nonce], map: "mempool_txs_nonce_index")
+  @@index([receipt_time(sort: Desc)], map: "mempool_txs_receipt_time_index")
+  @@index([sender_address], map: "mempool_txs_sender_address_index", type: Hash)
+  @@index([smart_contract_contract_id], map: "mempool_txs_smart_contract_contract_id_index", type: Hash)
+  @@index([sponsor_address], map: "mempool_txs_sponsor_address_index", type: Hash)
+  @@index([token_transfer_recipient_address], map: "mempool_txs_token_transfer_recipient_address_index", type: Hash)
+  @@index([tx_id], map: "mempool_txs_tx_id_index", type: Hash)
+}
+
+model microblocks {
+  id                       BigInt   @id @default(autoincrement())
+  receive_timestamp        DateTime @default(dbgenerated("(now() AT TIME ZONE 'utc'::text)")) @db.Timestamp(6)
+  canonical                Boolean
+  microblock_canonical     Boolean
+  microblock_hash          Bytes    @unique(map: "unique_microblock_hash")
+  microblock_sequence      Int
+  microblock_parent_hash   Bytes
+  index_block_hash         Bytes
+  parent_index_block_hash  Bytes
+  block_height             Int
+  parent_block_height      Int
+  parent_block_hash        Bytes
+  parent_burn_block_height Int
+  parent_burn_block_time   Int
+  parent_burn_block_hash   Bytes
+  block_hash               Bytes
+
+  @@index([block_height(sort: Desc), microblock_sequence(sort: Desc)], map: "microblocks_block_height_microblock_sequence_index")
+  @@index([microblock_hash], map: "microblocks_microblock_hash_index", type: Hash)
+  @@index([parent_index_block_hash], map: "microblocks_parent_index_block_hash_index", type: Hash)
+}
+
+model miner_rewards {
+  id                         Int     @id @default(autoincrement())
+  block_hash                 Bytes
+  index_block_hash           Bytes
+  from_index_block_hash      Bytes
+  mature_block_height        Int
+  canonical                  Boolean
+  recipient                  String
+  coinbase_amount            Decimal @db.Decimal
+  tx_fees_anchored           Decimal @db.Decimal
+  tx_fees_streamed_confirmed Decimal @db.Decimal
+  tx_fees_streamed_produced  Decimal @db.Decimal
+
+  @@index([index_block_hash], map: "miner_rewards_index_block_hash_index", type: Hash)
+  @@index([mature_block_height(sort: Desc)], map: "miner_rewards_mature_block_height_index")
+  @@index([recipient], map: "miner_rewards_recipient_index", type: Hash)
+}
+
+model names {
+  id                      Int     @id @default(autoincrement())
+  name                    String
+  address                 String
+  registered_at           Int
+  expire_block            Int
+  zonefile_hash           String
+  namespace_id            String
+  grace_period            String?
+  renewal_deadline        Int?
+  resolver                String?
+  tx_id                   Bytes?
+  tx_index                Int     @db.SmallInt
+  status                  String?
+  canonical               Boolean @default(true)
+  index_block_hash        Bytes?
+  parent_index_block_hash Bytes
+  microblock_hash         Bytes
+  microblock_sequence     Int
+  microblock_canonical    Boolean
+
+  @@index([index_block_hash], map: "names_index_block_hash_index", type: Hash)
+  @@index([microblock_hash], map: "names_microblock_hash_index", type: Hash)
+  @@index([name], map: "names_name_index", type: Hash)
+  @@index([registered_at(sort: Desc)], map: "names_registered_at_index")
+  @@index([tx_id], map: "names_tx_id_index", type: Hash)
+}
+
+model namespaces {
+  id                      Int     @id @default(autoincrement())
+  namespace_id            String
+  launched_at             Int?
+  address                 String
+  reveal_block            Int
+  ready_block             Int
+  buckets                 String
+  base                    Int
+  coeff                   Int
+  nonalpha_discount       Int
+  no_vowel_discount       Int
+  lifetime                Int
+  status                  String?
+  tx_id                   Bytes?
+  tx_index                Int     @db.SmallInt
+  canonical               Boolean @default(true)
+  index_block_hash        Bytes?
+  parent_index_block_hash Bytes
+  microblock_hash         Bytes
+  microblock_sequence     Int
+  microblock_canonical    Boolean
+
+  @@index([index_block_hash], map: "namespaces_index_block_hash_index", type: Hash)
+  @@index([microblock_hash], map: "namespaces_microblock_hash_index", type: Hash)
+  @@index([ready_block(sort: Desc)], map: "namespaces_ready_block_index")
+}
+
+model nft_events {
+  id                      Int     @id @default(autoincrement())
+  event_index             Int
+  tx_id                   Bytes
+  tx_index                Int     @db.SmallInt
+  block_height            Int
+  index_block_hash        Bytes
+  parent_index_block_hash Bytes
+  microblock_hash         Bytes
+  microblock_sequence     Int
+  microblock_canonical    Boolean
+  canonical               Boolean
+  asset_event_type_id     Int     @db.SmallInt
+  asset_identifier        String
+  value                   Bytes
+  sender                  String?
+  recipient               String?
+
+  @@index([asset_identifier, value], map: "nft_events_asset_identifier_value_index")
+  @@index([block_height(sort: Desc)], map: "nft_events_block_height_index")
+  @@index([event_index], map: "nft_events_event_index_index")
+  @@index([index_block_hash], map: "nft_events_index_block_hash_index", type: Hash)
+  @@index([microblock_hash], map: "nft_events_microblock_hash_index", type: Hash)
+  @@index([recipient], map: "nft_events_recipient_index", type: Hash)
+  @@index([sender], map: "nft_events_sender_index", type: Hash)
+  @@index([tx_id], map: "nft_events_tx_id_index", type: Hash)
+}
+
+model nft_metadata {
+  id                  Int    @id @default(autoincrement())
+  name                String
+  token_uri           String
+  description         String
+  image_uri           String
+  image_canonical_uri String
+  contract_id         String
+  tx_id               Bytes
+  sender_address      String
+
+  @@index([contract_id], map: "nft_metadata_contract_id_index", type: Hash)
+}
+
+model pgmigrations {
+  id     Int      @id @default(autoincrement())
+  name   String   @db.VarChar(255)
+  run_on DateTime @db.Timestamp(6)
+}
+
+model principal_stx_txs {
+  id                   Int     @id @default(autoincrement())
+  principal            String
+  tx_id                Bytes
+  block_height         Int
+  index_block_hash     Bytes
+  microblock_hash      Bytes
+  microblock_sequence  Int
+  tx_index             Int     @db.SmallInt
+  canonical            Boolean
+  microblock_canonical Boolean
+
+  @@unique([principal, tx_id, index_block_hash, microblock_hash], map: "unique_principal_tx_id_index_block_hash_microblock_hash")
+  @@index([block_height(sort: Desc), microblock_sequence(sort: Desc), tx_index(sort: Desc)], map: "principal_stx_txs_block_height_microblock_sequence_tx_index_ind")
+  @@index([principal], map: "principal_stx_txs_principal_index", type: Hash)
+  @@index([tx_id], map: "principal_stx_txs_tx_id_index", type: Hash)
+}
+
+model reward_slot_holders {
+  id                Int     @id @default(autoincrement())
+  canonical         Boolean
+  burn_block_hash   Bytes
+  burn_block_height Int
+  address           String
+  slot_index        Int
+
+  @@index([burn_block_hash], map: "reward_slot_holders_burn_block_hash_index", type: Hash)
+  @@index([burn_block_height(sort: Desc)], map: "reward_slot_holders_burn_block_height_index")
+}
+
+model smart_contracts {
+  id                      Int     @id @default(autoincrement())
+  tx_id                   Bytes
+  canonical               Boolean
+  contract_id             String
+  block_height            Int
+  index_block_hash        Bytes
+  parent_index_block_hash Bytes
+  microblock_hash         Bytes
+  microblock_sequence     Int
+  microblock_canonical    Boolean
+  source_code             String
+  abi                     Json
+
+  @@index([contract_id], map: "smart_contracts_contract_id_index", type: Hash)
+  @@index([index_block_hash], map: "smart_contracts_index_block_hash_index", type: Hash)
+  @@index([microblock_hash], map: "smart_contracts_microblock_hash_index", type: Hash)
+}
+
+model stx_events {
+  id                      Int     @id @default(autoincrement())
+  event_index             Int
+  tx_id                   Bytes
+  tx_index                Int     @db.SmallInt
+  block_height            Int
+  index_block_hash        Bytes
+  parent_index_block_hash Bytes
+  microblock_hash         Bytes
+  microblock_sequence     Int
+  microblock_canonical    Boolean
+  canonical               Boolean
+  asset_event_type_id     Int     @db.SmallInt
+  amount                  BigInt
+  sender                  String?
+  recipient               String?
+
+  @@index([block_height(sort: Desc)], map: "stx_events_block_height_index")
+  @@index([event_index], map: "stx_events_event_index_index")
+  @@index([index_block_hash], map: "stx_events_index_block_hash_index", type: Hash)
+  @@index([microblock_hash], map: "stx_events_microblock_hash_index", type: Hash)
+  @@index([recipient], map: "stx_events_recipient_index", type: Hash)
+  @@index([sender], map: "stx_events_sender_index", type: Hash)
+  @@index([tx_id], map: "stx_events_tx_id_index", type: Hash)
+}
+
+model stx_lock_events {
+  id                      Int     @id @default(autoincrement())
+  event_index             Int
+  tx_id                   Bytes
+  tx_index                Int     @db.SmallInt
+  block_height            Int
+  index_block_hash        Bytes
+  parent_index_block_hash Bytes
+  microblock_hash         Bytes
+  microblock_sequence     Int
+  microblock_canonical    Boolean
+  canonical               Boolean
+  locked_amount           Decimal @db.Decimal
+  unlock_height           Int
+  locked_address          String
+
+  @@index([block_height(sort: Desc)], map: "stx_lock_events_block_height_index")
+  @@index([index_block_hash], map: "stx_lock_events_index_block_hash_index", type: Hash)
+  @@index([locked_address], map: "stx_lock_events_locked_address_index", type: Hash)
+  @@index([microblock_hash], map: "stx_lock_events_microblock_hash_index", type: Hash)
+  @@index([tx_id], map: "stx_lock_events_tx_id_index", type: Hash)
+  @@index([unlock_height(sort: Desc)], map: "stx_lock_events_unlock_height_index")
+}
+
+model subdomains {
+  id                        Int     @id @default(autoincrement())
+  name                      String
+  namespace_id              String
+  fully_qualified_subdomain String
+  owner                     String
+  zonefile_hash             String
+  parent_zonefile_hash      String
+  parent_zonefile_index     Int
+  tx_index                  Int     @db.SmallInt
+  block_height              Int
+  zonefile_offset           Int?
+  resolver                  String?
+  tx_id                     Bytes?
+  canonical                 Boolean @default(true)
+  index_block_hash          Bytes?
+  parent_index_block_hash   Bytes
+  microblock_hash           Bytes
+  microblock_sequence       Int
+  microblock_canonical      Boolean
+
+  @@index([block_height(sort: Desc)], map: "subdomains_block_height_index")
+  @@index([fully_qualified_subdomain], map: "subdomains_fully_qualified_subdomain_index", type: Hash)
+  @@index([index_block_hash], map: "subdomains_index_block_hash_index", type: Hash)
+  @@index([microblock_hash], map: "subdomains_microblock_hash_index", type: Hash)
+  @@index([owner], map: "subdomains_owner_index", type: Hash)
+  @@index([zonefile_hash], map: "subdomains_zonefile_hash_index", type: Hash)
+}
+
+model token_metadata_queue {
+  queue_id     Int     @id @default(autoincrement())
+  tx_id        Bytes
+  contract_id  String
+  contract_abi String
+  block_height Int
+  processed    Boolean
+  retry_count  Int     @default(0)
+
+  @@index([block_height(sort: Desc)], map: "token_metadata_queue_block_height_index")
+}
+
+model token_offering_locked {
+  id      Int    @id @default(autoincrement())
+  address String
+  value   BigInt
+  block   Int
+
+  @@index([address], map: "token_offering_locked_address_index", type: Hash)
+}
+
+model txs {
+  id                               Int     @id @default(autoincrement())
+  tx_id                            Bytes
+  tx_index                         Int     @db.SmallInt
+  raw_result                       Bytes
+  index_block_hash                 Bytes
+  block_hash                       Bytes
+  block_height                     Int
+  parent_block_hash                Bytes
+  burn_block_time                  Int
+  parent_burn_block_time           Int
+  type_id                          Int     @db.SmallInt
+  anchor_mode                      Int     @db.SmallInt
+  status                           Int     @db.SmallInt
+  canonical                        Boolean
+  post_conditions                  Bytes
+  nonce                            Int
+  fee_rate                         BigInt
+  sponsored                        Boolean
+  sponsor_address                  String?
+  sponsor_nonce                    Int?
+  sender_address                   String
+  origin_hash_mode                 Int     @db.SmallInt
+  event_count                      Int
+  execution_cost_read_count        BigInt
+  execution_cost_read_length       BigInt
+  execution_cost_runtime           BigInt
+  execution_cost_write_count       BigInt
+  execution_cost_write_length      BigInt
+  raw_tx                           Bytes
+  microblock_canonical             Boolean
+  microblock_sequence              Int
+  microblock_hash                  Bytes
+  parent_index_block_hash          Bytes
+  token_transfer_recipient_address String?
+  token_transfer_amount            BigInt?
+  token_transfer_memo              Bytes?
+  smart_contract_contract_id       String?
+  smart_contract_source_code       String?
+  contract_call_contract_id        String?
+  contract_call_function_name      String?
+  contract_call_function_args      Bytes?
+  poison_microblock_header_1       Bytes?
+  poison_microblock_header_2       Bytes?
+  coinbase_payload                 Bytes?
+
+  @@unique([tx_id, index_block_hash, microblock_hash], map: "unique_tx_id_index_block_hash_microblock_hash")
+  @@index([block_height(sort: Desc), microblock_sequence(sort: Desc), tx_index(sort: Desc)], map: "txs_block_height_microblock_sequence_tx_index_index")
+  @@index([contract_call_contract_id], map: "txs_contract_call_contract_id_index", type: Hash)
+  @@index([index_block_hash], map: "txs_index_block_hash_index", type: Hash)
+  @@index([microblock_hash], map: "txs_microblock_hash_index", type: Hash)
+  @@index([sender_address], map: "txs_sender_address_index", type: Hash)
+  @@index([smart_contract_contract_id], map: "txs_smart_contract_contract_id_index", type: Hash)
+  @@index([sponsor_address], map: "txs_sponsor_address_index", type: Hash)
+  @@index([token_transfer_recipient_address], map: "txs_token_transfer_recipient_address_index", type: Hash)
+  @@index([tx_id], map: "txs_tx_id_index", type: Hash)
+  @@index([tx_index(sort: Desc)], map: "txs_tx_index_index")
+  @@index([type_id], map: "txs_type_id_index")
+}
+
+model zonefiles {
+  id            Int    @id @default(autoincrement())
+  zonefile      String
+  zonefile_hash String
+
+  @@index([zonefile_hash], map: "zonefiles_zonefile_hash_index", type: Hash)
+}
