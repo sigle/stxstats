@@ -76,6 +76,7 @@ importers:
       cache-manager: 4.1.0
       class-transformer: 0.5.1
       class-validator: 0.13.2
+      date-fns: 2.29.1
       eslint: 8.21.0
       eslint-config-prettier: 8.5.0
       eslint-plugin-prettier: 4.2.1
@@ -92,6 +93,7 @@ importers:
       ts-node: 10.9.1
       tsconfig-paths: 4.0.0
       typescript: 4.7.4
+      undici: 5.8.0
       webpack: 5.74.0
     dependencies:
       '@nestjs/common': 9.0.7_mgy7w2bm3yhmntrbe3boyroj6m
@@ -103,10 +105,12 @@ importers:
       cache-manager: 4.1.0
       class-transformer: 0.5.1
       class-validator: 0.13.2
+      date-fns: 2.29.1
       prisma: 4.1.0
       reflect-metadata: 0.1.13
       rimraf: 3.0.2
       rxjs: 7.5.6
+      undici: 5.8.0
     devDependencies:
       '@nestjs/cli': 9.0.0
       '@nestjs/schematics': 9.0.1_typescript@4.7.4
@@ -7278,6 +7282,11 @@ packages:
   /undefsafe/2.0.5:
     resolution: {integrity: sha512-WxONCrssBM8TSPRqN5EmsjVrsv4A8X12J4ArBiiayv3DyyG3ZlIg6yysuuSYdZsVz3TKcTg2fd//Ujd4CHV1iA==}
     dev: true
+
+  /undici/5.8.0:
+    resolution: {integrity: sha512-1F7Vtcez5w/LwH2G2tGnFIihuWUlc58YidwLiCv+jR2Z50x0tNXpRRw7eOIJ+GvqCqIkg9SB7NWAJ/T9TLfv8Q==}
+    engines: {node: '>=12.18'}
+    dev: false
 
   /universalify/2.0.0:
     resolution: {integrity: sha512-hAZsKq7Yy11Zu1DE0OzWjw7nnLZmJZYTDZZyEFHZdUhV8FkH5MCfoU1XMaxXovpyW5nq5scPqq0ZDP9Zyl04oQ==}

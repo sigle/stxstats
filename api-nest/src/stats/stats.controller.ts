@@ -13,6 +13,12 @@ export class StatsController {
   constructor(private readonly statsService: StatsService) {}
 
   @CacheTTL(120)
+  @Get('dashboard')
+  dashboard() {
+    return this.statsService.dashboard();
+  }
+
+  @CacheTTL(120)
   @Get('dailyTransactions')
   dailyTransactions() {
     return this.statsService.dailyTransactions();
