@@ -66,12 +66,14 @@ importers:
       '@nestjs/schematics': 9.0.1
       '@nestjs/testing': 9.0.7
       '@prisma/client': 4.1.0
+      '@types/cache-manager': 4.0.1
       '@types/express': 4.17.13
       '@types/jest': 28.1.6
       '@types/node': 18.6.3
       '@types/supertest': 2.0.12
       '@typescript-eslint/eslint-plugin': 5.31.0
       '@typescript-eslint/parser': 5.31.0
+      cache-manager: 4.1.0
       class-transformer: 0.5.1
       class-validator: 0.13.2
       eslint: 8.21.0
@@ -92,12 +94,13 @@ importers:
       typescript: 4.7.4
       webpack: 5.74.0
     dependencies:
-      '@nestjs/common': 9.0.7_allg6cauirbqzgqcmexy2wdnoq
+      '@nestjs/common': 9.0.7_mgy7w2bm3yhmntrbe3boyroj6m
       '@nestjs/config': 2.2.0_4dbiavrsou3qkbphku77c4yu4y
       '@nestjs/core': 9.0.7_4dbiavrsou3qkbphku77c4yu4y
       '@nestjs/mapped-types': 1.1.0_fep5bt65ciiba3to7acg3dfv74
       '@nestjs/platform-fastify': 9.0.7_xxlaro4n3ygapuy65e43lboh2y
       '@prisma/client': 4.1.0_prisma@4.1.0
+      cache-manager: 4.1.0
       class-transformer: 0.5.1
       class-validator: 0.13.2
       prisma: 4.1.0
@@ -108,6 +111,7 @@ importers:
       '@nestjs/cli': 9.0.0
       '@nestjs/schematics': 9.0.1_typescript@4.7.4
       '@nestjs/testing': 9.0.7_xxlaro4n3ygapuy65e43lboh2y
+      '@types/cache-manager': 4.0.1
       '@types/express': 4.17.13
       '@types/jest': 28.1.6
       '@types/node': 18.6.3
@@ -1085,7 +1089,7 @@ packages:
       - webpack-cli
     dev: true
 
-  /@nestjs/common/9.0.7_allg6cauirbqzgqcmexy2wdnoq:
+  /@nestjs/common/9.0.7_mgy7w2bm3yhmntrbe3boyroj6m:
     resolution: {integrity: sha512-XGAUYdS3deTeB/yGVIQLkXRggOdOYe5CeaDXmSaBrozElTUmv+S2x8tpE+0olIFmBjn/NFFV4UhxxKGTUqFH/w==}
     peerDependencies:
       cache-manager: '*'
@@ -1101,6 +1105,7 @@ packages:
       class-validator:
         optional: true
     dependencies:
+      cache-manager: 4.1.0
       class-transformer: 0.5.1
       class-validator: 0.13.2
       iterare: 1.2.1
@@ -1116,7 +1121,7 @@ packages:
       reflect-metadata: ^0.1.13
       rxjs: ^6.0.0 || ^7.2.0
     dependencies:
-      '@nestjs/common': 9.0.7_allg6cauirbqzgqcmexy2wdnoq
+      '@nestjs/common': 9.0.7_mgy7w2bm3yhmntrbe3boyroj6m
       dotenv: 16.0.1
       dotenv-expand: 8.0.3
       lodash: 4.17.21
@@ -1143,7 +1148,7 @@ packages:
       '@nestjs/websockets':
         optional: true
     dependencies:
-      '@nestjs/common': 9.0.7_allg6cauirbqzgqcmexy2wdnoq
+      '@nestjs/common': 9.0.7_mgy7w2bm3yhmntrbe3boyroj6m
       '@nuxtjs/opencollective': 0.3.2
       fast-safe-stringify: 2.1.1
       iterare: 1.2.1
@@ -1169,7 +1174,7 @@ packages:
       class-validator:
         optional: true
     dependencies:
-      '@nestjs/common': 9.0.7_allg6cauirbqzgqcmexy2wdnoq
+      '@nestjs/common': 9.0.7_mgy7w2bm3yhmntrbe3boyroj6m
       class-transformer: 0.5.1
       class-validator: 0.13.2
       reflect-metadata: 0.1.13
@@ -1191,7 +1196,7 @@ packages:
       '@fastify/cors': 8.0.0
       '@fastify/formbody': 7.0.1
       '@fastify/middie': 8.0.0
-      '@nestjs/common': 9.0.7_allg6cauirbqzgqcmexy2wdnoq
+      '@nestjs/common': 9.0.7_mgy7w2bm3yhmntrbe3boyroj6m
       '@nestjs/core': 9.0.7_4dbiavrsou3qkbphku77c4yu4y
       fastify: 4.3.0
       light-my-request: 5.3.0
@@ -1244,7 +1249,7 @@ packages:
       '@nestjs/platform-express':
         optional: true
     dependencies:
-      '@nestjs/common': 9.0.7_allg6cauirbqzgqcmexy2wdnoq
+      '@nestjs/common': 9.0.7_mgy7w2bm3yhmntrbe3boyroj6m
       '@nestjs/core': 9.0.7_4dbiavrsou3qkbphku77c4yu4y
       tslib: 2.4.0
     dev: true
@@ -1712,6 +1717,10 @@ packages:
     dependencies:
       '@types/connect': 3.4.35
       '@types/node': 18.6.3
+    dev: true
+
+  /@types/cache-manager/4.0.1:
+    resolution: {integrity: sha512-w4Gm7qg4ohvk0k4CLhOoqnMohWEyeyAOTovPgkguhuDCfVEV1wN/HWEd1XzB1S9/NV9pUcZcc498qU4E15ck6A==}
     dev: true
 
   /@types/connect/3.4.35:
@@ -2587,6 +2596,9 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
+  /async/3.2.3:
+    resolution: {integrity: sha512-spZRyzKL5l5BZQrr/6m/SqFdBN0q3OCI0f9rjfBzCMBIP4p75P620rR3gTmaksNOhmzgdxcaxdNfMy6anrbM0g==}
+
   /asynckit/0.4.0:
     resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==}
 
@@ -2789,6 +2801,13 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: false
+
+  /cache-manager/4.1.0:
+    resolution: {integrity: sha512-ZGM6dLxrP65bfOZmcviWMadUOCICqpLs92+P/S5tj8onz+k+tB7Gr+SAgOUHCQtfm2gYEQDHiKeul4+tYPOJ8A==}
+    dependencies:
+      async: 3.2.3
+      lodash.clonedeep: 4.5.0
+      lru-cache: 7.13.1
 
   /call-bind/1.0.2:
     resolution: {integrity: sha512-7O+FbCihrB5WGbFYesctwmTKae6rOiIzmz1icreWJ+0aA7LJfuqhEso2T9ncpcFtzMQtzXf2QGGueWJGTYsqrA==}
@@ -5376,6 +5395,9 @@ packages:
       p-locate: 5.0.0
     dev: true
 
+  /lodash.clonedeep/4.5.0:
+    resolution: {integrity: sha512-H5ZhCF25riFd9uB5UCkVKo61m3S/xZk1x4wA6yp/L3RFP6Z/eHH1ymQcGLo7J3GMPfm0V/7m1tryHuGVxpqEBQ==}
+
   /lodash.defaults/4.2.0:
     resolution: {integrity: sha512-qjxPLHd3r5DnsdGacqOMU6pb/avJzdh9tFX2ymgoZE27BmjXrNy/y4LoaiTeAb+O3gL8AfpJGtqfX/ae2leYYQ==}
     dev: false
@@ -5428,6 +5450,10 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       yallist: 4.0.0
+
+  /lru-cache/7.13.1:
+    resolution: {integrity: sha512-CHqbAq7NFlW3RSnoWXLJBxCWaZVBrfa9UEHId2M3AW8iEBurbqduNexEUCGc3SHc6iCYXNJCDi903LajSVAEPQ==}
+    engines: {node: '>=12'}
 
   /luxon/2.5.0:
     resolution: {integrity: sha512-IDkEPB80Rb6gCAU+FEib0t4FeJ4uVOuX1CQ9GsvU3O+JAGIgu0J7sf1OarXKaKDygTZIoJyU6YdZzTFRu+YR0A==}

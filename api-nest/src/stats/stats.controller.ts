@@ -1,12 +1,20 @@
-import { Controller, Get } from '@nestjs/common';
+import {
+  CacheInterceptor,
+  CacheTTL,
+  Controller,
+  Get,
+  UseInterceptors,
+} from '@nestjs/common';
 import { StatsService } from './stats.service';
 
 @Controller('stats')
+@UseInterceptors(CacheInterceptor)
 export class StatsController {
   constructor(private readonly statsService: StatsService) {}
 
-  @Get()
-  findAll() {
-    return this.statsService.findAll();
+  @CacheTTL(120)
+  @Get('dailyTransactions')
+  dailyTransactions() {
+    return this.statsService.dailyTransactions();
   }
 }

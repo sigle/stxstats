@@ -5,7 +5,7 @@ import { PrismaService } from '../prisma.service';
 export class StatsService {
   constructor(private prisma: PrismaService) {}
 
-  async findAll(): Promise<{ date: string; txCount: number }[]> {
+  async dailyTransactions(): Promise<{ date: string; txCount: number }[]> {
     const response = await this.prisma.$queryRaw<
       { date: string; txCount: number }[]
     >`
