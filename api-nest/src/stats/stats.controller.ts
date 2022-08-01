@@ -48,7 +48,8 @@ export class StatsController {
     return this.statsService.dailyTransactionsNetworkFees();
   }
 
-  @CacheTTL(120)
+  // Cache for 3 hours
+  @CacheTTL(10800)
   @Get('activeAddressesPerDay')
   activeAddressesPerDay() {
     return this.statsService.activeAddressesPerDay();

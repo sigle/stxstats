@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { addDays, format, isBefore, isSameDay, subDays } from 'date-fns';
-import { StacksStartDate } from '../constants';
+import { format, subDays } from 'date-fns';
 import { fetch } from 'undici';
 import { PrismaService } from '../prisma.service';
 
@@ -89,10 +88,8 @@ export class StatsService {
   }
 
   async activeAddressesPerDay() {
-    const endDate = new Date();
     // We take latest date of from dates already recorded and make
     // it the iterator date
-    let iteratorDate = StacksStartDate;
     const result: {
       date: string;
       value: number;
@@ -100,63 +97,46 @@ export class StatsService {
       recipientUniqueAddresses: number;
     }[] = [];
 
-    while (isBefore(iteratorDate, endDate)) {
-      const dayAfter = addDays(iteratorDate, 1);
-      // Find all the blocks mined on that day
-      const blocks = await this.prisma.blocks.findMany({
-        where: {
-          burn_block_time: {
-            gte: iteratorDate.getTime() / 1000,
-            lt: dayAfter.getTime() / 1000,
-          },
-        },
-        select: {
-          block_height: true,
-        },
-      });
+    const response = await this.prisma.$queryRaw<
+      { date: Date; startblock: number; endblock: number }[]
+    >`
+    select
+      to_timestamp(burn_block_time)::date as "date",
+      min(block_height) as startBlock,
+      max(block_height) as endBlock
+    from blocks
+    where to_timestamp(burn_block_time)::date between '2021-01-01' and current_date
+    group by date`;
 
-      const dateFormatted = format(iteratorDate, 'yyyy-MM-dd');
+    for (const block of response) {
+      const dateFormatted = format(block.date, 'yyyy-MM-dd');
       console.log(dateFormatted);
 
-      if (blocks.length > 0) {
-        const startBlock = blocks[0].block_height;
-        const endBlock = blocks[blocks.length - 1].block_height;
-
-        const data = await this.prisma.$queryRaw<
-          {
-            totaluniqueaddresses: number;
-            senderuniqueaddresses: number;
-            recipientuniqueaddresses: number;
-          }[]
-        >`
+      const data = await this.prisma.$queryRaw<
+        {
+          totaluniqueaddresses: number;
+          senderuniqueaddresses: number;
+          recipientuniqueaddresses: number;
+        }[]
+      >`
           SELECT
             COUNT(DISTINCT sender || recipient) as totalUniqueAddresses,
             COUNT(DISTINCT sender) as senderUniqueAddresses,
             COUNT(DISTINCT recipient) as recipientUniqueAddresses
           FROM stx_events
-          WHERE block_height >= ${startBlock} AND block_height <= ${endBlock}
+          WHERE block_height >= ${block.startblock} AND block_height <= ${block.endblock}
         `;
 
-        const totalUniqueAddresses = data[0].totaluniqueaddresses;
-        const senderUniqueAddresses = data[0].senderuniqueaddresses;
-        const recipientUniqueAddresses = data[0].recipientuniqueaddresses;
+      const totalUniqueAddresses = data[0].totaluniqueaddresses;
+      const senderUniqueAddresses = data[0].senderuniqueaddresses;
+      const recipientUniqueAddresses = data[0].recipientuniqueaddresses;
 
-        result.push({
-          date: dateFormatted,
-          value: totalUniqueAddresses,
-          senderUniqueAddresses,
-          recipientUniqueAddresses,
-        });
-      } else {
-        result.push({
-          date: dateFormatted,
-          value: 0,
-          senderUniqueAddresses: 0,
-          recipientUniqueAddresses: 0,
-        });
-      }
-
-      iteratorDate = addDays(iteratorDate, 1);
+      result.push({
+        date: dateFormatted,
+        value: totalUniqueAddresses,
+        senderUniqueAddresses,
+        recipientUniqueAddresses,
+      });
     }
 
     return result;
