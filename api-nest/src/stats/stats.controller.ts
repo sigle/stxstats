@@ -5,6 +5,11 @@ import {
   Get,
   UseInterceptors,
 } from '@nestjs/common';
+import { ApiResponse } from '@nestjs/swagger';
+import {
+  DailyTransactions,
+  DailyTransactionsNetworkFees,
+} from './stats.entity';
 import { StatsService } from './stats.service';
 
 @Controller('stats')
@@ -20,12 +25,25 @@ export class StatsController {
 
   @CacheTTL(120)
   @Get('dailyTransactions')
+  @ApiResponse({
+    status: 200,
+    description: 'Get the daily transactions count of the Stacks Blockchain.',
+    type: DailyTransactions,
+    isArray: true,
+  })
   dailyTransactions() {
     return this.statsService.dailyTransactions();
   }
 
   @CacheTTL(120)
   @Get('dailyTransactionsNetworkFees')
+  @ApiResponse({
+    status: 200,
+    description:
+      'Get the daily amount of transactions fees paid to miners of the Stacks Blockchain.',
+    type: DailyTransactionsNetworkFees,
+    isArray: true,
+  })
   dailyTransactionsNetworkFees() {
     return this.statsService.dailyTransactionsNetworkFees();
   }

@@ -3,9 +3,11 @@ import {
   FastifyAdapter,
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
-// @ts-expect-error - Tell how to serialize big ints when the JSON response is sent
+// Tell how to serialize big ints when the JSON response is sent
+// @ts-expect-error - types of bigint are incorrect
 BigInt.prototype.toJSON = function () {
   return this.toString();
 };
@@ -15,6 +17,15 @@ async function bootstrap() {
     AppModule,
     new FastifyAdapter()
   );
+
+  const config = new DocumentBuilder()
+    .setTitle('Stxstats')
+    .setDescription('The stxstats API description')
+    .setVersion('1.0')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('docs', app, document);
+
   await app.listen(3000);
 }
 bootstrap();

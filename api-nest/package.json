@@ -36,11 +36,13 @@
     "testEnvironment": "node"
   },
   "dependencies": {
+    "@fastify/static": "6.5.0",
     "@nestjs/common": "9.0.7",
     "@nestjs/config": "2.2.0",
     "@nestjs/core": "9.0.7",
     "@nestjs/mapped-types": "*",
     "@nestjs/platform-fastify": "9.0.7",
+    "@nestjs/swagger": "6.0.4",
     "@prisma/client": "4.1.0",
     "cache-manager": "4.1.0",
     "class-transformer": "0.5.1",
