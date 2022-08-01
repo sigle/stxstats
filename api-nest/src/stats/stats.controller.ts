@@ -17,4 +17,10 @@ export class StatsController {
   dailyTransactions() {
     return this.statsService.dailyTransactions();
   }
+
+  @CacheTTL(120)
+  @Get('dailyTransactionsNetworkFees')
+  dailyTransactionsNetworkFees() {
+    return this.statsService.dailyTransactionsNetworkFees();
+  }
 }
