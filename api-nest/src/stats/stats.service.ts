@@ -122,33 +122,24 @@ export class StatsService {
         const startBlock = blocks[0].block_height;
         const endBlock = blocks[blocks.length - 1].block_height;
 
-        const [
-          totalUniqueAddresses,
-          senderUniqueAddresses,
-          recipientUniqueAddresses,
-        ] = await Promise.all([
-          // Get the number of unique addresses
-          (async () => {
-            const response = await this.prisma.$queryRaw<{
-              count: number;
-            }>`SELECT COUNT(*) FROM (SELECT DISTINCT sender, recipient FROM stx_events WHERE block_height >= ${startBlock} AND block_height <= ${endBlock}) t;`;
-            return response.count;
-          })(),
-          // Get the number of unique senders
-          (async () => {
-            const response = await this.prisma.$queryRaw<{
-              count: number;
-            }>`SELECT COUNT(*) FROM (SELECT DISTINCT sender FROM stx_events WHERE block_height >= ${startBlock} AND block_height <= ${endBlock}) t;`;
-            return response.count;
-          })(),
-          // Get the number of unique recipients
-          (async () => {
-            const response = await this.prisma.$queryRaw<{
-              count: number;
-            }>`SELECT COUNT(*) FROM (SELECT DISTINCT recipient FROM stx_events WHERE block_height >= ${startBlock} AND block_height <= ${endBlock}) t;`;
-            return response.count;
-          })(),
-        ]);
+        const data = await this.prisma.$queryRaw<
+          {
+            totaluniqueaddresses: number;
+            senderuniqueaddresses: number;
+            recipientuniqueaddresses: number;
+          }[]
+        >`
+          SELECT
+            COUNT(DISTINCT sender || recipient) as totalUniqueAddresses,
+            COUNT(DISTINCT sender) as senderUniqueAddresses,
+            COUNT(DISTINCT recipient) as recipientUniqueAddresses
+          FROM stx_events
+          WHERE block_height >= ${startBlock} AND block_height <= ${endBlock}
+        `;
+
+        const totalUniqueAddresses = data[0].totaluniqueaddresses;
+        const senderUniqueAddresses = data[0].senderuniqueaddresses;
+        const recipientUniqueAddresses = data[0].recipientuniqueaddresses;
 
         result.push({
           date: dateFormatted,
