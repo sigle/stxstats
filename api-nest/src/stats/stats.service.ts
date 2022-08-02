@@ -1,11 +1,15 @@
-import { Injectable } from '@nestjs/common';
+import { CACHE_MANAGER, Inject, Injectable } from '@nestjs/common';
+import { Cache } from 'cache-manager';
 import { format, subDays } from 'date-fns';
 import { fetch } from 'undici';
 import { PrismaService } from '../prisma.service';
 
 @Injectable()
 export class StatsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache
+  ) {}
 
   async dashboard() {
     const [blockHeight, totalTransactions, transactionsLast24h, poxInfos] =
@@ -88,6 +92,7 @@ export class StatsService {
   }
 
   async activeAddressesPerDay() {
+    const todayFormatted = format(new Date(), 'yyyy-MM-dd');
     // We take latest date of from dates already recorded and make
     // it the iterator date
     const result: {
@@ -110,7 +115,14 @@ export class StatsService {
 
     for (const block of response) {
       const dateFormatted = format(block.date, 'yyyy-MM-dd');
-      console.log(dateFormatted);
+      const cacheKey = `activeAddressesPerDay-${dateFormatted}`;
+
+      // Use cache, as the value is not changing we can safely cache past days
+      const cacheValue = await this.cacheManager.get<any>(cacheKey);
+      if (cacheValue) {
+        result.push(cacheValue);
+        continue;
+      }
 
       const data = await this.prisma.$queryRaw<
         {
@@ -131,11 +143,17 @@ export class StatsService {
       const senderUniqueAddresses = data[0].senderuniqueaddresses;
       const recipientUniqueAddresses = data[0].recipientuniqueaddresses;
 
-      result.push({
+      const resultValue = {
         date: dateFormatted,
         value: totalUniqueAddresses,
         senderUniqueAddresses,
         recipientUniqueAddresses,
+      };
+      result.push(resultValue);
+
+      // If we are on today, cache it for 2 mins so the value can be updated easily
+      await this.cacheManager.set(cacheKey, resultValue, {
+        ttl: todayFormatted === dateFormatted ? 60 : 0,
       });
     }
 

@@ -8,7 +8,7 @@ import { StatsModule } from './stats/stats.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true, validate, cache: true }),
-    CacheModule.register({ isGlobal: true }),
+    CacheModule.register({ isGlobal: true, ttl: 10, max: 3000 }),
     StatsModule,
   ],
   controllers: [AppController],
