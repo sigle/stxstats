@@ -7,8 +7,10 @@ import {
 } from '@nestjs/common';
 import { ApiResponse } from '@nestjs/swagger';
 import {
+  ActiveAddressesPerDay,
   DailyTransactions,
   DailyTransactionsNetworkFees,
+  UniqueAddressGrowingPerDay,
 } from './stats.entity';
 import { StatsService } from './stats.service';
 
@@ -51,14 +53,27 @@ export class StatsController {
   // Cache for 1 hours
   @CacheTTL(21600)
   @Get('activeAddressesPerDay')
+  @ApiResponse({
+    status: 200,
+    description: 'Get the daily active addresses of the Stacks Blockchain.',
+    type: ActiveAddressesPerDay,
+    isArray: true,
+  })
   activeAddressesPerDay() {
     return this.statsService.activeAddressesPerDay();
   }
 
-  // // Cache for 3 hours
-  // @CacheTTL(10800)
-  // @Get('uniqueAddressGrowingPerDay')
-  // uniqueAddressGrowingPerDay() {
-  //   return this.statsService.uniqueAddressGrowingPerDay();
-  // }
+  // Cache for 6 hours
+  @CacheTTL(21600)
+  @Get('uniqueAddressGrowingPerDay')
+  @ApiResponse({
+    status: 200,
+    description:
+      'Get the daily growing unique active addresses of the Stacks Blockchain.',
+    type: UniqueAddressGrowingPerDay,
+    isArray: true,
+  })
+  uniqueAddressGrowingPerDay() {
+    return this.statsService.uniqueAddressGrowingPerDay();
+  }
 }

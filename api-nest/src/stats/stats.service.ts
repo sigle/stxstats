@@ -159,4 +159,58 @@ export class StatsService {
 
     return result;
   }
+
+  async uniqueAddressGrowingPerDay() {
+    const response = await this.prisma.$queryRaw<
+      { date: Date; startblock: number; endblock: number }[]
+    >`
+    select
+      to_timestamp(burn_block_time)::date as "date",
+      min(block_height) as startBlock,
+      max(block_height) as endBlock
+    from blocks
+    where to_timestamp(burn_block_time)::date between '2021-01-01' and current_date
+    group by date`;
+
+    // Using an object is better for performance here
+    const uniqueAddresses: { [key: string]: true } = {};
+    const result = [];
+
+    for (const block of response) {
+      const dateFormatted = format(block.date, 'yyyy-MM-dd');
+      const startBlock = block.startblock;
+      const endBlock = block.endblock;
+
+      // Find all the events happening on that day by blocks height
+      const events = await this.prisma.stx_events.findMany({
+        where: {
+          block_height: {
+            gte: startBlock,
+            lte: endBlock,
+          },
+        },
+        select: {
+          sender: true,
+          recipient: true,
+        },
+        distinct: ['sender', 'recipient'],
+      });
+
+      // Add new entries for uniqueness
+      events.forEach((event) => {
+        if (event.sender && !uniqueAddresses[event.sender]) {
+          uniqueAddresses[event.sender] = true;
+        }
+        if (event.recipient && !uniqueAddresses[event.recipient]) {
+          uniqueAddresses[event.recipient] = true;
+        }
+      });
+
+      const numberOfUniqueAddresses = Object.keys(uniqueAddresses).length;
+
+      result.push({ date: dateFormatted, value: numberOfUniqueAddresses });
+    }
+
+    return result;
+  }
 }
