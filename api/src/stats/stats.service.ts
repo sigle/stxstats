@@ -69,23 +69,23 @@ export class StatsService {
     return response;
   }
 
-  async dailyTransactions(): Promise<{ date: string; txCount: number }[]> {
+  async dailyTransactions(): Promise<{ date: string; value: number }[]> {
     const response = await this.prisma.$queryRaw<
-      { date: string; txCount: number }[]
+      { date: string; value: number }[]
     >`
-    select to_timestamp(burn_block_time)::date as "date", count(*) as "txCount" from txs 
+    select to_timestamp(burn_block_time)::date as "date", count(*) as "value" from txs 
       where to_timestamp(burn_block_time)::date between '2021-01-01' and current_date
         group by 1`;
     return response;
   }
 
   async dailyTransactionsNetworkFees(): Promise<
-    { date: string; txCount: number }[]
+    { date: string; value: number }[]
   > {
     const response = await this.prisma.$queryRaw<
-      { date: string; txCount: number }[]
+      { date: string; value: number }[]
     >`
-    select to_timestamp(burn_block_time)::date as "date", sum(fee_rate) as "txFee" from txs 
+    select to_timestamp(burn_block_time)::date as "date", sum(fee_rate) as "value" from txs 
       where to_timestamp(burn_block_time)::date between '2021-01-01' and current_date
         group by 1`;
     return response;
