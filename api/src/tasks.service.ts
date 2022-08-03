@@ -59,18 +59,20 @@ export class TasksService {
       { data: activeAddressesPerDay },
       { data: uniqueAddressGrowingPerDay },
     ] = await Promise.all([
-      this.httpService.axiosRef.get<{}, AxiosResponse<DailyTransactions[]>>(
-        `${apiUrl}/stats/dailyTransactions`
-      ),
       this.httpService.axiosRef.get<
-        {},
+        unknown,
+        AxiosResponse<DailyTransactions[]>
+      >(`${apiUrl}/stats/dailyTransactions`),
+      this.httpService.axiosRef.get<
+        unknown,
         AxiosResponse<DailyTransactionsNetworkFees[]>
       >(`${apiUrl}/stats/dailyTransactionsNetworkFees`),
-      this.httpService.axiosRef.get<{}, AxiosResponse<ActiveAddressesPerDay[]>>(
-        `${apiUrl}/stats/activeAddressesPerDay`
-      ),
       this.httpService.axiosRef.get<
-        {},
+        unknown,
+        AxiosResponse<ActiveAddressesPerDay[]>
+      >(`${apiUrl}/stats/activeAddressesPerDay`),
+      this.httpService.axiosRef.get<
+        unknown,
         AxiosResponse<UniqueAddressGrowingPerDay[]>
       >(`${apiUrl}/stats/uniqueAddressGrowingPerDay`),
     ]);
@@ -110,7 +112,7 @@ ${
       this.twitter.post(
         'statuses/update',
         { status },
-        function (err, data: any, response) {
+        function (err, data: any) {
           if (err) {
             reject(err);
             return;

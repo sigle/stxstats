@@ -32,7 +32,10 @@ jobs:
       - name: Generate prisma client
         run: pnpm prisma generate
 
-      - name: Test
+      - name: Lint
+        run: pnpm lint
+
+      - name: Build
         run: pnpm build
 
   test-api-docker:
