@@ -32,8 +32,11 @@ jobs:
       - name: Generate prisma client
         run: pnpm prisma generate
 
-      - name: Test
-        run: pnpm tsc --noEmit
+      - name: Lint
+        run: pnpm lint
+
+      - name: Build
+        run: pnpm build
 
   test-api-docker:
     runs-on: ubuntu-latest
