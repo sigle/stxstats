@@ -34,4 +34,4 @@ COPY --from=build /usr/src/app/api/dist ./api/dist
 ENV NODE_ENV production
 
 EXPOSE 4000
-CMD [ "pnpm", "run", "start", "--filter=api" ]
+CMD [ "pnpm", "--filter=api", "run", "start"]
