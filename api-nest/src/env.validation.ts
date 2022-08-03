@@ -7,7 +7,7 @@ enum Environment {
   Test = 'test',
 }
 
-class EnvironmentVariables {
+export class EnvironmentVariables {
   @IsEnum(Environment)
   NODE_ENV: Environment;
 
