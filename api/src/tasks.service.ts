@@ -81,7 +81,7 @@ export class TasksService {
           subDays(new Date(), 1),
           'yyyy-MM-dd'
         )} :\n
-${dailyTransactions[dailyTransactions.length - 2].txCount} transactions
+${dailyTransactions[dailyTransactions.length - 2].value} transactions
 ${
   uniqueAddressGrowingPerDay[uniqueAddressGrowingPerDay.length - 2].value
 } unique addresses (+${
@@ -91,7 +91,7 @@ ${
             .value
         } last 24h)
 ${microToStacks(
-  dailyTransactionsNetworkFees[dailyTransactionsNetworkFees.length - 2].txFee
+  dailyTransactionsNetworkFees[dailyTransactionsNetworkFees.length - 2].value
 )} STX paid in transaction fees
 ${
   activeAddressesPerDay[activeAddressesPerDay.length - 2].value

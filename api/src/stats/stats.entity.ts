@@ -5,7 +5,7 @@ export class DailyTransactions {
   date: string;
 
   @ApiProperty({ example: 1537 })
-  txCount: number;
+  value: number;
 }
 
 export class DailyTransactionsNetworkFees {
@@ -13,7 +13,7 @@ export class DailyTransactionsNetworkFees {
   date: string;
 
   @ApiProperty({ example: 344805 })
-  txFee: number;
+  value: number;
 }
 
 export class ActiveAddressesPerDay {

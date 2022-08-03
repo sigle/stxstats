@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
+import { GetStaticProps } from 'next';
 import { SunIcon } from '@radix-ui/react-icons';
 import { NbTxsPerDay } from '../components/NbTxsPerDay';
 import { UniqueAddressGrowingPerDay } from '../components/UniqueAddressGrowingPerDay';
@@ -14,12 +15,27 @@ import { Footer } from '../components/Footer';
 import { IconButton } from '../ui/IconButton';
 import { FileData } from '../types/FileData';
 import { ActiveAddressesPerDay } from '../components/ActiveAddressesPerDay';
+import {
+  DefaultService,
+  DailyTransactions,
+  DailyTransactionsNetworkFees,
+  ActiveAddressesPerDay as ApiActiveAddressesPerDay,
+  UniqueAddressGrowingPerDay as ApiUniqueAddressGrowingPerDay,
+} from '../external/api';
 
 interface HomeProps {
-  statsData: FileData;
+  dailyTransactions: DailyTransactions[];
+  dailyTransactionsNetworkFees: DailyTransactionsNetworkFees[];
+  activeAddressesPerDay: ApiActiveAddressesPerDay[];
+  uniqueAddressGrowingPerDay: ApiUniqueAddressGrowingPerDay[];
 }
 
-const Home = ({ statsData }: HomeProps) => {
+const Home = ({
+  dailyTransactions,
+  dailyTransactionsNetworkFees,
+  activeAddressesPerDay,
+  uniqueAddressGrowingPerDay,
+}: HomeProps) => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -117,7 +133,7 @@ const Home = ({ statsData }: HomeProps) => {
                     top: 0,
                   }}
                 >
-                  <NbTxsPerDay statsData={statsData.nbTxsPerDay} />
+                  <NbTxsPerDay statsData={dailyTransactions} />
                 </Box>
               </Box>
             </Box>
@@ -142,7 +158,7 @@ const Home = ({ statsData }: HomeProps) => {
                   }}
                 >
                   <UniqueAddressGrowingPerDay
-                    statsData={statsData.uniqueAddressGrowingPerDay}
+                    statsData={uniqueAddressGrowingPerDay}
                   />
                 </Box>
               </Box>
@@ -166,7 +182,7 @@ const Home = ({ statsData }: HomeProps) => {
                     top: 0,
                   }}
                 >
-                  <TxsFeePerDay statsData={statsData.txsFeePerDay} />
+                  <TxsFeePerDay statsData={dailyTransactionsNetworkFees} />
                 </Box>
               </Box>
             </Box>
@@ -189,9 +205,7 @@ const Home = ({ statsData }: HomeProps) => {
                     top: 0,
                   }}
                 >
-                  <ActiveAddressesPerDay
-                    statsData={statsData.activeAddressesPerDay}
-                  />
+                  <ActiveAddressesPerDay statsData={activeAddressesPerDay} />
                 </Box>
               </Box>
             </Box>
@@ -204,17 +218,29 @@ const Home = ({ statsData }: HomeProps) => {
   );
 };
 
-export async function getStaticProps() {
-  const res = await fetch(process.env.API_URL!);
-  const statsData = await res.json();
+export const getStaticProps: GetStaticProps<HomeProps> = async () => {
+  const [
+    dailyTransactions,
+    dailyTransactionsNetworkFees,
+    activeAddressesPerDay,
+    uniqueAddressGrowingPerDay,
+  ] = await Promise.all([
+    DefaultService.statsControllerDailyTransactions(),
+    DefaultService.statsControllerDailyTransactionsNetworkFees(),
+    DefaultService.statsControllerActiveAddressesPerDay(),
+    DefaultService.statsControllerUniqueAddressGrowingPerDay(),
+  ]);
 
   return {
     props: {
-      statsData,
+      dailyTransactions,
+      dailyTransactionsNetworkFees,
+      activeAddressesPerDay,
+      uniqueAddressGrowingPerDay,
     },
     // Regenerate the page every minute
     revalidate: 60,
   };
-}
+};
 
 export default Home;
