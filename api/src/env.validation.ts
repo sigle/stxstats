@@ -17,10 +17,6 @@ export class EnvironmentVariables {
   @IsEnum(Environment)
   NODE_ENV: Environment;
 
-  @IsNumber()
-  @IsOptional()
-  PORT?: string;
-
   /**
    * Database configuration
    */

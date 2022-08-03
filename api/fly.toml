@@ -23,7 +23,6 @@ processes = []
   image = "ghcr.io/sigle/stxstats:main"
 
 [[services]]
-  http_checks = []
   internal_port = 4000
   processes = ["app"]
   protocol = "tcp"

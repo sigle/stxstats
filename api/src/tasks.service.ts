@@ -48,7 +48,7 @@ export class TasksService {
   async tweetStatsCron() {
     this.logger.debug('Starting tweet job');
 
-    const apiUrl = `http://localhost:${this.configService.get('PORT') || 4000}`;
+    const apiUrl = `http://localhost:4000`;
 
     const [
       { data: dailyTransactions },
