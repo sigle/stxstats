@@ -1,4 +1,3 @@
 packages:
   - "api/**"
-  - "api-nest/**"
   - "client/**"

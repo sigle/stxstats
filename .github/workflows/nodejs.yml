@@ -33,7 +33,7 @@ jobs:
         run: pnpm prisma generate
 
       - name: Test
-        run: pnpm tsc --noEmit
+        run: pnpm build
 
   test-api-docker:
     runs-on: ubuntu-latest
