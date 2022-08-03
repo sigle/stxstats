@@ -44,9 +44,7 @@ export class TasksService {
     }
   }
 
-  //   TODO
-  //   @Cron('0 22 * * *')
-  @Cron('35 * * * *')
+  @Cron('0 22 * * *')
   async tweetStatsCron() {
     this.logger.debug('Starting tweet job');
 
