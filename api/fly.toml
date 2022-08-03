@@ -1,8 +1,11 @@
 # fly configuration via the cli
 #
-# 1. flyctl secrets set MY_REQUIRED_ENV="value"
-# 2. flyctl autoscale disable
+# 1. fly secrets set MY_REQUIRED_ENV="value"
+# 2. fly autoscale disable
 # 3. fly scale vm shared-cpu-1x --memory 512
+#
+# To stop the app run:
+# fly scale count 0
 
 app = "stxstats-api"
 
