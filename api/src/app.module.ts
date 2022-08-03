@@ -5,6 +5,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { validate } from './env.validation';
+import { HealthModule } from './health/health.module';
 import { StatsModule } from './stats/stats.module';
 import { TasksService } from './tasks.service';
 
@@ -13,8 +14,9 @@ import { TasksService } from './tasks.service';
     ConfigModule.forRoot({ isGlobal: true, validate, cache: true }),
     CacheModule.register({ isGlobal: true, ttl: 10, max: 3000 }),
     ScheduleModule.forRoot(),
-    StatsModule,
     HttpModule,
+    StatsModule,
+    HealthModule,
   ],
   controllers: [AppController],
   providers: [AppService, TasksService],
